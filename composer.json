@@ -23,10 +23,7 @@
     },
     "require": {
         "php": "^8.0 || ^8.1",
-        "laminas/laminas-component-installer" : "^2.6",
-        "laminas/laminas-form" : "^2.0.0",
-        "laminas/laminas-servicemanager": "^3.7",
-        "laminas/laminas-view": "^2.14"
+        "laminas/laminas-component-installer" : "^2.6"
     },
     "extra": {
         "laminas": {
