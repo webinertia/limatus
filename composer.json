@@ -7,7 +7,7 @@
         "laminas",
         "bootstrap",
         "javascript",
-        "laminas form,
+        "laminas form",
         "laminas view"
     ],
     "homepage": "https://github.com/webinertia/bs",
