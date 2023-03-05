@@ -1,0 +1,47 @@
+{
+    "name": "webinertia/bs",
+    "description": "Provides Bootstrap loading, form elements and view helpers for laminas view and form",
+    "type": "library",
+    "license": "BSD-3",
+    "keywords": [
+        "laminas",
+        "bootstrap",
+        "javascript",
+        "laminas form,
+        "laminas view"
+    ],
+    "homepage": "https://github.com/webinertia/bs",
+    "authors": [
+        {
+            "name": "Joey Smith",
+            "email": "jsmith@webinertia.net",
+            "homepage": "https://webinertia.net/"
+        }
+    ],
+    "suggest": {
+        "laminas/laminas-component-installer" : "^2.6, required for configuration injection"
+    },
+    "require": {
+        "php": "^8.0 || ^8.1",
+        "laminas/laminas-component-installer" : "^2.6",
+        "laminas/laminas-form" : "^2.0.0",
+        "laminas/laminas-servicemanager": "^3.7",
+        "laminas/laminas-view": "^2.14"
+    },
+    "extra": {
+        "laminas": {
+            "module": "Bs",
+            "config-provider": "Bs\\ConfigProvider"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Bs\\": "src/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "laminas/laminas-component-installer": true
+        }
+    }
+}
