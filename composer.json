@@ -1,5 +1,5 @@
 {
-    "name": "webinertia/bs",
+    "name": "webinertia/bootstrap",
     "description": "Provides Bootstrap loading, form elements and view helpers for laminas view and form",
     "type": "library",
     "license": "BSD-3",
@@ -10,7 +10,7 @@
         "laminas form",
         "laminas view"
     ],
-    "homepage": "https://github.com/webinertia/bs",
+    "homepage": "https://github.com/webinertia/bootstrap",
     "authors": [
         {
             "name": "Joey Smith",
@@ -27,13 +27,13 @@
     },
     "extra": {
         "laminas": {
-            "module": "Bs",
-            "config-provider": "Bs\\ConfigProvider"
+            "module": "Bootstrap",
+            "config-provider": "Bootstrap\\ConfigProvider"
         }
     },
     "autoload": {
         "psr-4": {
-            "Bs\\": "src/"
+            "Bootstrap\\": "src/"
         }
     },
     "config": {
