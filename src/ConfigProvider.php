@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Bootstrap;
 
+use Bootstrap\Form\View;
+use Laminas\Form\View\Helper\Form;
+use Laminas\Form\View\Helper\FormCollection;
 use Laminas\Form\View\Helper\FormRow;
 use Laminas\Form\View\Helper\Factory\FormElementErrorsFactory;
 use Laminas\Form\View\Helper\FormElementErrors;
@@ -22,7 +25,10 @@ class ConfigProvider
     {
         return [
             'factories' => [
-                FormRow::class => InvokableFactory::class,
+                Form::class           => InvokableFactory::class,
+                FormCollection::class => InvokableFactory::class,
+                FormRow::class        => InvokableFactory::class,
+                View\Helper\FormRow::class => View\Helper\Factory\FormRowFactory::class,
             ]
         ];
     }
@@ -31,12 +37,12 @@ class ConfigProvider
     {
         return [
             'factories' => [
-                //FormRow::class           => InvokableFactory::class,
-                FormElementErrors::class => FormElementErrorsFactory::class,
+
+                FormElementErrors::class   => FormElementErrorsFactory::class,
             ],
             'delegators' => [
                 FormRow::class => [
-                    Form\View\Helper\Factory\FormRowDelegatorFactory::class
+                    View\Delegator\Factory\FormRowDelegatorFactory::class
                 ],
             ],
         ];
@@ -45,6 +51,13 @@ class ConfigProvider
     public function getHelperConfig()
     {
         return [
+            'bootstrap' => [
+                'attributes' => [
+                    'supported_classes' => [
+                        'form-group', 'inline-form', 'form-row', 'form-control', 'form-check', 'form-input'
+                    ],
+                ],
+            ],
             'form_element_errors' => [
                 'message_open_format'      => '<div%s><ul><li>',
                 'message_separator_string' => '</li><li>',
