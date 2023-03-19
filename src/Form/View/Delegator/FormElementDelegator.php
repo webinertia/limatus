@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Delegator;
 
+use Laminas\Form\Element;
 use Laminas\Form\View\Helper\FormElement;
 
 final class FormElementDelegator extends FormElement
