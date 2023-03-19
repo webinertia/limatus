@@ -6,7 +6,7 @@ namespace Bootstrap\Form\View\Helper\Factory;
 
 use Laminas\ServiceManager\Factory\DelegatorFactoryInterface;
 use Psr\Container\ContainerInterface;
-use Bs\Form\View\Helper\FormRowDelegator;
+use Bootstrap\Form\View\Helper\FormRowDelegator;
 
 use function call_user_func;
 
