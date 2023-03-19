@@ -25,9 +25,9 @@ class ConfigProvider
     {
         return [
             'factories' => [
-                Form::class           => InvokableFactory::class,
-                FormCollection::class => InvokableFactory::class,
-                FormRow::class        => InvokableFactory::class,
+                Form::class                => InvokableFactory::class,
+                FormCollection::class      => InvokableFactory::class,
+                FormRow::class             => InvokableFactory::class,
                 View\Helper\FormRow::class => View\Helper\Factory\FormRowFactory::class,
             ]
         ];
@@ -38,7 +38,7 @@ class ConfigProvider
         return [
             'factories' => [
 
-                FormElementErrors::class   => FormElementErrorsFactory::class,
+                FormElementErrors::class => FormElementErrorsFactory::class,
             ],
             'delegators' => [
                 FormRow::class => [
