@@ -9,12 +9,10 @@ use Bootstrap\Form\View\Helper;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\View\Helper\FormRow;
 
-use function explode;
 use function str_contains;
 
 class FormRowDelegator extends FormRow
 {
-
     protected Helper\FormRow $bootstrapFormRow;
     protected array $config;
     protected $defaultFormRow;

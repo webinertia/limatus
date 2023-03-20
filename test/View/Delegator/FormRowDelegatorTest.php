@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace BootstrapTest\Form\View\Delegator;
 
-use BootstrapTest\Form\View\Helper\AbstractCommonTestCase;
 use Bootstrap\Form\View\Helper\FormRow;
+use BootstrapTest\Form\View\Helper\AbstractCommonTestCase;
 use Laminas\Form\Element\Text;
 
 final class FormRowDelegatorTest extends AbstractCommonTestCase
@@ -22,5 +22,4 @@ final class FormRowDelegatorTest extends AbstractCommonTestCase
         $markup  = $this->helper->render($element);
         self::assertStringContainsString('<input', $markup);
     }
-
 }
