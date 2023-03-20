@@ -14,7 +14,8 @@ class FormRowDelegatorFactory implements DelegatorFactoryInterface
     /** @inheritDoc */
     public function __invoke(
         ContainerInterface $container,
-        $name, callable $callback,
+        $name,
+        callable $callback,
         ?array $options = null
     ): FormRowDelegator {
         $delegator = new FormRowDelegator(
