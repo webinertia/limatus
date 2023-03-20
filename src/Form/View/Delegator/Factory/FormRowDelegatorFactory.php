@@ -12,7 +12,12 @@ use Psr\Container\ContainerInterface;
 class FormRowDelegatorFactory implements DelegatorFactoryInterface
 {
     /** @inheritDoc */
-    public function __invoke(ContainerInterface $container, $name, callable $callback, ?array $options = null): FormRowDelegator {
+    public function __invoke(
+        ContainerInterface $container,
+        $name,
+        callable $callback,
+        ?array $options = null
+    ): FormRowDelegator {
         $delegator = new FormRowDelegator(
             $container->get($name),
             $container->get(FormRow::class),

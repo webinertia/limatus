@@ -195,7 +195,12 @@ class FormRow extends BaseRow
 
             // Multicheckbox elements have to be handled differently as the HTML standard does not allow nested
             // labels. The semantic way is to group them inside a fieldset
-            if ($type === 'multi_checkbox' || $type === 'radio' || $element instanceof MonthSelect || $element instanceof Captcha) {
+            if (
+                $type === 'multi_checkbox'
+                || $type === 'radio'
+                || $element instanceof MonthSelect
+                || $element instanceof Captcha
+            ) {
                 $markup = sprintf(
                     '<fieldset class="form-group"><legend>%s</legend>%s</fieldset>',
                     $label,
