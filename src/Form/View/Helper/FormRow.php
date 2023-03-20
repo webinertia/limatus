@@ -129,9 +129,9 @@ class FormRow extends BaseRow
         if (! $element->hasAttribute('id')) {
             $element->setAttribute('id', $this->getId($element));
         }
-        $escapeHtmlHelper    = $this->getEscapeHtmlHelper();
-        $labelHelper         = $this->getLabelHelper();
-        $elementHelper       = $this->getElementHelper();
+        $escapeHtmlHelper = $this->getEscapeHtmlHelper();
+        $labelHelper      = $this->getLabelHelper();
+        $elementHelper    = $this->getElementHelper();
         $elementHelper->setView($this->getView());
         $elementErrorsHelper = $this->getElementErrorsHelper();
         $label               = $element->getLabel();
