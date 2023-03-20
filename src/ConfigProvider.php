@@ -75,21 +75,6 @@ class ConfigProvider
 
     public function getFormElementConfig(): array
     {
-        return [
-            // 'factories' => [
-            //     Form\Element\Button::class            => InvokableFactory::class,
-            //     Form\Element\CurrencyTextBox::class   => InvokableFactory::class,
-            //     Form\Element\DateTextBox::class       => InvokableFactory::class,
-            //     Form\Element\ComboBox::class          => InvokableFactory::class,
-            //     Form\Element\Editor::class            => InvokableFactory::class,
-            //     Form\Element\Select::class            => InvokableFactory::class,
-            //     Form\Element\Submit::class            => InvokableFactory::class,
-            //     Form\Element\TextBox::class           => InvokableFactory::class,
-            //     Form\Element\Editor::class            => InvokableFactory::class,
-            //     Form\Element\File::class              => InvokableFactory::class,
-            //     Form\Element\MultiCheckbox::class     => InvokableFactory::class,
-            //     Form\Element\ValidationTextBox::class => InvokableFactory::class,
-            // ],
-        ];
+        return [];
     }
 }

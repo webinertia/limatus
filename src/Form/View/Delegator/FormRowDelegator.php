@@ -6,6 +6,7 @@ namespace Bootstrap\Form\View\Delegator;
 
 use Bootstrap\BootstrapInterface;
 use Bootstrap\Form\View\Helper;
+use Laminas\EventManager\EventManager;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\View\Helper\FormRow;
 
@@ -15,8 +16,8 @@ class FormRowDelegator extends FormRow
 {
     protected Helper\FormRow $bootstrapFormRow;
     protected array $config;
-    protected $defaultFormRow;
-    protected $eventManager;
+    protected FormRow $defaultFormRow;
+    protected EventManager $eventManager;
     /**
      * The attributes for the row label
      *
@@ -24,6 +25,13 @@ class FormRowDelegator extends FormRow
      */
     protected $labelAttributes = ['always_wrap' => false];
 
+    /**
+     * @param FormRow $defaultFormRow
+     * @param Helper\FormRow $bootstrapFormRow
+     * @param EventManager $eventManager
+     * @param array<string, mixed> $config
+     * @return void
+     */
     public function __construct($defaultFormRow, $bootstrapFormRow, $eventManager, array $config)
     {
         $this->defaultFormRow   = $defaultFormRow;
@@ -32,8 +40,9 @@ class FormRowDelegator extends FormRow
         $this->config           = $config;
     }
 
+    /** @inheritDoc */
     public function __invoke(
-        $element = null,
+        ElementInterface $element = null,
         ?string $labelPosition = null,
         ?bool $renderErrors = null,
         ?string $partial = null
