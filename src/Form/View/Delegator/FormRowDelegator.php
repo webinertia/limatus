@@ -10,6 +10,7 @@ use Laminas\EventManager\EventManager;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\View\Helper\FormRow;
 
+use function count;
 use function str_contains;
 
 class FormRowDelegator extends FormRow
@@ -67,7 +68,7 @@ class FormRowDelegator extends FormRow
     {
         $classString      = $element->getAttribute('class');
         $supportedClasses = $this->config['attributes']['supported_classes'];
-        for ($i=0; $i < count($supportedClasses); $i++) {
+        for ($i = 0; $i < count($supportedClasses); $i++) {
             if (str_contains($classString, $supportedClasses[$i])) {
                 return true;
             }

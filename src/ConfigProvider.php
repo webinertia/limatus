@@ -29,7 +29,7 @@ class ConfigProvider
                 FormCollection::class      => InvokableFactory::class,
                 FormRow::class             => InvokableFactory::class,
                 View\Helper\FormRow::class => View\Helper\Factory\FormRowFactory::class,
-            ]
+            ],
         ];
     }
 
