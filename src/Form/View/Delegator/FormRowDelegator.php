@@ -43,7 +43,7 @@ class FormRowDelegator extends FormRow
 
     /** @inheritDoc */
     public function __invoke(
-        ElementInterface $element = null,
+        ?ElementInterface $element = null,
         ?string $labelPosition = null,
         ?bool $renderErrors = null,
         ?string $partial = null

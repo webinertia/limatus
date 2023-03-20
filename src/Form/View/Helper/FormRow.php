@@ -134,9 +134,8 @@ class FormRow extends BaseRow
         $elementHelper       = $this->getElementHelper();
         $elementHelper->setView($this->getView());
         $elementErrorsHelper = $this->getElementErrorsHelper();
-
-        $label           = $element->getLabel();
-        $inputErrorClass = $this->getInputErrorClass();
+        $label               = $element->getLabel();
+        $inputErrorClass     = $this->getInputErrorClass();
 
         if ($labelPosition === null) {
             $labelPosition = $this->labelPosition;
@@ -393,7 +392,7 @@ class FormRow extends BaseRow
         return $this->labelHelper;
     }
 
-        /**
+    /**
      * Retrieve the FormElement helper
      */
     protected function getElementHelper(): FormElement
