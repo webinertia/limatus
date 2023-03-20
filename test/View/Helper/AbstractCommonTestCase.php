@@ -17,7 +17,7 @@ use function extension_loaded;
 /**
  * Abstract base test case for all form view helpers
  */
-final class AbstractCommonTestCase extends TestCase
+abstract class AbstractCommonTestCase extends TestCase
 {
     protected AbstractHelper $helper;
     protected PhpRenderer $renderer;
