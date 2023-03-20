@@ -14,7 +14,8 @@ use function str_contains;
 
 class FormRowDelegator extends FormRow
 {
-    protected $bootstrapFormRow;
+
+    protected Helper\FormRow $bootstrapFormRow;
     protected array $config;
     protected $defaultFormRow;
     protected $eventManager;
@@ -39,7 +40,7 @@ class FormRowDelegator extends FormRow
         ?bool $renderErrors = null,
         ?string $partial = null
     ) {
-        return $this->render($element, $labelPosition);
+        return $this->render($element, $labelPosition); // phpcs:ignore
     }
 
     public function render(ElementInterface $element, ?string $labelPosition = null): string
