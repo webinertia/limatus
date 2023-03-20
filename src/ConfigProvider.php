@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Bootstrap;
 
 use Bootstrap\Form\View;
+use Laminas\Form\View\Helper\Factory\FormElementErrorsFactory;
 use Laminas\Form\View\Helper\Form;
 use Laminas\Form\View\Helper\FormCollection;
-use Laminas\Form\View\Helper\FormRow;
-use Laminas\Form\View\Helper\Factory\FormElementErrorsFactory;
 use Laminas\Form\View\Helper\FormElementErrors;
+use Laminas\Form\View\Helper\FormRow;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
 class ConfigProvider
 {
-    public function __invoke()
+    public function __invoke(): array
     {
         return [
             'dependencies' => $this->getDependencyConfig(),
@@ -36,19 +36,18 @@ class ConfigProvider
     public function getViewHelperConfig(): array
     {
         return [
-            'factories' => [
-
+            'factories'  => [
                 FormElementErrors::class => FormElementErrorsFactory::class,
             ],
             'delegators' => [
                 FormRow::class => [
-                    View\Delegator\Factory\FormRowDelegatorFactory::class
+                    View\Delegator\Factory\FormRowDelegatorFactory::class,
                 ],
             ],
         ];
     }
 
-    public function getHelperConfig()
+    public function getHelperConfig(): array
     {
         return [
             'bootstrap' => [

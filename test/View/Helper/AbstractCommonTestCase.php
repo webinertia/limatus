@@ -30,4 +30,5 @@ abstract class AbstractCommonTestCase extends TestCase
 
         $this->helper->setView($this->renderer);
     }
+
 }

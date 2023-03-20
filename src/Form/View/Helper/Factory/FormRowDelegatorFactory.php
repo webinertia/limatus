@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper\Factory;
 
+use Bootstrap\Form\View\Helper\FormRowDelegator;
 use Laminas\ServiceManager\Factory\DelegatorFactoryInterface;
 use Psr\Container\ContainerInterface;
-use Bootstrap\Form\View\Helper\FormRowDelegator;
 
 class FormRowDelegatorFactory implements DelegatorFactoryInterface
 {
@@ -19,7 +19,7 @@ class FormRowDelegatorFactory implements DelegatorFactoryInterface
     ): FormRowDelegator {
         $formRow      = $container->get($name);
         $eventManager = $container->get('EventManager');
-        $eventManager->attach('render', function() {});
+        $eventManager->attach('render', function () {});
         return new FormRowDelegator($formRow, $eventManager);
     }
 }

@@ -15,10 +15,12 @@ final class FormRowDelegatorTest extends AbstractCommonTestCase
         $this->helper = new FormRow();
         parent::setUp();
     }
+
     public function testFormRowCanRender(): void
     {
         $element = new Text('someText', []);
         $markup  = $this->helper->render($element);
         self::assertStringContainsString('<input', $markup);
     }
+
 }
