@@ -40,14 +40,18 @@ class FormRowDelegator extends FormRow
         ?bool $renderErrors = null,
         ?string $partial = null
     ) {
-        return $this->render($element, $labelPosition); // phpcs:ignore
+        // phpcs:disable
+        return $this->render($element, $labelPosition);
+        // phpcs:enable
     }
 
     public function render(ElementInterface $element, ?string $labelPosition = null): string
     {
         if ($element instanceof BootstrapInterface || $this->classCheck($element)) {
             $bootstrap = $this->getBootstrapRow();
+            // phpcs:disable
             return $bootstrap($element, $labelPosition);
+            // phpcs:enable
         }
         return parent::render($element, $labelPosition);
     }

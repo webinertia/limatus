@@ -50,10 +50,15 @@ class ConfigProvider
     public function getHelperConfig(): array
     {
         return [
-            'bootstrap' => [
+            'bootstrap'           => [
                 'attributes' => [
                     'supported_classes' => [
-                        'form-group', 'inline-form', 'form-row', 'form-control', 'form-check', 'form-input'
+                        'form-group',
+                        'inline-form',
+                        'form-row',
+                        'form-control',
+                        'form-check',
+                        'form-input',
                     ],
                 ],
             ],
@@ -61,7 +66,7 @@ class ConfigProvider
                 'message_open_format'      => '<div%s><ul><li>',
                 'message_separator_string' => '</li><li>',
                 'message_close_string'     => '</li></ul></div>',
-                'attributes' => [
+                'attributes'               => [
                     'class' => 'invalid-feedback',
                 ],
             ],
