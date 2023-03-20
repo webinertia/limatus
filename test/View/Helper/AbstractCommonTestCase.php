@@ -7,12 +7,8 @@ namespace BootstrapTest\Form\View\Helper;
 use Laminas\Form\ConfigProvider;
 use Laminas\Form\View\Helper\AbstractHelper;
 use Laminas\View\Helper\Doctype;
-use Laminas\View\Helper\EscapeHtml;
-use Laminas\View\Helper\EscapeHtmlAttr;
 use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\TestCase;
-
-use function extension_loaded;
 
 /**
  * Abstract base test case for all form view helpers

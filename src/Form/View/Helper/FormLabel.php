@@ -8,5 +8,4 @@ use Laminas\Form\View\Helper\FormLabel as BaseLabel;
 
 final class FormLabel extends BaseLabel
 {
-
 }
