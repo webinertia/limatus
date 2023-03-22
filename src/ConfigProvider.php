@@ -8,6 +8,7 @@ use Bootstrap\Form\View;
 use Laminas\Form\View\Helper\Factory\FormElementErrorsFactory;
 use Laminas\Form\View\Helper\Form;
 use Laminas\Form\View\Helper\FormCollection;
+use Laminas\Form\View\Helper\FormElement;
 use Laminas\Form\View\Helper\FormElementErrors;
 use Laminas\Form\View\Helper\FormRow;
 use Laminas\ServiceManager\Factory\InvokableFactory;
@@ -23,23 +24,33 @@ class ConfigProvider
 
     public function getDependencyConfig(): array
     {
-        return [
-            'factories' => [
-                Form::class                => InvokableFactory::class,
-                FormCollection::class      => InvokableFactory::class,
-                FormRow::class             => InvokableFactory::class,
-                View\Helper\FormRow::class => View\Helper\Factory\FormRowFactory::class,
-            ],
-        ];
+        return [];
     }
 
     public function getViewHelperConfig(): array
     {
         return [
             'factories'  => [
-                FormElementErrors::class => FormElementErrorsFactory::class,
+                Form::class                       => InvokableFactory::class,
+                FormCollection::class             => InvokableFactory::class,
+                FormElement::class                => InvokableFactory::class,
+                FormElementErrors::class          => FormElementErrorsFactory::class,
+                FormRow::class                    => InvokableFactory::class,
+                View\Helper\Form::class           => View\Helper\Factory\FormFactory::class,
+                View\Helper\FormCollection::class => View\Helper\Factory\FormCollectionFactory::class,
+                View\Helper\FormElement::class    => View\Helper\Factory\FormElementFactory::class,
+                View\Helper\FormRow::class        => View\Helper\Factory\FormRowFactory::class,
             ],
             'delegators' => [
+                Form::class => [
+                    View\Delegator\Factory\FormDelegatorFactory::class,
+                ],
+                FormCollection::class => [
+                    View\Delegator\Factory\FormCollectionDelegatorFactory::class,
+                ],
+                FormElement::class => [
+                    View\Delegator\Factory\FormElementDelegatorFactory::class,
+                ],
                 FormRow::class => [
                     View\Delegator\Factory\FormRowDelegatorFactory::class,
                 ],

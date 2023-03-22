@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
+use Bootstrap\Form\View\Helper\FormElement;
+use Laminas\EventManager\EventManager;
 use Laminas\Form\Element\Button;
 use Laminas\Form\Element\Captcha;
 use Laminas\Form\Element\MonthSelect;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
 use Laminas\Form\LabelAwareInterface;
-use Laminas\Form\View\Helper\FormElement;
 use Laminas\Form\View\Helper\FormElementErrors;
 use Laminas\Form\View\Helper\FormRow as BaseRow;
 
@@ -24,8 +25,9 @@ class FormRow extends BaseRow
     public const LABEL_APPEND  = 'append';
     public const LABEL_PREPEND = 'prepend';
 
-    /** @var array<string, mixed> $config */
-    protected $config;
+    protected ?array $config;
+
+    protected ?EventManager $eventManager;
 
     /**
      * The class that is added to element that have errors
@@ -79,9 +81,10 @@ class FormRow extends BaseRow
     /** @var null|string */
     protected $partial;
 
-    public function __construct(?array $config = [])
+    public function __construct(EventManager $eventManager, ?array $config = [])
     {
-        $this->config = $config;
+        $this->config       = $config;
+        $this->eventManager = $eventManager;
     }
 
     /**

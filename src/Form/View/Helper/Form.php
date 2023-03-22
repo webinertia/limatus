@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
+use Bootstrap\Form\View\Helper\FormHelperTrait;
+use Laminas\EventManager\EventManager;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\FormInterface;
 use Laminas\Form\View\Helper\AbstractHelper;
@@ -21,6 +23,11 @@ use function sprintf;
  */
 class Form extends AbstractHelper
 {
+    use FormHelperTrait;
+
+    protected ?EventManager $eventManager;
+    protected ?array $config;
+    protected ?string $mode;
     /**
      * Attributes valid for this tag (form)
      *
@@ -37,20 +44,23 @@ class Form extends AbstractHelper
         'target'         => true,
     ];
 
+    public function __construct(?EventManager $eventManager, ?array $config = [])
+    {
+        $this->config       = $config;
+        $this->eventManager = $eventManager;
+    }
+
     /**
      * Invoke as function
-     *
-     * @template T as null|FormInterface
-     * @psalm-param T $form
-     * @psalm-return (T is null ? self : string)
-     * @return Form|string
+     * $mode 'default' | 'inline' | 'grid'
+     * @param null|string $mode
      */
-    public function __invoke(?FormInterface $form = null)
+    public function __invoke(?FormInterface $form = null, string $mode = 'default'): self|string
     {
         if (! $form) {
             return $this;
         }
-
+        $this->setMode($mode);
         return $this->render($form);
     }
 

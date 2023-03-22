@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Delegator\Factory;
 
-use Bootstrap\Form\View\Helper\FormRow;
+use Bootstrap\Form\View\Helper\FormCollection;
 use Laminas\ServiceManager\Factory\DelegatorFactoryInterface;
 use Psr\Container\ContainerInterface;
 
-class FormRowDelegatorFactory implements DelegatorFactoryInterface
+class FormCollectionDelegatorFactory implements DelegatorFactoryInterface
 {
     /** @inheritDoc */
     public function __invoke(
@@ -16,7 +16,7 @@ class FormRowDelegatorFactory implements DelegatorFactoryInterface
         $name,
         callable $callback,
         ?array $options = null
-    ): FormRow {
-        return $container->get('ViewHelperManager')->get(FormRow::class);
+    ): FormCollection {
+        return $container->get('ViewHelperManager')->get(FormCollection::class);
     }
 }

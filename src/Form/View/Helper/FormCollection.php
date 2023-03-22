@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
+use Bootstrap\Form\View\Helper\FormHelperTrait;
+use Laminas\EventManager\EventManager;
 use Laminas\Form\Element\Collection as CollectionElement;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\LabelAwareInterface;
-use Laminas\Form\View\Helper\AbstractHelper;
+use Laminas\Form\View\Helper\FormCollection as BaseCollection;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\HelperInterface;
 use RuntimeException;
@@ -18,8 +20,13 @@ use function is_callable;
 use function method_exists;
 use function sprintf;
 
-class FormCollection extends AbstractHelper
+class FormCollection extends BaseCollection
 {
+    use FormHelperTrait;
+
+    protected ?EventManager $eventManager;
+    protected ?array $config;
+    protected ?string $mode;
     /**
      * Attributes valid for this tag (form)
      *
@@ -83,6 +90,12 @@ class FormCollection extends AbstractHelper
         Doctype::XHTML5 => true,
     ];
 
+    public function __construct(?EventManager $eventManager, ?array $config = [])
+    {
+        $this->config       = $config;
+        $this->eventManager = $eventManager;
+    }
+
     /**
      * Invoke helper as function
      *
@@ -93,12 +106,15 @@ class FormCollection extends AbstractHelper
      * @psalm-return (T is null ? self : string)
      * @return string|FormCollection
      */
-    public function __invoke(?ElementInterface $element = null, bool $wrap = true)
-    {
+    public function __invoke(
+        ?ElementInterface $element = null,
+        bool $wrap = true,
+        string $mode = 'default'
+    ): self|string {
         if (! $element) {
             return $this;
         }
-
+        $this->setMode($mode);
         $this->setShouldWrap($wrap);
 
         return $this->render($element);
