@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
+use Laminas\EventManager\EventManager;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
 use Laminas\Form\View\Helper\FormInput as BaseInput;
@@ -13,6 +14,8 @@ use function strtolower;
 
 class FormInput extends BaseInput
 {
+    protected ?EventManager $eventManager;
+    protected ?array $config;
     /**
      * Attributes valid for the input tag
      *
@@ -82,6 +85,12 @@ class FormInput extends BaseInput
         'url'            => true,
         'week'           => true,
     ];
+
+    public function __construct(?EventManager $eventManager, ?array $config = [])
+    {
+        $this->config       = $config;
+        $this->eventManager = $eventManager;
+    }
 
     /**
      * Invoke helper as functor

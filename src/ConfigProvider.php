@@ -10,6 +10,7 @@ use Laminas\Form\View\Helper\Form;
 use Laminas\Form\View\Helper\FormCollection;
 use Laminas\Form\View\Helper\FormElement;
 use Laminas\Form\View\Helper\FormElementErrors;
+use Laminas\Form\View\Helper\FormInput;
 use Laminas\Form\View\Helper\FormRow;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
@@ -31,14 +32,11 @@ class ConfigProvider
     {
         return [
             'factories'  => [
-                Form::class                       => InvokableFactory::class,
-                FormCollection::class             => InvokableFactory::class,
-                FormElement::class                => InvokableFactory::class,
                 FormElementErrors::class          => FormElementErrorsFactory::class,
-                FormRow::class                    => InvokableFactory::class,
                 View\Helper\Form::class           => View\Helper\Factory\FormFactory::class,
                 View\Helper\FormCollection::class => View\Helper\Factory\FormCollectionFactory::class,
                 View\Helper\FormElement::class    => View\Helper\Factory\FormElementFactory::class,
+                View\Helper\FormInput::class      => View\Helper\Factory\FormInputFactory::class,
                 View\Helper\FormRow::class        => View\Helper\Factory\FormRowFactory::class,
             ],
             'delegators' => [
@@ -50,6 +48,9 @@ class ConfigProvider
                 ],
                 FormElement::class => [
                     View\Delegator\Factory\FormElementDelegatorFactory::class,
+                ],
+                FormInput::class => [
+                    View\Delegator\Factory\FormInputDelegatorFactory::class,
                 ],
                 FormRow::class => [
                     View\Delegator\Factory\FormRowDelegatorFactory::class,

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form;
 
-use Laminas\Form\Element as LaminasElement;
+use Laminas\Form\Element as BaseElement;
 
-class Element extends LaminasElement
+class Element extends BaseElement
 {
     /**
      * @param  null|int|string   $name    Optional name for the element

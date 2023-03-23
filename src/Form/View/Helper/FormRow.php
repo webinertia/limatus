@@ -129,14 +129,16 @@ class FormRow extends BaseRow
      */
     public function render(ElementInterface $element, ?string $labelPosition = null): string
     {
+        // bootstrap
         if (! $element->hasAttribute('id')) {
             $element->setAttribute('id', $this->getId($element));
         }
+        // bootstrap end
         $escapeHtmlHelper = $this->getEscapeHtmlHelper();
         $labelHelper      = $this->getLabelHelper();
         $elementHelper    = $this->getElementHelper();
-        $elementHelper->setView($this->getView());
         $elementErrorsHelper = $this->getElementErrorsHelper();
+
         $label               = $element->getLabel();
         $inputErrorClass     = $this->getInputErrorClass();
 
