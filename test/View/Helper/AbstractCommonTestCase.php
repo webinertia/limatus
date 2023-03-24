@@ -26,14 +26,11 @@ abstract class AbstractCommonTestCase extends TestCase
     {
         Doctype::unsetDoctypeRegistry();
 
-        $this->renderer            = new PhpRenderer();
-        $this->helperPluginManager = $this->renderer->getHelperPluginManager();
-        $viewHelperConfig          = ArrayUtils::merge(
-                                        (new ConfigProvider())->getViewHelperConfig(),
-                                        (new BootstrapConfig())->getViewHelperConfig()
-                                    );
-        $this->helperPluginManager->configure($viewHelperConfig);
-        $this->renderer->setHelperPluginManager($this->helperPluginManager);
+        $this->renderer      = new PhpRenderer();
+        $helperPluginManager = $this->renderer->getHelperPluginManager();
+        $viewHelperConfig    = (new ConfigProvider())->getViewHelperConfig();
+        $helperPluginManager->configure($viewHelperConfig);
+        $this->renderer->setHelperPluginManager($helperPluginManager);
 
         $this->helper->setView($this->renderer);
     }
