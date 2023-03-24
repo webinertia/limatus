@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace BootstrapTest\Form\View\Helper;
 
-use Laminas\Form\ConfigProvider;
+use Bootstrap\ConfigProvider;
 use Laminas\Form\View\Helper\AbstractHelper;
+use Laminas\View\HelperPluginManager;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\TestCase;
@@ -17,17 +18,18 @@ abstract class AbstractCommonTestCase extends TestCase
 {
     protected AbstractHelper $helper;
     protected PhpRenderer $renderer;
+    protected HelperPluginManager $helperPluginManager;
 
     protected function setUp(): void
     {
         Doctype::unsetDoctypeRegistry();
 
-        $this->renderer      = new PhpRenderer();
-        $helperPluginManager = $this->renderer->getHelperPluginManager();
-        $viewHelperConfig    = (new ConfigProvider())->getViewHelperConfig();
-        $helperPluginManager->configure($viewHelperConfig);
-        $this->renderer->setHelperPluginManager($helperPluginManager);
+        $this->renderer            = new PhpRenderer();
+        $this->helperPluginManager = $this->renderer->getHelperPluginManager();
+        $viewHelperConfig          = (new ConfigProvider())->getViewHelperConfig();
+        $this->helperPluginManager->configure($viewHelperConfig);
+        $this->renderer->setHelperPluginManager($this->helperPluginManager);
 
-        $this->helper->setView($this->renderer);
+        //$this->helper->setView($this->renderer);
     }
 }
