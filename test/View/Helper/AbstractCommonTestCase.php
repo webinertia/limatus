@@ -30,8 +30,8 @@ abstract class AbstractCommonTestCase extends TestCase
         $this->renderer      = new PhpRenderer();
         $helperPluginManager = $this->renderer->getHelperPluginManager();
         $viewHelperConfig    = new Config((new ConfigProvider())->getViewHelperConfig(), true);
-        $bootstrapConfig     = new Config((new BootstrapConfig())->getViewHelperConfig(), true);
-        $merged              = $bootstrapConfig->merge($viewHelperConfig);
+        $bootstrapConfig      = new Config((new BootstrapConfig())->getViewHelperConfig(), true);
+        $merged              = $viewHelperConfig->merge($bootstrapConfig);
         $helperPluginManager->configure($merged->toArray());
         $this->renderer->setHelperPluginManager($helperPluginManager);
 
