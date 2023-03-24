@@ -9,11 +9,9 @@ use BootstrapTest\Form\View\Helper\AbstractCommonTestCase;
 use Laminas\Form\View\Helper\FormRow;
 use Laminas\Form\Element\Text;
 
-use function get_class;
-
 final class FormRowTest extends AbstractCommonTestCase
 {
-    protected function setup(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->helper = $this->renderer->plugin('formrow');
