@@ -14,8 +14,8 @@ final class FormRowTest extends AbstractCommonTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->helper->setView($this->renderer);
         $this->helper = $this->renderer->plugin('formrow');
+        $this->helper->setView($this->renderer);
     }
 
     public function testFormRowCanRender(): void
