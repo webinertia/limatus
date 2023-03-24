@@ -81,10 +81,8 @@ class FormRow extends BaseRow
     /** @var null|string */
     protected $partial;
 
-    public function __construct(EventManager $eventManager, ?array $config = [])
+    public function __construct()
     {
-        $this->config       = $config;
-        $this->eventManager = $eventManager;
     }
 
     /**

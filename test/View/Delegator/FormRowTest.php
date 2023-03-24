@@ -13,9 +13,8 @@ final class FormRowTest extends AbstractCommonTestCase
 {
     protected function setUp(): void
     {
+        $this->helper = new Helper\FormRow();
         parent::setUp();
-        $this->helper = $this->renderer->plugin('formrow');
-        $this->helper->setView($this->renderer);
     }
 
     public function testFormRowCanRender(): void
@@ -27,6 +26,6 @@ final class FormRowTest extends AbstractCommonTestCase
 
     public function testFormRowIsDelegated(): void
     {
-        self::assertInstanceOf(Helper\FormRow::class, $this->helper, 'FormRow has not been properly delegated.');
+        self::assertInstanceOf(Helper\FormRow::class, $this->renderer->plugin('formrow'), 'FormRow has not been properly delegated.');
     }
 }

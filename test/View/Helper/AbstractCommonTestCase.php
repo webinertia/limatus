@@ -35,6 +35,6 @@ abstract class AbstractCommonTestCase extends TestCase
         $this->helperPluginManager->configure($viewHelperConfig);
         $this->renderer->setHelperPluginManager($this->helperPluginManager);
 
-        //$this->helper->setView($this->renderer);
+        $this->helper->setView($this->renderer);
     }
 }
