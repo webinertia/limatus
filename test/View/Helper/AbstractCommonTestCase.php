@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace BootstrapTest\Form\View\Helper;
 
-use Bootstrap\ConfigProvider;
+use Bootstrap\ConfigProvider as BootstrapConfig;
+use Laminas\Form\ConfigProvider;
 use Laminas\Form\View\Helper\AbstractHelper;
+use Laminas\Stdlib\ArrayUtils;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Renderer\PhpRenderer;
@@ -26,7 +28,10 @@ abstract class AbstractCommonTestCase extends TestCase
 
         $this->renderer            = new PhpRenderer();
         $this->helperPluginManager = $this->renderer->getHelperPluginManager();
-        $viewHelperConfig          = (new ConfigProvider())->getViewHelperConfig();
+        $viewHelperConfig          = ArrayUtils::merge(
+                                        (new configProvider())->getViewHelperConfig(),
+                                        (new BootsrapConfig())->getViewHelperConfig()
+                                    );
         $this->helperPluginManager->configure($viewHelperConfig);
         $this->renderer->setHelperPluginManager($this->helperPluginManager);
 
