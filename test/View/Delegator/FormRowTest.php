@@ -6,7 +6,6 @@ namespace BootstrapTest\Form\View\Delegator;
 
 use Bootstrap\Form\View\Helper;
 use BootstrapTest\Form\View\Helper\AbstractCommonTestCase;
-use Laminas\Form\View\Helper\FormRow;
 use Laminas\Form\Element\Text;
 
 final class FormRowTest extends AbstractCommonTestCase
@@ -26,6 +25,10 @@ final class FormRowTest extends AbstractCommonTestCase
 
     public function testFormRowIsDelegated(): void
     {
-        self::assertInstanceOf(Helper\FormRow::class, $this->renderer->plugin('formrow'), 'FormRow has not been properly delegated.');
+        self::assertInstanceOf(
+            Helper\FormRow::class,
+            $this->renderer->plugin('formrow'),
+            'FormRow has not been properly delegated.'
+        );
     }
 }
