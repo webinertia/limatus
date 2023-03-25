@@ -17,6 +17,7 @@ class FormRowDelegatorFactory implements DelegatorFactoryInterface
         callable $callback,
         ?array $options = null
     ): FormRow {
-        return $container->get('ViewHelperManager')->get(FormRow::class);
+        //return $container->get('ViewHelperManager')->get(FormRow::class);
+        return new FormRow();
     }
 }

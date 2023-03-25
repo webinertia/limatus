@@ -28,8 +28,6 @@ abstract class AbstractCommonTestCase extends TestCase
     protected function setUp(): void
     {
         Doctype::unsetDoctypeRegistry();
-        $this->sm            = new ServiceManager();
-
         $this->renderer      = new PhpRenderer();
         $helperPluginManager = $this->renderer->getHelperPluginManager();
         $viewHelperConfig    = new Config((new ConfigProvider())->getViewHelperConfig(), true);
@@ -37,7 +35,7 @@ abstract class AbstractCommonTestCase extends TestCase
         $merged              = $viewHelperConfig->merge($bootstrapConfig);
         $helperPluginManager->configure($merged->toArray());
 
-        $this->sm->setService('ViewHelperManager', $helperPluginManager);
+        //$this->sm->setService('ViewHelperManager', $helperPluginManager);
         $this->renderer->setHelperPluginManager($helperPluginManager);
 
         $this->helper->setView($this->renderer);
