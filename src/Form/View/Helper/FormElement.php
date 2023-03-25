@@ -31,4 +31,33 @@ final class FormElement extends BaseHelper
 
         return parent::render($element);
     }
+
+    /**
+     * Render an element
+     *
+     * Introspects the element type and attributes to determine which
+     * helper to utilize when rendering.
+     */
+    public function render(ElementInterface $element): string
+    {
+        $renderer = $this->getView();
+        if ($renderer === null || ! method_exists($renderer, 'plugin')) {
+            // Bail early if renderer is not pluggable
+            return '';
+        }
+
+        $renderedInstance = $this->renderInstance($element);
+
+        if ($renderedInstance !== null) {
+            return $renderedInstance;
+        }
+
+        $renderedType = $this->renderType($element);
+
+        if ($renderedType !== null) {
+            return $renderedType;
+        }
+
+        return $this->renderHelper($this->defaultHelper, $element);
+    }
 }

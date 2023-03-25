@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bootstrap\Form\View\Helper;
 
 use Bootstrap\Form\View\Helper\FormHelperTrait;
-use Laminas\EventManager\EventManager;
 use Laminas\Form\Element\Collection as CollectionElement;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\FieldsetInterface;
@@ -24,9 +23,6 @@ class FormCollection extends BaseCollection
 {
     use FormHelperTrait;
 
-    protected ?EventManager $eventManager;
-    protected ?array $config;
-    protected ?string $mode;
     /**
      * Attributes valid for this tag (form)
      *
@@ -89,12 +85,6 @@ class FormCollection extends BaseCollection
         Doctype::HTML5  => true,
         Doctype::XHTML5 => true,
     ];
-
-    public function __construct(?EventManager $eventManager, ?array $config = [])
-    {
-        $this->config       = $config;
-        $this->eventManager = $eventManager;
-    }
 
     /**
      * Invoke helper as function

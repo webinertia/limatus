@@ -35,7 +35,6 @@ abstract class AbstractCommonTestCase extends TestCase
         $merged              = $viewHelperConfig->merge($bootstrapConfig);
         $helperPluginManager->configure($merged->toArray());
 
-        //$this->sm->setService('ViewHelperManager', $helperPluginManager);
         $this->renderer->setHelperPluginManager($helperPluginManager);
 
         $this->helper->setView($this->renderer);

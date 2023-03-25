@@ -6,7 +6,6 @@ namespace Bootstrap\Form\View\Helper;
 
 use Bootstrap\BootstrapInterface;
 use Bootstrap\Form\View\Helper\FormHelperTrait;
-use Laminas\EventManager\EventManager;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\FormInterface;
 use Laminas\Form\View\Helper\AbstractHelper;
@@ -26,9 +25,6 @@ class Form extends AbstractHelper
 {
     use FormHelperTrait;
 
-    protected ?EventManager $eventManager;
-    protected ?array $config;
-    protected ?string $mode;
     /**
      * Attributes valid for this tag (form)
      *
@@ -44,12 +40,6 @@ class Form extends AbstractHelper
         'novalidate'     => true,
         'target'         => true,
     ];
-
-    public function __construct(?EventManager $eventManager, ?array $config = [])
-    {
-        $this->config       = $config;
-        $this->eventManager = $eventManager;
-    }
 
     /**
      * Invoke as function

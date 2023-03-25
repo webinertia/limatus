@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bootstrap;
 
+use Bootstrap\BootstrapInterface;
 use Bootstrap\Form\View;
 use Laminas\Form\View\Helper\Factory\FormElementErrorsFactory;
 use Laminas\Form\View\Helper\Form;
@@ -62,6 +63,27 @@ class ConfigProvider
     public function getHelperConfig(): array
     {
         return [
+            'bootstrap' => [
+                'templates' => [
+                    'mode' => [
+                        // expects Bootstrap::MODE_* constant as key
+                        BootstrapInterface::MODE_DEFAULT    => [
+                            // expects element type as keys
+                            'text' => [
+                                // expects the elements id or name as key
+                                'example' => [
+                                    // expects keys 'opening', 'separator', 'closing'
+                                    BootstrapInterface::OPENING_KEY   => '<div class="%s">',
+                                    BootstrapInterface::SEPARATOR_KEY => '%s',
+                                    BootstrapInterface::CLOSING_KEY   => '</div>',
+                                ],
+                            ],
+                        ],
+                        BootstrapInterface::MODE_INLINE     => [],
+                        BootstrapInterface::MODE_HORIZONTAL => [],
+                    ],
+                ],
+            ],
             'bootstrap'           => [
                 'attributes' => [
                     'supported_classes' => [

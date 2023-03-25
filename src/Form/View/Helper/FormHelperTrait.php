@@ -8,6 +8,14 @@ use Laminas\Form\ElementInterface;
 
 trait FormHelperTrait
 {
+    /** @var array<string, mixed> */
+    protected array $config;
+
+    /**
+     * Rendering mode for Bootstrap
+     * @var null|string $mode */
+    protected ?string $mode;
+
     protected function classCheck(ElementInterface $element): bool
     {
         $classString      = $element->getAttribute('class');
@@ -28,5 +36,15 @@ trait FormHelperTrait
     public function getMode(): string
     {
         return $this->mode;
+    }
+
+    public function setConfig(array $config): void
+    {
+        $this->config = $config;
+    }
+
+    public function getConfig(): array
+    {
+        return $this->config;
     }
 }

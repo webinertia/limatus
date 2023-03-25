@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bootstrap\Form\View\Helper;
 
 use Bootstrap\Form\View\Helper\FormElement;
-use Laminas\EventManager\EventManager;
 use Laminas\Form\Element\Button;
 use Laminas\Form\Element\Captcha;
 use Laminas\Form\Element\MonthSelect;
@@ -24,10 +23,6 @@ class FormRow extends BaseRow
 {
     public const LABEL_APPEND  = 'append';
     public const LABEL_PREPEND = 'prepend';
-
-    protected ?array $config;
-
-    protected ?EventManager $eventManager;
 
     /**
      * The class that is added to element that have errors
@@ -81,10 +76,6 @@ class FormRow extends BaseRow
     /** @var null|string */
     protected $partial;
 
-    public function __construct()
-    {
-    }
-
     /**
      * Invoke helper as functor
      *
@@ -132,9 +123,9 @@ class FormRow extends BaseRow
             $element->setAttribute('id', $this->getId($element));
         }
         // bootstrap end
-        $escapeHtmlHelper = $this->getEscapeHtmlHelper();
-        $labelHelper      = $this->getLabelHelper();
-        $elementHelper    = $this->getElementHelper();
+        $escapeHtmlHelper    = $this->getEscapeHtmlHelper();
+        $labelHelper         = $this->getLabelHelper();
+        $elementHelper       = $this->getElementHelper();
         $elementErrorsHelper = $this->getElementErrorsHelper();
 
         $label               = $element->getLabel();

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
-use Laminas\EventManager\EventManager;
+use Bootstrap\BootstrapInterface;
+use Bootstrap\Form\View\Helper\FormHelperTrait;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
 use Laminas\Form\View\Helper\FormInput as BaseInput;
@@ -14,8 +15,8 @@ use function strtolower;
 
 class FormInput extends BaseInput
 {
-    protected ?EventManager $eventManager;
-    protected ?array $config;
+    use FormHelperTrait;
+
     /**
      * Attributes valid for the input tag
      *
@@ -86,12 +87,6 @@ class FormInput extends BaseInput
         'week'           => true,
     ];
 
-    public function __construct(?EventManager $eventManager, ?array $config = [])
-    {
-        $this->config       = $config;
-        $this->eventManager = $eventManager;
-    }
-
     /**
      * Invoke helper as functor
      *
@@ -102,8 +97,10 @@ class FormInput extends BaseInput
      * @psalm-return (T is null ? self : string)
      * @return string|FormInput
      */
-    public function __invoke(?ElementInterface $element = null)
-    {
+    public function __invoke(
+        ?ElementInterface $element = null,
+        ?string $mode = BootstrapInterface::MODE_DEFAULT
+    ) {
         if (! $element) {
             return $this;
         }

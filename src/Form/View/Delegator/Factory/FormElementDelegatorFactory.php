@@ -17,6 +17,7 @@ class FormElementDelegatorFactory implements DelegatorFactoryInterface
         callable $callback,
         ?array $options = null
     ): FormElement {
-        return $container->get('ViewHelperManager')->get(FormElement::class);
+        //return $container->get('ViewHelperManager')->get(FormElement::class);
+        return new FormElement();
     }
 }
