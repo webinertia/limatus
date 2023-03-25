@@ -16,14 +16,11 @@ final class FormElement extends BaseHelper
     use Helper\FormHelperTrait;
 
     protected $bsTypeMap = [];
-    /** @return void */
-    public function __construct()
-    {
 
-    }
-
-    public function __invoke(?ElementInterface $element = null)
-    {
+    public function __invoke(
+        ?ElementInterface $element = null,
+        ?string $mode = BootstrapInterface::MODE_DEFAULT
+    ) {
         if (! $element) {
             return $this;
         }

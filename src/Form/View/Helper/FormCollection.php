@@ -109,7 +109,7 @@ class FormCollection extends BaseCollection
     public function __invoke(
         ?ElementInterface $element = null,
         bool $wrap = true,
-        string $mode = 'default'
+        ?string $mode = 'default'
     ): self|string {
         if (! $element) {
             return $this;

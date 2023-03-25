@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
+use Bootstrap\BootstrapInterface;
 use Bootstrap\Form\View\Helper\FormHelperTrait;
 use Laminas\EventManager\EventManager;
 use Laminas\Form\FieldsetInterface;
@@ -55,8 +56,10 @@ class Form extends AbstractHelper
      * $mode 'default' | 'inline' | 'grid'
      * @param null|string $mode
      */
-    public function __invoke(?FormInterface $form = null, string $mode = 'default'): self|string
-    {
+    public function __invoke(
+        ?FormInterface $form = null,
+        ?string $mode = BootstrapInterface::MODE_DEFAULT
+        ): self|string {
         if (! $form) {
             return $this;
         }
