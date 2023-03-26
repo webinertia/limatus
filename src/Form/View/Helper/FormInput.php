@@ -106,6 +106,8 @@ class FormInput extends BaseInput
             return $this;
         }
 
+        $this->mode = $mode;
+
         return $this->render($element);
     }
 
@@ -120,6 +122,8 @@ class FormInput extends BaseInput
         // bootstrap start
         $filter = new DelimitedStringFilter(['start' => '\\[', 'end' => '\\]']);
         $elementName = $filter->filter('billing[testing][doubletest]');
+        $template    = $this->configHelper($elementName, $this->mode);
+        // config is not being set via the factory
         // bootstrap end
         if ($name === null || $name === '') {
             throw new Exception\DomainException(sprintf(

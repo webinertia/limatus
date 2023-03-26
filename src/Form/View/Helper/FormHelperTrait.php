@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
+use Bootstrap\BootstrapInterface;
 use Laminas\Form\ElementInterface;
 
 trait FormHelperTrait
@@ -46,5 +47,15 @@ trait FormHelperTrait
     public function getConfig(): array
     {
         return $this->config;
+    }
+
+    public function configHelper(
+        string $elementName,
+        string $mode = BootstrapInterface::MODE_DEFAULT
+    ): array {
+        $template = [];
+        $config = $this->getConfig();
+
+        return $template;
     }
 }

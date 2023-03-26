@@ -16,19 +16,13 @@ use function preg_match_all;
 
 final class DelimitedStringFilter extends AbstractFilter
 {
-    public const INVALID   = 'regexInvalid';
-    public const NOT_MATCH = 'regexNotMatch';
-    public const ERROROUS  = 'regexErrorous';
-
     protected string $start;
     protected string $end;
     protected bool $returnAllMatches;
     /**
-     * Regular expression pattern
-     *
-     * @var string
+     * Regular expression pattern, this pattern will return the string
      */
-    protected $pattern = '([a-zA-Z0-9_-]*)';
+    protected string $pattern = '([a-zA-Z0-9_-]*)';
     /** The full expression to match against including $start and $end */
     protected string $regex;
 
@@ -63,13 +57,14 @@ final class DelimitedStringFilter extends AbstractFilter
         $this->buildRegex();
     }
 
-    public function __invoke(string $value)
+    public function __invoke(mixed $value)
     {
         return $this->filter($value);
     }
 
     /**
      * @param string $value
+     * @throws Exception\InvalidArgumentException If there is a fatal error in pattern matching.
      * @return bool|string|array
      */
     public function filter($value)
@@ -81,10 +76,14 @@ final class DelimitedStringFilter extends AbstractFilter
 
         ErrorHandler::start();
         $status = preg_match_all($this->regex, $value, $matches);
-        ErrorHandler::stop();
+        $error  = ErrorHandler::stop();
 
         if (false === $status) {
-            return false;
+            throw new Exception\InvalidArgumentException(
+                "Internal error parsing the pattern '{$this->regex}'",
+                0,
+                $error
+            );
         }
 
         if (! $status) {
@@ -121,38 +120,15 @@ final class DelimitedStringFilter extends AbstractFilter
         return $this->regex;
     }
 
-    /**
-     * Returns the pattern option
-     *
-     * @return string
-     */
-    public function getPattern()
+    public function getPattern(): string
     {
         return $this->pattern;
     }
 
-    /**
-     * Sets the pattern option
-     *
-     * @param  string $pattern
-     * @throws Exception\InvalidArgumentException If there is a fatal error in pattern matching.
-     * @return $this Provides a fluent interface
-     */
-    public function setPattern(string $pattern)
+    /** Sets the pattern option */
+    public function setPattern(string $pattern): self
     {
         $this->pattern = $pattern;
-        ErrorHandler::start();
-        $status = preg_match_all($this->pattern, 'Test');
-        $error  = ErrorHandler::stop();
-
-        if (false === $status) {
-            throw new Exception\InvalidArgumentException(
-                "Internal error parsing the pattern '{$this->pattern}'",
-                0,
-                $error
-            );
-        }
-
         return $this;
     }
 
