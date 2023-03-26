@@ -11,11 +11,8 @@ use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
 use Laminas\Form\View\Helper\FormInput as BaseInput;
 
-use const PREG_OFFSET_CAPTURE;
-
 use function sprintf;
 use function strtolower;
-use function preg_match;
 
 class FormInput extends BaseInput
 {
