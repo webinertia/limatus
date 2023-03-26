@@ -11,7 +11,6 @@ class FormElementFactory
 {
     public function __invoke(ContainerInterface $container): FormElement
     {
-        $helper = new FormElement();
-        return $helper;
+        return new FormElement();
     }
 }

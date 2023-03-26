@@ -8,8 +8,6 @@ use Bootstrap\ConfigProvider as BootstrapConfig;
 use Laminas\Config\Config;
 use Laminas\Form\ConfigProvider;
 use Laminas\Form\View\Helper\AbstractHelper;
-use Laminas\ServiceManager\ServiceManager;
-use Laminas\View\HelperPluginManager;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\TestCase;

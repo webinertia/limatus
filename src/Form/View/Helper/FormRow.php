@@ -194,6 +194,7 @@ class FormRow extends BaseRow
                 || $element instanceof MonthSelect
                 || $element instanceof Captcha
             ) {
+                // TODO: add helper function(s) to add bootstrap class support
                 $markup = sprintf(
                     '<fieldset class="form-group"><legend>%s</legend>%s</fieldset>',
                     $label,

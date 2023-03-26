@@ -12,7 +12,6 @@ final class FormFactory
     /** @inheritDoc */
     public function __invoke(ContainerInterface $container): Form
     {
-        $helper = new Form();
-        return $helper;
+        return new Form();
     }
 }

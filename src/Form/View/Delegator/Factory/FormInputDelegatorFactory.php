@@ -17,7 +17,6 @@ class FormInputDelegatorFactory implements DelegatorFactoryInterface
         callable $callback,
         ?array $options = null
     ): FormInput {
-        //return $container->get('ViewHelperManager')->get(FormInput::class);
         return new FormInput();
     }
 }

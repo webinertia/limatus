@@ -44,7 +44,6 @@ class Form extends AbstractHelper
     /**
      * Invoke as function
      * $mode 'default' | 'inline' | 'grid'
-     * @param null|string $mode
      */
     public function __invoke(
         ?FormInterface $form = null,

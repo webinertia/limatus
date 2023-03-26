@@ -17,7 +17,6 @@ class FormCollectionDelegatorFactory implements DelegatorFactoryInterface
         callable $callback,
         ?array $options = null
     ): FormCollection {
-        //return $container->get('ViewHelperManager')->get(FormCollection::class);
         return new FormCollection();
     }
 }

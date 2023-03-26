@@ -12,7 +12,6 @@ final class FormRowFactory
     /** @inheritDoc */
     public function __invoke(ContainerInterface $container): FormRow
     {
-        $helper = new FormRow();
-        return $helper;
+        return new FormRow();
     }
 }

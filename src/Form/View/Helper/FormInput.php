@@ -5,13 +5,17 @@ declare(strict_types=1);
 namespace Bootstrap\Form\View\Helper;
 
 use Bootstrap\BootstrapInterface;
+use Bootstrap\Filter\DelimitedStringFilter;
 use Bootstrap\Form\View\Helper\FormHelperTrait;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
 use Laminas\Form\View\Helper\FormInput as BaseInput;
 
+use const PREG_OFFSET_CAPTURE;
+
 use function sprintf;
 use function strtolower;
+use function preg_match;
 
 class FormInput extends BaseInput
 {
@@ -116,6 +120,10 @@ class FormInput extends BaseInput
     public function render(ElementInterface $element): string
     {
         $name = $element->getName();
+        // bootstrap start
+        $filter = new DelimitedStringFilter(['start' => '\\[', 'end' => '\\]']);
+        $elementName = $filter->filter('billing[testing][doubletest]');
+        // bootstrap end
         if ($name === null || $name === '') {
             throw new Exception\DomainException(sprintf(
                 '%s requires that the element has an assigned name; none discovered',

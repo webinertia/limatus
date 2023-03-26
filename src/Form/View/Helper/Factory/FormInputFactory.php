@@ -8,7 +8,6 @@ use Bootstrap\BootstrapInterface;
 use Bootstrap\Form\View\Helper\FormInput;
 use Psr\Container\ContainerInterface;
 
-use function array_key_exists;
 use function is_array;
 
 class FormInputFactory
@@ -22,9 +21,11 @@ class FormInputFactory
         }
         $config = $container->get('config');
         if (isset($config['view_helper_config'][BootstrapInterface::VIEW_HELPER_CONFIG_KEY])) {
-            $helper->setConfig(
-                $config['view_helper_config'][BootstrapInterface::VIEW_HELPER_CONFIG_KEY]
-            );
+            if (is_array($config['view_helper_config'][BootstrapInterface::VIEW_HELPER_CONFIG_KEY])) {
+                $helper->setConfig(
+                    $config['view_helper_config'][BootstrapInterface::VIEW_HELPER_CONFIG_KEY]
+                );
+            }
         }
         return $helper;
     }

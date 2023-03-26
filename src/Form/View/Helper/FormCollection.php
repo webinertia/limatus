@@ -291,9 +291,8 @@ class FormCollection extends BaseCollection
      * Sets the fieldset helper that should be used by this collection.
      *
      * @param  HelperInterface $fieldsetHelper The fieldset helper to use.
-     * @return $this
      */
-    public function setFieldsetHelper(HelperInterface $fieldsetHelper)
+    public function setFieldsetHelper(HelperInterface $fieldsetHelper): self
     {
         $this->fieldsetHelper = $fieldsetHelper;
         return $this;

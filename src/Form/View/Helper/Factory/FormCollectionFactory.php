@@ -12,7 +12,6 @@ final class FormCollectionFactory
     /** @inheritDoc */
     public function __invoke(ContainerInterface $container): FormCollection
     {
-        $helper = new FormCollection();
-        return $helper;
+        return new FormCollection();
     }
 }

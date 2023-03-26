@@ -13,7 +13,6 @@ use Laminas\Form\View\Helper\FormElement;
 use Laminas\Form\View\Helper\FormElementErrors;
 use Laminas\Form\View\Helper\FormInput;
 use Laminas\Form\View\Helper\FormRow;
-use Laminas\ServiceManager\Factory\InvokableFactory;
 
 class ConfigProvider
 {
@@ -63,11 +62,11 @@ class ConfigProvider
     public function getHelperConfig(): array
     {
         return [
-            'bootstrap' => [
-                'templates' => [
+            'bootstrap'           => [
+                'templates'         => [
                     'mode' => [
                         // expects Bootstrap::MODE_* constant as key
-                        BootstrapInterface::MODE_DEFAULT    => [
+                        BootstrapInterface::MODE_DEFAULT => [
                             // expects element type as keys
                             'text' => [
                                 // expects the elements id or name as key
@@ -79,21 +78,17 @@ class ConfigProvider
                                 ],
                             ],
                         ],
-                        BootstrapInterface::MODE_INLINE     => [],
-                        BootstrapInterface::MODE_HORIZONTAL => [],
+                        BootstrapInterface::MODE_INLINE  => [],
+                        BootstrapInterface::MODE_GRID    => [],
                     ],
                 ],
-            ],
-            'bootstrap'           => [
-                'attributes' => [
-                    'supported_classes' => [
-                        'form-group',
-                        'inline-form',
-                        'form-row',
-                        'form-control',
-                        'form-check',
-                        'form-input',
-                    ],
+                'supported_classes' => [
+                    'form-group',
+                    'inline-form',
+                    'form-row',
+                    'form-control',
+                    'form-check',
+                    'form-input',
                 ],
             ],
             'form_element_errors' => [

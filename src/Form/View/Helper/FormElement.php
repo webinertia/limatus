@@ -6,16 +6,14 @@ namespace Bootstrap\Form\View\Helper;
 
 use Bootstrap\BootstrapInterface;
 use Bootstrap\Form\View\Helper;
-use Laminas\Form\Element;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\View\Helper\FormElement as BaseHelper;
-use Laminas\View\Renderer\PhpRenderer;
 
 final class FormElement extends BaseHelper
 {
     use Helper\FormHelperTrait;
-
-    protected $bsTypeMap = [];
+    /** @var array<string, string> */
+    protected $bootstrapTypeMap = [];
 
     public function __invoke(
         ?ElementInterface $element = null,
