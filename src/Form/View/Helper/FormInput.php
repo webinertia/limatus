@@ -11,6 +11,7 @@ use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
 use Laminas\Form\View\Helper\FormInput as BaseInput;
 
+use function implode;
 use function sprintf;
 use function strtolower;
 
@@ -106,7 +107,15 @@ class FormInput extends BaseInput
             return $this;
         }
 
-        $this->mode = $mode;
+        $this->setMode($mode);
+
+        // bootstrap start
+        $filter      = new DelimitedStringFilter(['start' => '\\[', 'end' => '\\]']);
+        $elementName = $filter->filter($element->getName());
+        $this->setBootstrapMarkup(
+            $this->configHelper($elementName, $this->getType($element), $this->mode)
+        );
+        // bootstrap end
 
         return $this->render($element);
     }
@@ -118,13 +127,8 @@ class FormInput extends BaseInput
      */
     public function render(ElementInterface $element): string
     {
+        $markup = '';
         $name = $element->getName();
-        // bootstrap start
-        $filter = new DelimitedStringFilter(['start' => '\\[', 'end' => '\\]']);
-        $elementName = $filter->filter('billing[testing][doubletest]');
-        $template    = $this->configHelper($elementName, $this->mode);
-        // config is not being set via the factory
-        // bootstrap end
         if ($name === null || $name === '') {
             throw new Exception\DomainException(sprintf(
                 '%s requires that the element has an assigned name; none discovered',
@@ -139,6 +143,16 @@ class FormInput extends BaseInput
         $attributes['value'] = $element->getValue();
         if ('password' === $type) {
             $attributes['value'] = '';
+        }
+
+        if ($this->bootstrapped($element)) {
+            $markup = sprintf(
+                '<input %s%s',
+                $this->createAttributesString($attributes),
+                $this->getInlineClosingBracket()
+            );
+            $wrapper = implode($this->getBootstrapMarkup());
+            return sprintf($wrapper,$markup);
         }
 
         return sprintf(

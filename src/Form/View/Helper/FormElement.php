@@ -8,6 +8,7 @@ use Bootstrap\BootstrapInterface;
 use Bootstrap\Form\View\Helper;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\View\Helper\FormElement as BaseHelper;
+use Laminas\View\Renderer\PhpRenderer;
 
 final class FormElement extends BaseHelper
 {
@@ -22,12 +23,12 @@ final class FormElement extends BaseHelper
         if (! $element) {
             return $this;
         }
-
+        $this->setMode($mode);
         if ($element instanceof BootstrapInterface || $this->classCheck($element)) {
             return $this->render($element);
         }
 
-        return parent::render($element);
+        return $this->render($element);
     }
 
     /**
@@ -57,5 +58,45 @@ final class FormElement extends BaseHelper
         }
 
         return $this->renderHelper($this->defaultHelper, $element);
+    }
+
+    /**
+     * Render element by helper name
+     */
+    protected function renderHelper(string $name, ElementInterface $element): string
+    {
+        $renderer = $this->getView();
+        assert($renderer instanceof PhpRenderer);
+        $helper = $renderer->plugin($name);
+        assert(is_callable($helper));
+        return $helper($element, $this->mode);
+    }
+
+    /**
+     * Render element by instance map
+     */
+    protected function renderInstance(ElementInterface $element): ?string
+    {
+        foreach ($this->classMap as $class => $pluginName) {
+            if ($element instanceof $class) {
+                return $this->renderHelper($pluginName, $element);
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Render element by type map
+     */
+    protected function renderType(ElementInterface $element): ?string
+    {
+        $type = $element->getAttribute('type');
+
+        if (isset($this->typeMap[$type])) {
+            return $this->renderHelper($this->typeMap[$type], $element);
+        }
+
+        return null;
     }
 }

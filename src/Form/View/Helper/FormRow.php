@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
+use Bootstrap\BootstrapInterface;
+use Bootstrap\Form\View\Helper\FormHelperTrait;
 use Bootstrap\Form\View\Helper\FormElement;
 use Laminas\Form\Element\Button;
 use Laminas\Form\Element\Captcha;
@@ -21,6 +23,8 @@ use function strtolower;
 
 class FormRow extends BaseRow
 {
+    use FormHelperTrait;
+
     public const LABEL_APPEND  = 'append';
     public const LABEL_PREPEND = 'prepend';
 
@@ -90,7 +94,8 @@ class FormRow extends BaseRow
         ?ElementInterface $element = null,
         ?string $labelPosition = null,
         ?bool $renderErrors = null,
-        ?string $partial = null
+        ?string $partial = null,
+        ?string $mode = BootstrapInterface::MODE_DEFAULT
     ) {
         if (! $element) {
             return $this;
@@ -107,6 +112,9 @@ class FormRow extends BaseRow
         if ($partial !== null) {
             $this->setPartial($partial);
         }
+        // bootstrap start
+        $this->setMode($mode);
+        // bootstrap end
 
         return $this->render($element, $labelPosition);
     }
@@ -118,7 +126,7 @@ class FormRow extends BaseRow
      */
     public function render(ElementInterface $element, ?string $labelPosition = null): string
     {
-        // bootstrap
+        // bootstrap start
         if (! $element->hasAttribute('id')) {
             $element->setAttribute('id', $this->getId($element));
         }
@@ -126,6 +134,7 @@ class FormRow extends BaseRow
         $escapeHtmlHelper    = $this->getEscapeHtmlHelper();
         $labelHelper         = $this->getLabelHelper();
         $elementHelper       = $this->getElementHelper();
+        $elementHelper->setMode($this->mode);
         $elementErrorsHelper = $this->getElementErrorsHelper();
 
         $label               = $element->getLabel();

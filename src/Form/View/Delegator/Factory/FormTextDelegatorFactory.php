@@ -2,20 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Bootstrap\Form\View\Helper\Factory;
+namespace Bootstrap\Form\View\Delegator\Factory;
 
 use Bootstrap\BootstrapInterface;
-use Bootstrap\Form\View\Helper\FormInput;
+use Bootstrap\Form\View\Helper\FormText;
+use Laminas\ServiceManager\Factory\DelegatorFactoryInterface;
 use Psr\Container\ContainerInterface;
 
-use function is_array;
-
-class FormInputFactory
+class FormTextDelegatorFactory implements DelegatorFactoryInterface
 {
     /** @inheritDoc */
-    public function __invoke(ContainerInterface $container): FormInput
-    {
-        $helper = new FormInput();
+    public function __invoke(
+        ContainerInterface $container,
+        $name,
+        callable $callback,
+        ?array $options = null
+    ): FormText {
+        $helper = new FormText();
         if (! $container->has('config')) {
             return $helper;
         }

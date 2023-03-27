@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
+use Bootstrap\BootstrapInterface;
 use Bootstrap\Form\View\Helper\FormHelperTrait;
 use Laminas\Form\Element\Collection as CollectionElement;
 use Laminas\Form\ElementInterface;
@@ -99,7 +100,7 @@ class FormCollection extends BaseCollection
     public function __invoke(
         ?ElementInterface $element = null,
         bool $wrap = true,
-        ?string $mode = 'default'
+        ?string $mode = BootstrapInterface::MODE_DEFAULT
     ): self|string {
         if (! $element) {
             return $this;
@@ -134,9 +135,9 @@ class FormCollection extends BaseCollection
 
         foreach ($element->getIterator() as $elementOrFieldset) {
             if ($elementOrFieldset instanceof FieldsetInterface) {
-                $markup .= $fieldsetHelper($elementOrFieldset, $this->shouldWrap());
+                $markup .= $fieldsetHelper($elementOrFieldset, $this->shouldWrap(), $this->mode);
             } elseif ($elementOrFieldset instanceof ElementInterface) {
-                $markup .= $elementHelper($elementOrFieldset);
+                $markup .= $elementHelper($elementOrFieldset, null, null, null, $this->mode);
             }
         }
 

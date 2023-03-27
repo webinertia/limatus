@@ -13,6 +13,8 @@ use Laminas\Form\View\Helper\FormElement;
 use Laminas\Form\View\Helper\FormElementErrors;
 use Laminas\Form\View\Helper\FormInput;
 use Laminas\Form\View\Helper\FormRow;
+use Laminas\Form\View\Helper\FormText;
+use Laminas\ServiceManager\Factory;
 
 class ConfigProvider
 {
@@ -33,11 +35,12 @@ class ConfigProvider
         return [
             'factories'  => [
                 FormElementErrors::class          => FormElementErrorsFactory::class,
-                View\Helper\Form::class           => View\Helper\Factory\FormFactory::class,
-                View\Helper\FormCollection::class => View\Helper\Factory\FormCollectionFactory::class,
-                View\Helper\FormElement::class    => View\Helper\Factory\FormElementFactory::class,
-                View\Helper\FormInput::class      => View\Helper\Factory\FormInputFactory::class,
-                View\Helper\FormRow::class        => View\Helper\Factory\FormRowFactory::class,
+                View\Helper\Form::class           => Factory\InvokableFactory::class,
+                View\Helper\FormCollection::class => Factory\InvokableFactory::class,
+                View\Helper\FormElement::class    => Factory\InvokableFactory::class,
+                View\Helper\FormInput::class      => Factory\InvokableFactory::class,
+                View\Helper\FormRow::class        => Factory\InvokableFactory::class,
+                View\Helper\FormText::class       => Factory\InvokableFactory::class,
             ],
             'delegators' => [
                 Form::class => [
@@ -55,6 +58,9 @@ class ConfigProvider
                 FormRow::class => [
                     View\Delegator\Factory\FormRowDelegatorFactory::class,
                 ],
+                FormText::class => [
+                    View\Delegator\Factory\FormTextDelegatorFactory::class,
+                ],
             ],
         ];
     }
@@ -64,23 +70,21 @@ class ConfigProvider
         return [
             'bootstrap'           => [
                 'templates'         => [
-                    'mode' => [
-                        // expects Bootstrap::MODE_* constant as key
-                        BootstrapInterface::MODE_DEFAULT => [
-                            // expects element type as keys
-                            'text' => [
-                                // expects the elements id or name as key
-                                'example' => [
-                                    // expects keys 'opening', 'separator', 'closing'
-                                    BootstrapInterface::OPENING_KEY   => '<div class="%s">',
-                                    BootstrapInterface::SEPARATOR_KEY => '%s',
-                                    BootstrapInterface::CLOSING_KEY   => '</div>',
-                                ],
+                    // expects Bootstrap::MODE_* constant as key
+                    BootstrapInterface::MODE_DEFAULT => [
+                        // expects element type as keys
+                        'text' => [
+                            // expects the elements id or name as key
+                            'example' => [
+                                // expects keys 'opening', 'separator', 'closing'
+                                BootstrapInterface::OPENING_KEY   => '<div class="%s">',
+                                BootstrapInterface::SEPARATOR_KEY => '%s',
+                                BootstrapInterface::CLOSING_KEY   => '</div>',
                             ],
                         ],
-                        BootstrapInterface::MODE_INLINE  => [],
-                        BootstrapInterface::MODE_GRID    => [],
                     ],
+                    BootstrapInterface::MODE_INLINE  => [],
+                    BootstrapInterface::MODE_GRID    => [],
                 ],
                 'supported_classes' => [
                     'form-group',
