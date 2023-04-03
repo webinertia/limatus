@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bootstrap;
 
-use Bootstrap\BootstrapInterface;
 use Bootstrap\Form\View;
 use Bootstrap\Form\View\Helper;
 use Bootstrap\Form\Element;

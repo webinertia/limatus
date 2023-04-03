@@ -8,11 +8,12 @@ use Bootstrap\Form\Element;
 
 class Text extends Element
 {
-    protected $attributes = [
+    /** @inheritdoc */
+    protected $attributes                = [
         'type' => 'text',
     ];
     protected array $bootstrapAttributes = [
         'class' => 'form-group',
     ];
-    protected ?string $wrapper = '<div %s>%s</div>';
+    protected ?string $wrapper           = '<div %s>%s</div>';
 }

@@ -5,13 +5,9 @@ declare(strict_types=1);
 namespace Bootstrap\Form\View\Helper;
 
 use Bootstrap\Form\View\Helper\Bootstrapper;
-use Bootstrap\BootstrapInterface;
-use Bootstrap\Filter\DelimitedStringFilter;
 use Bootstrap\Form\BootstrapElementInterface;
-use Bootstrap\Form\Element;
 use Bootstrap\Form\View\Helper\FormHelperTrait;
 use Bootstrap\Form\View\Helper\FormElement;
-use Closure;
 use Laminas\Form\Element\Button;
 use Laminas\Form\Element\Captcha;
 use Laminas\Form\Element\MonthSelect;
@@ -22,12 +18,8 @@ use Laminas\Form\View\Helper\FormElementErrors;
 use Laminas\Form\View\Helper\FormRow as BaseRow;
 
 use function in_array;
-use function is_array;
-use function implode;
 use function method_exists;
 use function sprintf;
-use function strlen;
-use function str_contains;
 use function strtolower;
 
 class FormRow extends BaseRow

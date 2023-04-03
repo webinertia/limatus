@@ -12,6 +12,7 @@ use function array_key_exists;
 
 class Element extends BaseElement implements BootstrapElementInterface
 {
+    /** @var array<string, string> $attributes */
     protected $attributes = ['class' => 'form-control'];
     protected array $bootstrapAttributes = [];
     protected array $bootstrapOptions = [];

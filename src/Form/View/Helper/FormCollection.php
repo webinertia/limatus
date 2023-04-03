@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
-use Bootstrap\BootstrapInterface;
-use Bootstrap\Form\View\Helper\FormHelperTrait;
+use Bootstrap\Form\View\Helper;
 use Laminas\Form\Element\Collection as CollectionElement;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\FieldsetInterface;
@@ -22,7 +21,7 @@ use function sprintf;
 
 class FormCollection extends BaseCollection
 {
-    use FormHelperTrait;
+    use Helper\FormHelperTrait;
 
     /**
      * Attributes valid for this tag (form)
@@ -100,7 +99,7 @@ class FormCollection extends BaseCollection
     public function __invoke(
         ?ElementInterface $element = null,
         bool $wrap = true,
-        ?string $mode = BootstrapInterface::MODE_DEFAULT
+        ?string $mode = Helper\Bootstrapper::DEFAULT_MODE
     ): self|string {
         if (! $element) {
             return $this;

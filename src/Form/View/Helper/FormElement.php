@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
-use Bootstrap\BootstrapInterface;
 use Bootstrap\Form\View\Helper;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\View\Helper\FormElement as BaseHelper;
@@ -18,15 +17,12 @@ final class FormElement extends BaseHelper
 
     public function __invoke(
         ?ElementInterface $element = null,
-        ?string $mode = BootstrapInterface::MODE_DEFAULT
+        ?string $mode = Helper\Bootstrapper::DEFAULT_MODE
     ) {
         if (! $element) {
             return $this;
         }
         $this->setMode($mode);
-        if ($element instanceof BootstrapInterface || $this->classCheck($element)) {
-            return $this->render($element);
-        }
 
         return $this->render($element);
     }

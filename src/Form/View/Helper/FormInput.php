@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
-use Bootstrap\BootstrapInterface;
-use Bootstrap\Filter\DelimitedStringFilter;
-use Bootstrap\Form\View\Helper\FormHelperTrait;
+use Bootstrap\Form\View\Helper;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
 use Laminas\Form\View\Helper\FormInput as BaseInput;
@@ -16,7 +14,7 @@ use function strtolower;
 
 class FormInput extends BaseInput
 {
-    use FormHelperTrait;
+    use Helper\FormHelperTrait;
 
     /**
      * Attributes valid for the input tag
@@ -100,7 +98,7 @@ class FormInput extends BaseInput
      */
     public function __invoke(
         ?ElementInterface $element = null,
-        ?string $mode = BootstrapInterface::MODE_DEFAULT
+        ?string $mode = Helper\Bootstrapper::DEFAULT_MODE
     ) {
         if (! $element) {
             return $this;

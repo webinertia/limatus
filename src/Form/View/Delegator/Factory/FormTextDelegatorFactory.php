@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Delegator\Factory;
 
-use Bootstrap\BootstrapInterface;
 use Bootstrap\Form\View\Helper\FormText;
 use Laminas\ServiceManager\Factory\DelegatorFactoryInterface;
 use Psr\Container\ContainerInterface;

@@ -36,7 +36,6 @@ class Bootstrapper extends AbstractHelper
 
     protected array $typeToClassMap = [
         'select'         => 'form-control',
-        'email'          => 'form-control',
         'text'           => 'form-control',
         'button'         => 'btn',
         'checkbox'       => 'form-check-input',
@@ -45,7 +44,6 @@ class Bootstrapper extends AbstractHelper
         'password'       => 'form-control',
         'radio'          => 'form-check-input',
         'reset'          => 'btn',
-        'select'         => 'form-control',
         'submit'         => 'btn',
         'date'           => 'form-control',
         'datetime'       => 'form-control',
