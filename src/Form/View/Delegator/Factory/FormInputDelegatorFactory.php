@@ -23,10 +23,10 @@ class FormInputDelegatorFactory implements DelegatorFactoryInterface
             return $helper;
         }
         $config = $container->get('config');
-        if (isset($config['view_helper_config'][BootstrapInterface::VIEW_HELPER_CONFIG_KEY])) {
-            if (is_array($config['view_helper_config'][BootstrapInterface::VIEW_HELPER_CONFIG_KEY])) {
+        if (isset($config['view_helper_config'][BootstrapInterface::VHC_KEY])) {
+            if (is_array($config['view_helper_config'][BootstrapInterface::VHC_KEY])) {
                 $helper->setConfig(
-                    $config['view_helper_config'][BootstrapInterface::VIEW_HELPER_CONFIG_KEY]
+                    $config['view_helper_config'][BootstrapInterface::VHC_KEY]
                 );
             }
         }

@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
+use Bootstrap\Form\View\Helper\Bootstrapper;
 use Bootstrap\BootstrapInterface;
+use Bootstrap\Filter\DelimitedStringFilter;
+use Bootstrap\Form\BootstrapElementInterface;
+use Bootstrap\Form\Element;
 use Bootstrap\Form\View\Helper\FormHelperTrait;
 use Bootstrap\Form\View\Helper\FormElement;
+use Closure;
 use Laminas\Form\Element\Button;
 use Laminas\Form\Element\Captcha;
 use Laminas\Form\Element\MonthSelect;
@@ -17,8 +22,12 @@ use Laminas\Form\View\Helper\FormElementErrors;
 use Laminas\Form\View\Helper\FormRow as BaseRow;
 
 use function in_array;
+use function is_array;
+use function implode;
 use function method_exists;
 use function sprintf;
+use function strlen;
+use function str_contains;
 use function strtolower;
 
 class FormRow extends BaseRow
@@ -95,7 +104,7 @@ class FormRow extends BaseRow
         ?string $labelPosition = null,
         ?bool $renderErrors = null,
         ?string $partial = null,
-        ?string $mode = BootstrapInterface::MODE_DEFAULT
+        ?string $mode = Bootstrapper::DEFAULT_MODE
     ) {
         if (! $element) {
             return $this;
@@ -114,7 +123,6 @@ class FormRow extends BaseRow
         }
         // bootstrap start
         $this->setMode($mode);
-        // bootstrap end
 
         return $this->render($element, $labelPosition);
     }
@@ -127,9 +135,7 @@ class FormRow extends BaseRow
     public function render(ElementInterface $element, ?string $labelPosition = null): string
     {
         // bootstrap start
-        if (! $element->hasAttribute('id')) {
-            $element->setAttribute('id', $this->getId($element));
-        }
+        ($this->getBootstrapper())->bootstrapElement($element, $this->mode);
         // bootstrap end
         $escapeHtmlHelper    = $this->getEscapeHtmlHelper();
         $labelHelper         = $this->getLabelHelper();
@@ -175,7 +181,7 @@ class FormRow extends BaseRow
         if ($this->renderErrors) {
             $elementErrors = $elementErrorsHelper->render($element);
         }
-
+        // forminput rendering
         $elementString = $elementHelper->render($element);
 
         // hidden elements do not need a <label> -https://github.com/zendframework/zf2/issues/5607
@@ -225,12 +231,13 @@ class FormRow extends BaseRow
                 }
 
                 if (
-                    $label !== '' && (! $element->hasAttribute('id'))
+                    ! $element instanceof BootstrapElementInterface || ! ($this->getBootstrapper())->enabled($element)
+                    && $label !== '' && (! $element->hasAttribute('id'))
                     || ($element instanceof LabelAwareInterface && $element->getLabelOption('always_wrap'))
                 ) {
                     $label = '<span>' . $label . '</span>';
                 }
-
+                // bootstrap this since we will not use a label if bootstrapped
                 // Button element is a special case, because label is always rendered inside it
                 if ($element instanceof Button) {
                     $labelOpen = $labelClose = $label = '';
@@ -256,8 +263,8 @@ class FormRow extends BaseRow
                 $markup = $elementString;
             }
         }
-
-        return $markup;
+        // let the bootstrapper handle this
+        return ($this->getBootstrapper())->wrapElement($element, $this->mode, $markup);
     }
 
     /**

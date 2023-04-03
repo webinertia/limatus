@@ -13,7 +13,7 @@ class Module
             'service_manager'    => $provider->getDependencyConfig(),
             'view_helpers'       => $provider->getViewHelperConfig(),
             'view_helper_config' => $provider->getHelperConfig(),
-            'form_element'       => $provider->getFormElementConfig(),
+            'form_elements'       => $provider->getFormElementConfig(),
         ];
     }
 }

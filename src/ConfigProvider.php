@@ -6,6 +6,9 @@ namespace Bootstrap;
 
 use Bootstrap\BootstrapInterface;
 use Bootstrap\Form\View;
+use Bootstrap\Form\View\Helper;
+use Bootstrap\Form\Element;
+use Laminas\Form\ElementFactory;
 use Laminas\Form\View\Helper\Factory\FormElementErrorsFactory;
 use Laminas\Form\View\Helper\Form;
 use Laminas\Form\View\Helper\FormCollection;
@@ -33,14 +36,18 @@ class ConfigProvider
     public function getViewHelperConfig(): array
     {
         return [
+            'aliases'    => [
+                'bootstrap' => Helper\Bootstrapper::class,
+            ],
             'factories'  => [
-                FormElementErrors::class          => FormElementErrorsFactory::class,
-                View\Helper\Form::class           => Factory\InvokableFactory::class,
-                View\Helper\FormCollection::class => Factory\InvokableFactory::class,
-                View\Helper\FormElement::class    => Factory\InvokableFactory::class,
-                View\Helper\FormInput::class      => Factory\InvokableFactory::class,
-                View\Helper\FormRow::class        => Factory\InvokableFactory::class,
-                View\Helper\FormText::class       => Factory\InvokableFactory::class,
+                FormElementErrors::class     => FormElementErrorsFactory::class,
+                Helper\Bootstrapper::class   => View\Helper\BootstrapperFactory::class,
+                Helper\Form::class           => Factory\InvokableFactory::class,
+                Helper\FormCollection::class => Factory\InvokableFactory::class,
+                Helper\FormElement::class    => Factory\InvokableFactory::class,
+                Helper\FormInput::class      => Factory\InvokableFactory::class,
+                Helper\FormRow::class        => Factory\InvokableFactory::class,
+                Helper\FormText::class       => Factory\InvokableFactory::class,
             ],
             'delegators' => [
                 Form::class => [
@@ -68,23 +75,21 @@ class ConfigProvider
     public function getHelperConfig(): array
     {
         return [
-            'bootstrap'           => [
-                'templates'         => [
+            Helper\Bootstrapper::VHC_KEY => [
+                'input_class'     => 'form-control',
+                'templates'       => [
                     // expects Bootstrap::MODE_* constant as key
-                    BootstrapInterface::MODE_DEFAULT => [
-                        // expects element type as keys
-                        'text' => [
-                            // expects the elements id or name as key
-                            'example' => [
-                                // expects keys 'opening', 'separator', 'closing'
-                                BootstrapInterface::OPENING_KEY   => '<div class="%s">',
-                                BootstrapInterface::SEPARATOR_KEY => '%s',
-                                BootstrapInterface::CLOSING_KEY   => '</div>',
-                            ],
+                    Helper\Bootstrapper::DEFAULT_MODE => [
+                        // expects the elements id or name as key
+                        'example' => [
+                            // expects keys 'opening', 'separator', 'closing'
+                            Helper\Bootstrapper::OPENING_KEY   => '<div class="%s">',
+                            Helper\Bootstrapper::SEPARATOR_KEY => '%s',
+                            Helper\Bootstrapper::CLOSING_KEY   => '</div>',
                         ],
                     ],
-                    BootstrapInterface::MODE_INLINE  => [],
-                    BootstrapInterface::MODE_GRID    => [],
+                    Helper\Bootstrapper::INLINE_MODE  => [],
+                    Helper\Bootstrapper::GRID_MODE    => [],
                 ],
                 'supported_classes' => [
                     'form-group',
@@ -108,6 +113,17 @@ class ConfigProvider
 
     public function getFormElementConfig(): array
     {
-        return [];
+        return [
+            'aliases'   => [
+                'element' => Element::class,
+                'Element' => Element::class,
+                'text'    => Element\Text::class,
+                'Text'    => Element\Text::class,
+            ],
+            'factories' => [
+                Element::class      => ElementFactory::class,
+                Element\Text::class => ElementFactory::class,
+            ],
+        ];
     }
 }

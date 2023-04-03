@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
-use Bootstrap\BootstrapInterface;
+use Bootstrap\Form\View\Helper\Bootstrapper;
 use Bootstrap\Form\View\Helper\FormHelperTrait;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\FormInterface;
@@ -24,7 +24,6 @@ use function sprintf;
 class Form extends AbstractHelper
 {
     use FormHelperTrait;
-
     /**
      * Attributes valid for this tag (form)
      *
@@ -47,11 +46,12 @@ class Form extends AbstractHelper
      */
     public function __invoke(
         ?FormInterface $form = null,
-        ?string $mode = BootstrapInterface::MODE_DEFAULT
+        ?string $mode = Bootstrapper::DEFAULT_MODE
         ): self|string {
         if (! $form) {
             return $this;
         }
+        //$config = $this->getConfig();
         $this->setMode($mode);
         return $this->render($form);
     }
@@ -96,6 +96,7 @@ class Form extends AbstractHelper
         }
 
         if ($form instanceof FormInterface) {
+            //Bootstrapper::bootstrapForm($form, $this->mode);
             $formAttributes = $form->getAttributes();
             if (! array_key_exists('id', $formAttributes) && array_key_exists('name', $formAttributes)) {
                 $formAttributes['id'] = $formAttributes['name'];

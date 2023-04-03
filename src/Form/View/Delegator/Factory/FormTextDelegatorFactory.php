@@ -18,18 +18,6 @@ class FormTextDelegatorFactory implements DelegatorFactoryInterface
         callable $callback,
         ?array $options = null
     ): FormText {
-        $helper = new FormText();
-        if (! $container->has('config')) {
-            return $helper;
-        }
-        $config = $container->get('config');
-        if (isset($config['view_helper_config'][BootstrapInterface::VIEW_HELPER_CONFIG_KEY])) {
-            if (is_array($config['view_helper_config'][BootstrapInterface::VIEW_HELPER_CONFIG_KEY])) {
-                $helper->setConfig(
-                    $config['view_helper_config'][BootstrapInterface::VIEW_HELPER_CONFIG_KEY]
-                );
-            }
-        }
-        return $helper;
+        return new FormText();
     }
 }
