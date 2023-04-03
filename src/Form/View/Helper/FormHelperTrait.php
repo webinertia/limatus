@@ -11,9 +11,7 @@ use function method_exists;
 trait FormHelperTrait
 {
     protected ?Bootstrapper $bootstrap;
-    /**
-     * Rendering mode for Bootstrap
-     * @var null|string $mode */
+    /** Rendering mode for Bootstrap */
     protected ?string $mode;
 
     protected function getBootstrapper(): Bootstrapper

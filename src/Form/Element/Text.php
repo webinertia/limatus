@@ -8,7 +8,7 @@ use Bootstrap\Form\Element;
 
 class Text extends Element
 {
-    /** @inheritdoc */
+    /** @inheritDoc */
     protected $attributes                = [
         'type' => 'text',
     ];

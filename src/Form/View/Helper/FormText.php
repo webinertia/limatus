@@ -34,5 +34,4 @@ final class FormText extends FormInput
         'type'         => true,
         'value'        => true,
     ];
-
 }

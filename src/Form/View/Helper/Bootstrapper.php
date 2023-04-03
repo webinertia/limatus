@@ -92,7 +92,7 @@ class Bootstrapper extends AbstractHelper
                 $element->setAttribute('id', $id);
             }
         }
-        // we do not have the same features available here,
+        assert(isset($id));
         assert($element instanceof BaseElement);
         switch (true) {
             case self::INLINE_MODE === $mode:
@@ -226,17 +226,6 @@ class Bootstrapper extends AbstractHelper
             }
         }
         return $this->config;
-    }
-
-    public function setBootstrapMarkup(array $markup): self
-    {
-        $this->bootstrapMarkup = $markup;
-        return $this;
-    }
-
-    public function getBootstrapMarkup(): array
-    {
-        return $this->bootstrapMarkup;
     }
 
     public function enable(): void

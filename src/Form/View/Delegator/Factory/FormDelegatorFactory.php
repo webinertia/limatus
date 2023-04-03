@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bootstrap\Form\View\Delegator\Factory;
 
 use Bootstrap\Form\View\Helper\Form;
-use Laminas\Form\View\Helper\Form as BaseForm;
 use Laminas\ServiceManager\Factory\DelegatorFactoryInterface;
 use Psr\Container\ContainerInterface;
 
