@@ -9,6 +9,7 @@ use Laminas\Form\ElementInterface;
 use Laminas\Form\Element\Collection as CollectionElement;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\LabelAwareInterface;
+use Laminas\Router\Http\Method;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\HelperInterface;
 use RuntimeException;
@@ -18,15 +19,13 @@ use function is_callable;
 use function method_exists;
 use function sprintf;
 
-class FormCollection extends AbstractHelper
+class FormGridCollection extends AbstractHelper
 {
     /**
      * Attributes valid for this tag (form)
      * @var array<TKEY, TVALUE>
      */
-    protected $validTagAttributes = [
-        'name' => true,
-    ];
+    protected $validTagAttributes = [];
 
     /**
      * If set to true, collections are automatically wrapped around a fieldset
@@ -36,12 +35,7 @@ class FormCollection extends AbstractHelper
     /**
      * This is the default wrapper that the collection is wrapped into
      */
-    protected string $wrapper = '<fieldset%4$s>%2$s%1$s%3$s</fieldset>';
-
-    /**
-     * This is the wrapper that $mode === horizontal wraps into
-     */
-    protected string $horizontalWrapper = '<fieldset %1$s>%2$s</fieldset>';
+    protected string $wrapper = '<div%4$s>%2$s%1$s%3$s</div>';
 
     /**
      * This is the default label-wrapper
@@ -49,11 +43,6 @@ class FormCollection extends AbstractHelper
      * @var string
      */
     protected $labelWrapper = '<legend>%s</legend>';
-
-    /**
-     * This is the horizontal mode label wrapper
-     */
-    protected string $horizontalLabelWrapper = '<legend class="col-form-label">%s</legend>';
 
     /**
      * Where shall the template-data be inserted into
@@ -128,6 +117,8 @@ class FormCollection extends AbstractHelper
         $templateMarkup = '';
         $elementHelper  = $this->getElementHelper();
         assert(is_callable($elementHelper));
+        $gridsetHelper     = $this->getGridsetHelper();
+        assert(is_callable($gridsetHelper));
         $fieldsetHelper = $this->getFieldsetHelper();
         assert(is_callable($fieldsetHelper));
 
@@ -137,15 +128,15 @@ class FormCollection extends AbstractHelper
 
         foreach ($element->getIterator() as $elementOrFieldset) {
             if ($elementOrFieldset instanceof GridsetInterface) {
-                $markup .= $gridsetHelper($elementOrFieldset, $this->shouldWrap(), $mode);
+                $markup .= $gridsetHelper(element: $elementOrFieldset, wrap: $this->shouldWrap(), mode: $mode);
             } elseif ($elementOrFieldset instanceof FieldsetInterface) {
-                $markup .= $fieldsetHelper($elementOrFieldset, $this->shouldWrap(), $mode);
+                $markup .= $fieldsetHelper(element: $elementOrFieldset, wrap: $this->shouldWrap(), mode: $mode);
             } elseif ($elementOrFieldset instanceof ElementInterface) {
                 $markup .= $elementHelper(element: $elementOrFieldset, mode: $mode);
             }
         }
 
-        // Every collection is wrapped by a fieldset if needed
+        // Every collection is wrapped by a row
         if ($this->shouldWrap) {
             $attributes = $element->getAttributes();
             if (! isset($this->doctypesAllowedToHaveNameAttribute[$this->getDoctype()])) {
@@ -233,6 +224,13 @@ class FormCollection extends AbstractHelper
     public function shouldWrap(): bool
     {
         return $this->shouldWrap;
+    }
+
+    public function getGridSetHelper(): HelperInterface
+    {
+        if ($this->view !== null && method_exists($this->view, 'plugin')) {
+            return $this->view->plugin('formGridCollection');
+        }
     }
 
     /**
@@ -394,3 +392,4 @@ class FormCollection extends AbstractHelper
         return $this;
     }
 }
+

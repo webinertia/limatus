@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Bootstrap;
 
 use Bootstrap\Form\View;
-use Bootstrap\Form\View\Helper;
 use Bootstrap\Form\Element;
+use Bootstrap\Form\Gridset;
 use Laminas\Form\ElementFactory;
 use Laminas\Form\View\Helper\Factory\FormElementErrorsFactory;
 use Laminas\Form\View\Helper\Form;
@@ -36,17 +36,23 @@ class ConfigProvider
     {
         return [
             'aliases'    => [
-                'bootstrap' => Helper\Bootstrapper::class,
+                'formBootstrapElement'  => View\Helper\FormBootstrapElement::class,
+                'formGridCollection'    => View\Helper\FormGridCollection::class,
+                'formHelp'              => View\Helper\FormHelp::class,
+                'formHorizontalElement' => View\Helper\FormHorizontalElement::class,
             ],
             'factories'  => [
-                FormElementErrors::class     => FormElementErrorsFactory::class,
-                Helper\Bootstrapper::class   => View\Helper\BootstrapperFactory::class,
-                Helper\Form::class           => Factory\InvokableFactory::class,
-                Helper\FormCollection::class => Factory\InvokableFactory::class,
-                Helper\FormElement::class    => Factory\InvokableFactory::class,
-                Helper\FormInput::class      => Factory\InvokableFactory::class,
-                Helper\FormRow::class        => Factory\InvokableFactory::class,
-                Helper\FormText::class       => Factory\InvokableFactory::class,
+                FormElementErrors::class                 => FormElementErrorsFactory::class,
+                View\Helper\Form::class                  => Factory\InvokableFactory::class,
+                View\Helper\FormCollection::class        => Factory\InvokableFactory::class,
+                View\Helper\FormElement::class           => Factory\InvokableFactory::class,
+                View\Helper\FormInput::class             => Factory\InvokableFactory::class,
+                View\Helper\FormRow::class               => Factory\InvokableFactory::class,
+                View\Helper\FormText::class              => Factory\InvokableFactory::class,
+                View\Helper\FormBootstrapElement::class  => Factory\InvokableFactory::class,
+                View\Helper\FormGridCollection::class    => Factory\InvokableFactory::class,
+                View\Helper\FormHelp::class              => Factory\InvokableFactory::class,
+                View\Helper\FormHorizontalElement::class => Factory\InvokableFactory::class,
             ],
             'delegators' => [
                 Form::class => [
@@ -74,31 +80,6 @@ class ConfigProvider
     public function getHelperConfig(): array
     {
         return [
-            Helper\Bootstrapper::VHC_KEY => [
-                'input_class'     => 'form-control',
-                'templates'       => [
-                    // expects Bootstrap::MODE_* constant as key
-                    Helper\Bootstrapper::DEFAULT_MODE => [
-                        // expects the elements id or name as key
-                        'example' => [
-                            // expects keys 'opening', 'separator', 'closing'
-                            Helper\Bootstrapper::OPENING_KEY   => '<div class="%s">',
-                            Helper\Bootstrapper::SEPARATOR_KEY => '%s',
-                            Helper\Bootstrapper::CLOSING_KEY   => '</div>',
-                        ],
-                    ],
-                    Helper\Bootstrapper::INLINE_MODE  => [],
-                    Helper\Bootstrapper::GRID_MODE    => [],
-                ],
-                'supported_classes' => [
-                    'form-group',
-                    'inline-form',
-                    'form-row',
-                    'form-control',
-                    'form-check',
-                    'form-input',
-                ],
-            ],
             'form_element_errors' => [
                 'message_open_format'      => '<div%s><ul><li>',
                 'message_separator_string' => '</li><li>',
@@ -114,6 +95,8 @@ class ConfigProvider
     {
         return [
             'aliases'   => [
+                'gridset' => Gridset::class,
+                'Gridset' => Gridset::class,
                 'element' => Element::class,
                 'Element' => Element::class,
                 'text'    => Element\Text::class,
@@ -122,6 +105,7 @@ class ConfigProvider
             'factories' => [
                 Element::class      => ElementFactory::class,
                 Element\Text::class => ElementFactory::class,
+                Gridset::class      => ElementFactory::class,
             ],
         ];
     }

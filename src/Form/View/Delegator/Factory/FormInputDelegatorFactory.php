@@ -17,6 +17,6 @@ class FormInputDelegatorFactory implements DelegatorFactoryInterface
         callable $callback,
         ?array $options = null
     ): Helper\FormInput {
-        return new Helper\FormInput();
+        return new Helper\FormInput($callback());
     }
 }

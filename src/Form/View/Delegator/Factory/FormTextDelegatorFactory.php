@@ -17,6 +17,6 @@ class FormTextDelegatorFactory implements DelegatorFactoryInterface
         callable $callback,
         ?array $options = null
     ): FormText {
-        return new FormText();
+        return new FormText($callback());
     }
 }

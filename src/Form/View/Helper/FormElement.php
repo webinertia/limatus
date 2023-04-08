@@ -4,27 +4,89 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
-use Bootstrap\Form\View\Helper;
+use Laminas\Form\Element;
 use Laminas\Form\ElementInterface;
-use Laminas\Form\View\Helper\FormElement as BaseHelper;
 use Laminas\View\Renderer\PhpRenderer;
 
-final class FormElement extends BaseHelper
-{
-    use Helper\FormHelperTrait;
-    /** @var array<string, string> */
-    protected $bootstrapTypeMap = [];
+use function assert;
+use function is_callable;
+use function method_exists;
 
-    public function __invoke(
-        ?ElementInterface $element = null,
-        ?string $mode = Helper\Bootstrapper::DEFAULT_MODE
-    ) {
+class FormElement extends AbstractHelper
+{
+    public const DEFAULT_HELPER = 'forminput';
+
+    /**
+     * Instance map to view helper
+     *
+     * @var array
+     */
+    protected $classMap = [
+        Element\Button::class         => 'formbutton',
+        Element\Captcha::class        => 'formcaptcha',
+        Element\Csrf::class           => 'formhidden',
+        Element\Collection::class     => 'formcollection',
+        Element\DateTimeSelect::class => 'formdatetimeselect',
+        Element\DateSelect::class     => 'formdateselect',
+        Element\MonthSelect::class    => 'formmonthselect',
+    ];
+
+    /**
+     * Type map to view helper
+     *
+     * @var array
+     */
+    protected $typeMap = [
+        'checkbox'       => 'formcheckbox',
+        'color'          => 'formcolor',
+        'date'           => 'formdate',
+        'datetime'       => 'formdatetime',
+        'datetime-local' => 'formdatetimelocal',
+        'email'          => 'formemail',
+        'file'           => 'formfile',
+        'hidden'         => 'formhidden',
+        'image'          => 'formimage',
+        'month'          => 'formmonth',
+        'multi_checkbox' => 'formmulticheckbox',
+        'number'         => 'formnumber',
+        'password'       => 'formpassword',
+        'radio'          => 'formradio',
+        'range'          => 'formrange',
+        'reset'          => 'formreset',
+        'search'         => 'formsearch',
+        'select'         => 'formselect',
+        'submit'         => 'formsubmit',
+        'tel'            => 'formtel',
+        'text'           => 'formtext',
+        'textarea'       => 'formtextarea',
+        'time'           => 'formtime',
+        'url'            => 'formurl',
+        'week'           => 'formweek',
+    ];
+
+    /**
+     * Default helper name
+     *
+     * @var string
+     */
+    protected $defaultHelper = self::DEFAULT_HELPER;
+
+    /**
+     * Invoke helper as function
+     *
+     * Proxies to {@link render()}.
+     *
+     * @template T as null|ElementInterface
+     * @psalm-param T $element
+     * @psalm-return (T is null ? self : string)
+     * @return string|self
+     */
+    public function __invoke(?ElementInterface $element = null, ?string $mode = self::DEFAULT_MODE)
+    {
         if (! $element) {
             return $this;
         }
-        $this->setMode($mode);
-
-        return $this->render($element);
+        return $this->render($element, $mode);
     }
 
     /**
@@ -33,7 +95,7 @@ final class FormElement extends BaseHelper
      * Introspects the element type and attributes to determine which
      * helper to utilize when rendering.
      */
-    public function render(ElementInterface $element): string
+    public function render(ElementInterface $element, ?string $mode = self::DEFAULT_MODE): string
     {
         $renderer = $this->getView();
         if ($renderer === null || ! method_exists($renderer, 'plugin')) {
@@ -41,41 +103,77 @@ final class FormElement extends BaseHelper
             return '';
         }
 
-        $renderedInstance = $this->renderInstance($element);
+        $renderedInstance = $this->renderInstance($element, $mode);
 
         if ($renderedInstance !== null) {
             return $renderedInstance;
         }
 
-        $renderedType = $this->renderType($element);
+        $renderedType = $this->renderType($element, $mode);
 
         if ($renderedType !== null) {
             return $renderedType;
         }
 
-        return $this->renderHelper($this->defaultHelper, $element);
+        return $this->renderHelper($this->defaultHelper, $element, $mode);
+    }
+
+    /**
+     * Set default helper name
+     *
+     * @return $this
+     */
+    public function setDefaultHelper(string $name)
+    {
+        $this->defaultHelper = $name;
+
+        return $this;
+    }
+
+    /**
+     * Add form element type to plugin map
+     *
+     * @return $this
+     */
+    public function addType(string $type, string $plugin)
+    {
+        $this->typeMap[$type] = $plugin;
+
+        return $this;
+    }
+
+    /**
+     * Add instance class to plugin map
+     *
+     * @return $this
+     */
+    public function addClass(string $class, string $plugin)
+    {
+        $this->classMap[$class] = $plugin;
+
+        return $this;
     }
 
     /**
      * Render element by helper name
      */
-    protected function renderHelper(string $name, ElementInterface $element): string
+    protected function renderHelper(string $name, ElementInterface $element, ?string $mode = self::DEFAULT_MODE): string
     {
         $renderer = $this->getView();
         assert($renderer instanceof PhpRenderer);
         $helper = $renderer->plugin($name);
         assert(is_callable($helper));
-        return $helper($element, $this->mode);
+        return $helper($element, $mode);
     }
 
     /**
      * Render element by instance map
      */
-    protected function renderInstance(ElementInterface $element): ?string
+    protected function renderInstance(ElementInterface $element, ?string $mode = self::DEFAULT_MODE): ?string
     {
         foreach ($this->classMap as $class => $pluginName) {
             if ($element instanceof $class) {
-                return $this->renderHelper($pluginName, $element);
+                return $this->renderHelper($pluginName, $element, $mode);
             }
         }
 
@@ -85,12 +183,12 @@ final class FormElement extends BaseHelper
     /**
      * Render element by type map
      */
-    protected function renderType(ElementInterface $element): ?string
+    protected function renderType(ElementInterface $element, ?string $mode = self::DEFAULT_MODE): ?string
     {
         $type = $element->getAttribute('type');
 
         if (isset($this->typeMap[$type])) {
-            return $this->renderHelper($this->typeMap[$type], $element);
+            return $this->renderHelper($this->typeMap[$type], $element, $mode);
         }
 
         return null;
