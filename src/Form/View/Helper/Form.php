@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
+use Boostrap\Form\GridsetInterface;
+use Bootstrap\Form\GridsetInterface as FormGridsetInterface;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\FormInterface;
-use Laminas\Form\View\Helper\AbstractHelper;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Renderer\PhpRenderer;
 
@@ -45,19 +46,18 @@ class Form extends AbstractHelper
      * @psalm-return (T is null ? self : string)
      * @return Form|string
      */
-    public function __invoke(?FormInterface $form = null)
+    public function __invoke(?FormInterface $form = null, ?string $mode = self::DEFAULT_MODE)
     {
         if (! $form) {
             return $this;
         }
-
-        return $this->render($form);
+        return $this->render($form, $mode);
     }
 
     /**
      * Render a form from the provided $form,
      */
-    public function render(FormInterface $form): string
+    public function render(FormInterface $form, ?string $mode = self::DEFAULT_MODE): string
     {
         if (method_exists($form, 'prepare')) {
             $form->prepare();
@@ -68,10 +68,12 @@ class Form extends AbstractHelper
         $renderer = $this->getView();
         assert($renderer instanceof PhpRenderer);
         foreach ($form as $element) {
-            if ($element instanceof FieldsetInterface) {
-                $formContent .= $renderer->formCollection($element);
+            if ($element instanceof FormGridsetInterface) {
+                $formContent .= $renderer->formGridCollection(element: $element, mode: $mode);
+            } elseif ($element instanceof FieldsetInterface) {
+                $formContent .= $renderer->formCollection(element: $element, mode: $mode);
             } else {
-                $formContent .= $renderer->formRow($element);
+                $formContent .= $renderer->formRow(element:$element, mode: $mode);
             }
         }
 
@@ -94,6 +96,9 @@ class Form extends AbstractHelper
         }
 
         if ($form instanceof FormInterface) {
+            // bootstrap start
+            //$this->bootstrapForm($form, $mode);
+            // bootstrap end
             $formAttributes = $form->getAttributes();
             if (! array_key_exists('id', $formAttributes) && array_key_exists('name', $formAttributes)) {
                 $formAttributes['id'] = $formAttributes['name'];

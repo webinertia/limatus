@@ -4,35 +4,36 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
+use Bootstrap\Form\ElementInterface;
+use Laminas\Form;
 use Laminas\Form\Element\Button;
 use Laminas\Form\Element\Captcha;
 use Laminas\Form\Element\MonthSelect;
-use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
+use Laminas\Form\Exception\DomainException;
+use Laminas\Form\Exception\InvalidArgumentException as ExceptionInvalidArgumentException;
 use Laminas\Form\LabelAwareInterface;
-use Laminas\Form\View\Helper\FormElement;
 use Laminas\Form\View\Helper\FormElementErrors;
-use Laminas\Form\View\Helper\FormRow as BaseRow;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\ServiceManager\Exception\InvalidServiceException;
+use Laminas\View\Exception\InvalidArgumentException;
 
 use function in_array;
 use function method_exists;
 use function sprintf;
 use function strtolower;
 
-class FormRow extends BaseRow
+class FormRow extends AbstractHelper
 {
     public const LABEL_APPEND  = 'append';
     public const LABEL_PREPEND = 'prepend';
-
-    /** @var array<string, mixed> $config */
-    protected $config;
 
     /**
      * The class that is added to element that have errors
      *
      * @var string
      */
-    protected $inputErrorClass = 'invalid-feedback';
+    protected $inputErrorClass = 'is-invalid';
 
     /**
      * The attributes for the row label
@@ -79,11 +80,6 @@ class FormRow extends BaseRow
     /** @var null|string */
     protected $partial;
 
-    public function __construct(?array $config = [])
-    {
-        $this->config = $config;
-    }
-
     /**
      * Invoke helper as functor
      *
@@ -95,10 +91,11 @@ class FormRow extends BaseRow
      * @return string|FormRow
      */
     public function __invoke(
-        ?ElementInterface $element = null,
+        ?Form\ElementInterface $element = null,
         ?string $labelPosition = null,
         ?bool $renderErrors = null,
-        ?string $partial = null
+        ?string $partial = null,
+        ?string $mode = self::DEFAULT_MODE
     ) {
         if (! $element) {
             return $this;
@@ -116,26 +113,24 @@ class FormRow extends BaseRow
             $this->setPartial($partial);
         }
 
-        return $this->render($element, $labelPosition);
+        return $this->render($element, $labelPosition, $mode);
     }
 
     /**
      * Utility form helper that renders a label (if it exists), an element and errors
      *
+     * @param \Laminas\Form\ElementInterface $element
      * @throws Exception\DomainException
      */
-    public function render(ElementInterface $element, ?string $labelPosition = null): string
+    public function render(Form\ElementInterface $element, ?string $labelPosition = null, ?string $mode = self::DEFAULT_MODE): string
     {
-        if (! $element->hasAttribute('id')) {
-            $element->setAttribute('id', $this->getId($element));
-        }
-        $escapeHtmlHelper = $this->getEscapeHtmlHelper();
-        $labelHelper      = $this->getLabelHelper();
-        $elementHelper    = $this->getElementHelper();
-        $elementHelper->setView($this->getView());
+        $escapeHtmlHelper    = $this->getEscapeHtmlHelper();
+        $labelHelper         = $this->getLabelHelper();
+        $elementHelper       = $this->getElementHelper();
         $elementErrorsHelper = $this->getElementErrorsHelper();
-        $label               = $element->getLabel();
-        $inputErrorClass     = $this->getInputErrorClass();
+
+        $label           = $element->getLabel();
+        $inputErrorClass = $this->getInputErrorClass();
 
         if ($labelPosition === null) {
             $labelPosition = $this->labelPosition;
@@ -173,7 +168,8 @@ class FormRow extends BaseRow
             $elementErrors = $elementErrorsHelper->render($element);
         }
 
-        $elementString = $elementHelper->render($element);
+        // bootstrap, $elementString holds the return of FormInput rendering
+        $elementString = $elementHelper->render($element, $mode);
 
         // hidden elements do not need a <label> -https://github.com/zendframework/zf2/issues/5607
         $type = $element->getAttribute('type');
@@ -200,8 +196,9 @@ class FormRow extends BaseRow
                 || $element instanceof MonthSelect
                 || $element instanceof Captcha
             ) {
+                // intercept this as a Nested
                 $markup = sprintf(
-                    '<fieldset class="form-group"><legend>%s</legend>%s</fieldset>',
+                    '<fieldset><legend>%s</legend>%s</fieldset>',
                     $label,
                     $elementString
                 );
@@ -240,16 +237,33 @@ class FormRow extends BaseRow
                     self::LABEL_PREPEND => $labelOpen . $label . $elementString . $labelClose,
                     default => $labelOpen . $elementString . $label . $labelClose,
                 };
-            }
 
-            if ($this->renderErrors) {
+            }
+            // bootstrap change && ! instanceof ElementInterface, all default error rendering
+            if ($this->renderErrors && ! $element instanceof ElementInterface) {
                 $markup .= $elementErrors;
             }
         } else {
-            if ($this->renderErrors) {
+            // bootstrap change && ! instanceof ElementInterface, all default error rendering
+            if ($this->renderErrors && ! $element instanceof ElementInterface) {
                 $markup = $elementString . $elementErrors;
             } else {
                 $markup = $elementString;
+            }
+        }
+
+        // Handle the bootstrap
+        if ($element instanceof ElementInterface) {
+            if (self::DEFAULT_MODE === $mode) {
+
+            } elseif (self::GRID_MODE === $mode) {
+                $wrapper = $this->view->plugin('formBootstrapElement');
+                $markup = $wrapper->render(element: $element, markup: $markup, errors: $elementErrors);
+
+            } elseif (self::INLINE_MODE === $mode) {
+
+            } elseif (self::HORIZONTAL_MODE === $mode) {
+
             }
         }
 
@@ -368,7 +382,7 @@ class FormRow extends BaseRow
     /**
      * Retrieve the FormLabel helper
      */
-    protected function getLabelHelper(): FormLabel
+    protected function getLabelHelper(): Form\View\Helper\FormLabel
     {
         if ($this->labelHelper) {
             return $this->labelHelper;
@@ -415,7 +429,7 @@ class FormRow extends BaseRow
     /**
      * Retrieve the FormElementErrors helper
      */
-    protected function getElementErrorsHelper(): FormElementErrors
+    protected function getElementErrorsHelper(): Form\View\Helper\FormElementErrors
     {
         if ($this->elementErrorsHelper) {
             return $this->elementErrorsHelper;
@@ -425,7 +439,7 @@ class FormRow extends BaseRow
             $this->elementErrorsHelper = $this->view->plugin('form_element_errors');
         }
 
-        if (! $this->elementErrorsHelper instanceof FormElementErrors) {
+        if (! $this->elementErrorsHelper instanceof Form\View\Helper\FormElementErrors) {
             $this->elementErrorsHelper = new FormElementErrors();
         }
 

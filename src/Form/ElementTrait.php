@@ -4,38 +4,17 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form;
 
-use Laminas\Form\Element as BaseElement;
 use Laminas\Stdlib\ArrayUtils;
 use Traversable;
 
-use function array_key_exists;
-
-class Element extends BaseElement implements ElementInterface
+trait ElementTrait
 {
-    /** @var array<string, string> $attributes */
-    protected $attributes                = [];
     protected array $bootstrapAttributes = [];
     protected array $bootstrapOptions    = [];
     protected array $helpAttributes      = [];
     protected string $plaintextClass     = 'form-control-plaintext';
     protected ?string $wrapper;
-    protected ?string $help = null;
-
-    /**
-     * @param  null|int|string   $name    Optional name for the element
-     * @param  iterable $options Optional options for the element
-     * @throws Exception\InvalidArgumentException
-     */
-    public function __construct($name = null, iterable $options = [])
-    {
-        if (null !== $name) {
-            $this->setName((string) $name);
-        }
-
-        if (! empty($options)) {
-            $this->setOptions($options);
-        }
-    }
+    protected ?string $help;
 
     public function setWrapper(string $wrapper): void
     {
@@ -100,25 +79,7 @@ class Element extends BaseElement implements ElementInterface
     }
 
     /**
-     * Set a single element attribute
-     *
-     * @param  mixed  $value
-     * @return $this
-     */
-    public function setAttribute(string $key, $value)
-    {
-        // Do not include the value in the list of attributes
-        if ($key === 'value') {
-            $this->setValue($value);
-            return $this;
-        }
-
-        $this->attributes[$key] = $value;
-        return $this;
-    }
-
-    /**
-     * Set a single element attribute
+     * Set a single element bootstrap attribute
      *
      * @param  mixed  $value
      * @return $this

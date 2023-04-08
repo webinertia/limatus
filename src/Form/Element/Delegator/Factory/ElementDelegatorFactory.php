@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Bootstrap\Form\View\Delegator\Factory;
+namespace Bootstrap\Form\Element\Delegator\Factory;
 
-use Bootstrap\Form\View\Helper\FormRow;
+use Bootstrap\Form\Element;
 use Laminas\ServiceManager\Factory\DelegatorFactoryInterface;
 use Psr\Container\ContainerInterface;
 
-class FormRowDelegatorFactory implements DelegatorFactoryInterface
+class ElementDelegatorFactory implements DelegatorFactoryInterface
 {
     /** @inheritDoc */
     public function __invoke(
@@ -16,7 +16,7 @@ class FormRowDelegatorFactory implements DelegatorFactoryInterface
         $name,
         callable $callback,
         ?array $options = null
-    ): FormRow {
-        return new FormRow();
+    ): Element {
+        return new Element();
     }
 }
