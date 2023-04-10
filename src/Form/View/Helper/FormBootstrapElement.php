@@ -13,19 +13,18 @@ use function sprintf;
 
 class FormBootstrapElement extends AbstractHelper
 {
-    protected static $wrapper = '<div %s>%s%s%s</div>';
+    protected static string $wrapper = '<div %s>%s%s%s</div>';
     protected Helper\FormHelp $helpText;
     public function __invoke(): self
     {
         return $this;
     }
 
-    public function render(BaseElement $element, string $markup, string $errors): string
+    public function render(BaseElement $element, string $markup, string $errorString): string
     {
         if ($element instanceof ElementInterface) {
             // do we have errors? if so let'em know
-            $messages = $element->getMessages();
-            if ($messages) {
+            if ($errorString !== '') {
                 $element->setAttribute('class', 'is-invalid');
             }
             $helpText = $this->getHelpTextHelper()->render($element);
@@ -34,11 +33,13 @@ class FormBootstrapElement extends AbstractHelper
                 $this->createAttributesString($element->getBootstrapAttributes()),
                 $markup,
                 $this->getHelpTextHelper()->render($element),
-                $errors
+                $errorString
             );
         } elseif ($element instanceof BaseElement) {
             return $markup;
         }
+        // we should never get here, stops phpstan from bitching
+        return '';
     }
 
     protected function getHelpTextHelper(): Helper\FormHelp

@@ -201,37 +201,43 @@ class Checkbox extends Element implements InputProviderInterface, NestedElementI
         return $this;
     }
 
-    public function setNestedElementAttribute(string $key, string|array $value): NestedElementInterface {
+    public function setNestedElementAttribute(string $key, string|array $value): NestedElementInterface
+    {
         $this->nestedElementAttributes[$key] = $value;
         return $this;
     }
 
-    public function setNestedElementAttributes(array $nestedAttributes): NestedElementInterface {
+    public function setNestedElementAttributes(array $nestedAttributes): NestedElementInterface
+    {
         foreach ($nestedAttributes as $key => $value) {
             $this->setNestedElementAttribute($key, $value);
         }
         return $this;
     }
 
-    public function getNestedElementAttribute(string $key): string|array|null {
+    public function getNestedElementAttribute(string $key): string|array|null
+    {
         if (array_key_exists($key, $this->nestedElementAttributes)) {
             return $this->nestedElementAttributes[$key];
         }
         return null;
     }
 
-    public function getNestedElementAttributes(): array {
+    public function getNestedElementAttributes(): array
+    {
         return $this->nestedElementAttributes;
     }
 
-    public function removeNestedElementAttribute(string $key): NestedElementInterface {
+    public function removeNestedElementAttribute(string $key): NestedElementInterface
+    {
         if (array_key_exists($key, $this->nestedElementAttributes)) {
             unset($this->nestedElementAttributes[$key]);
         }
         return $this;
     }
 
-    public function clearNestedElementAttributes(): NestedElementInterface {
+    public function clearNestedElementAttributes(): NestedElementInterface
+    {
         $this->nestedElementAttributes = [];
         return $this;
     }

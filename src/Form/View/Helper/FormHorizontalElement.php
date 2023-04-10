@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
-use Bootstrap\Form;
-
 use function sprintf;
 
 class FormHorizontalElement extends AbstractHelper

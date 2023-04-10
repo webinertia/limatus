@@ -10,13 +10,8 @@ use Laminas\Form\Element\Button;
 use Laminas\Form\Element\Captcha;
 use Laminas\Form\Element\MonthSelect;
 use Laminas\Form\Exception;
-use Laminas\Form\Exception\DomainException;
-use Laminas\Form\Exception\InvalidArgumentException as ExceptionInvalidArgumentException;
 use Laminas\Form\LabelAwareInterface;
 use Laminas\Form\View\Helper\FormElementErrors;
-use Laminas\ServiceManager\Exception\ServiceNotFoundException;
-use Laminas\ServiceManager\Exception\InvalidServiceException;
-use Laminas\View\Exception\InvalidArgumentException;
 
 use function in_array;
 use function method_exists;
@@ -80,23 +75,14 @@ class FormRow extends AbstractHelper
     /** @var null|string */
     protected $partial;
 
-    /**
-     * Invoke helper as functor
-     *
-     * Proxies to {@link render()}.
-     *
-     * @template T as null|ElementInterface
-     * @psalm-param T $element
-     * @psalm-return (T is null ? self : string)
-     * @return string|FormRow
-     */
+    /** Invoke helper as functor */
     public function __invoke(
         ?Form\ElementInterface $element = null,
         ?string $labelPosition = null,
         ?bool $renderErrors = null,
         ?string $partial = null,
         ?string $mode = self::DEFAULT_MODE
-    ) {
+    ): self|string {
         if (! $element) {
             return $this;
         }
@@ -116,14 +102,11 @@ class FormRow extends AbstractHelper
         return $this->render($element, $labelPosition, $mode);
     }
 
-    /**
-     * Utility form helper that renders a label (if it exists), an element and errors
-     *
-     * @param \Laminas\Form\ElementInterface $element
-     * @throws Exception\DomainException
-     */
-    public function render(Form\ElementInterface $element, ?string $labelPosition = null, ?string $mode = self::DEFAULT_MODE): string
-    {
+    public function render(
+        Form\ElementInterface $element,
+        ?string $labelPosition = null,
+        ?string $mode = self::DEFAULT_MODE
+    ): string {
         $escapeHtmlHelper    = $this->getEscapeHtmlHelper();
         $labelHelper         = $this->getLabelHelper();
         $elementHelper       = $this->getElementHelper();
@@ -237,7 +220,6 @@ class FormRow extends AbstractHelper
                     self::LABEL_PREPEND => $labelOpen . $label . $elementString . $labelClose,
                     default => $labelOpen . $elementString . $label . $labelClose,
                 };
-
             }
             // bootstrap change && ! instanceof ElementInterface, all default error rendering
             if ($this->renderErrors && ! $element instanceof ElementInterface) {
@@ -255,18 +237,19 @@ class FormRow extends AbstractHelper
         // Handle the bootstrap
         if ($element instanceof ElementInterface) {
             if (self::DEFAULT_MODE === $mode) {
-
+                // do something
+                return '';
             } elseif (self::GRID_MODE === $mode) {
                 $wrapper = $this->view->plugin('formBootstrapElement');
-                $markup = $wrapper->render(element: $element, markup: $markup, errors: $elementErrors);
-
+                $markup  = $wrapper->render(element: $element, markup: $markup, errorString: $elementErrors);
             } elseif (self::INLINE_MODE === $mode) {
-
+                // do something else
+                return '';
             } elseif (self::HORIZONTAL_MODE === $mode) {
-
+                // do something else else
+                return '';
             }
         }
-
         return $markup;
     }
 

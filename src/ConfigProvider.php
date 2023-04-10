@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Bootstrap;
 
-use Bootstrap\Form\View;
 use Bootstrap\Form\Element;
 use Bootstrap\Form\Gridset;
+use Bootstrap\Form\View;
 use Laminas\Form\ElementFactory;
 use Laminas\Form\View\Helper\Factory\FormElementErrorsFactory;
 use Laminas\Form\View\Helper\Form;
@@ -55,22 +55,22 @@ class ConfigProvider
                 View\Helper\FormHorizontalElement::class => Factory\InvokableFactory::class,
             ],
             'delegators' => [
-                Form::class => [
+                Form::class           => [
                     View\Delegator\Factory\FormDelegatorFactory::class,
                 ],
                 FormCollection::class => [
                     View\Delegator\Factory\FormCollectionDelegatorFactory::class,
                 ],
-                FormElement::class => [
+                FormElement::class    => [
                     View\Delegator\Factory\FormElementDelegatorFactory::class,
                 ],
-                FormInput::class => [
+                FormInput::class      => [
                     View\Delegator\Factory\FormInputDelegatorFactory::class,
                 ],
-                FormRow::class => [
+                FormRow::class        => [
                     View\Delegator\Factory\FormRowDelegatorFactory::class,
                 ],
-                FormText::class => [
+                FormText::class       => [
                     View\Delegator\Factory\FormTextDelegatorFactory::class,
                 ],
             ],

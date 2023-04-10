@@ -10,8 +10,8 @@ use function sprintf;
 
 class FormHelp extends AbstractHelper
 {
-    protected static $helpElement = '<small %s>%s</small>';
-    protected static $helpString = 'Help';
+    protected static string $helpElement = '<small %s>%s</small>';
+    protected static string $helpString  = 'Help';
 
     public function __invoke(): self
     {
@@ -26,7 +26,7 @@ class FormHelp extends AbstractHelper
                 $element->setHelpAttribute('id', $element->getAttribute('aria-describedby'));
             } elseif ($element->hasAttribute('id')) {
                 // They forgot to set this, but we have to have one that ties the two elements together so build one
-                $id = $element->getAttribute('id');
+                $id          = $element->getAttribute('id');
                 $describedBy = $id . self::$helpString;
                 $element->setAttribute('aria-describedby', $describedBy);
                 $element->setHelpAttribute('id', $describedBy);

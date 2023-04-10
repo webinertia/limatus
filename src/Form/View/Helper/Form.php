@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
-use Boostrap\Form\GridsetInterface;
 use Bootstrap\Form\GridsetInterface as FormGridsetInterface;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\FormInterface;

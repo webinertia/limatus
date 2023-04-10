@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
-use Bootstrap\Form\GridsetInterface;
-use Laminas\Form\ElementInterface;
 use Laminas\Form\Element\Collection as CollectionElement;
+use Laminas\Form\ElementInterface;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\LabelAwareInterface;
 use Laminas\View\Helper\Doctype;
@@ -22,6 +21,7 @@ class FormCollection extends AbstractHelper
 {
     /**
      * Attributes valid for this tag (form)
+     *
      * @var array<TKEY, TVALUE>
      */
     protected $validTagAttributes = [
@@ -136,9 +136,7 @@ class FormCollection extends AbstractHelper
         }
 
         foreach ($element->getIterator() as $elementOrFieldset) {
-            if ($elementOrFieldset instanceof GridsetInterface) {
-                $markup .= $gridsetHelper($elementOrFieldset, $this->shouldWrap(), $mode);
-            } elseif ($elementOrFieldset instanceof FieldsetInterface) {
+            if ($elementOrFieldset instanceof FieldsetInterface) {
                 $markup .= $fieldsetHelper($elementOrFieldset, $this->shouldWrap(), $mode);
             } elseif ($elementOrFieldset instanceof ElementInterface) {
                 $markup .= $elementHelper(element: $elementOrFieldset, mode: $mode);

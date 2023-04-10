@@ -22,7 +22,7 @@
         "laminas/laminas-component-installer" : "^3.0, required for configuration injection"
     },
     "require": {
-        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
+        "php": "~8.1.0 || ~8.2.0",
         "laminas/laminas-hydrator": "^4.3.1",
         "laminas/laminas-inputfilter": "^2.19.1",
         "laminas/laminas-stdlib": "^3.7.1"
@@ -45,9 +45,12 @@
         "laminas/laminas-validator": "^2.28",
         "laminas/laminas-view": "^2.25",
         "laminas/laminas-form": "^3.9.0",
-        "phpunit/phpunit": "^9.5.26",
+        "phpunit/phpunit": "10.0.0",
         "psalm/plugin-phpunit": "^0.18.4",
-        "phpstan/phpstan": "1.8"
+        "phpstan/phpstan": "1.9.2",
+        "laminas/laminas-test": "^4.8",
+        "phpstan/extension-installer": "^1.2",
+        "slam/phpstan-laminas-framework": "^1.4"
     },
     "extra": {
         "laminas": {
@@ -75,12 +78,14 @@
         "cs-fix": "phpcbf",
         "static-analysis": "psalm --shepherd --stats",
         "test": "phpunit --colors=always",
-        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
+        "phpstan": "php vendor/bin/phpstan analyse --memory-limit=-1"
     },
     "config": {
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "phpstan/extension-installer": true
         }
     }
 }

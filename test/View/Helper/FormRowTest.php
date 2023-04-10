@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BootstrapTest\Form\View\Delegator;
+namespace BootstrapTest\Form\View\Helper;
 
 use Bootstrap\Form\View\Helper;
 use BootstrapTest\Form\View\Helper\AbstractCommonTestCase;
@@ -16,13 +16,6 @@ final class FormRowTest extends AbstractCommonTestCase
         parent::setUp();
     }
 
-    public function testFormRowCanRender(): void
-    {
-        $element = new Text('someText', []);
-        $markup  = $this->helper->render($element);
-        self::assertStringContainsString('<input', $markup);
-    }
-
     public function testFormRowIsDelegated(): void
     {
         self::assertInstanceOf(
@@ -30,5 +23,12 @@ final class FormRowTest extends AbstractCommonTestCase
             $this->renderer->plugin('formrow'),
             'FormRow has not been properly delegated.'
         );
+    }
+
+    public function testFormRowCanRenderLaminasElement(): void
+    {
+        $element = new Text('someText', []);
+        $markup  = $this->helper->render($element);
+        self::assertStringContainsString('<input', $markup);
     }
 }

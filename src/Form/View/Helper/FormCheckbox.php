@@ -18,7 +18,7 @@ class FormCheckbox extends FormInput
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
      */
-    public function render(ElementInterface $element): string
+    public function render(ElementInterface $element, ?string $mode = self::DEFAULT_MODE): string
     {
         if (! $element instanceof CheckboxElement) {
             throw new Exception\InvalidArgumentException(sprintf(

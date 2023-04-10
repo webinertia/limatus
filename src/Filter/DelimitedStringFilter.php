@@ -11,8 +11,12 @@ use Laminas\Stdlib\ErrorHandler;
 use Traversable;
 
 use function array_key_exists;
+use function gettype;
+use function is_array;
+use function is_object;
 use function is_string;
 use function preg_match_all;
+use function sprintf;
 
 final class DelimitedStringFilter extends AbstractFilter
 {
@@ -57,7 +61,7 @@ final class DelimitedStringFilter extends AbstractFilter
         $this->buildRegex();
     }
 
-    public function __invoke(mixed $value)
+    public function __invoke(mixed $value): bool|string|array
     {
         return $this->filter($value);
     }

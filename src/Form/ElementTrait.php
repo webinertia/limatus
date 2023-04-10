@@ -7,6 +7,8 @@ namespace Bootstrap\Form;
 use Laminas\Stdlib\ArrayUtils;
 use Traversable;
 
+use function array_key_exists;
+
 trait ElementTrait
 {
     protected array $bootstrapAttributes = [];

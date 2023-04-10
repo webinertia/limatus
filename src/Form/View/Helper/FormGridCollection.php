@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Bootstrap\Form\View\Helper;
 
 use Bootstrap\Form\GridsetInterface;
-use Laminas\Form\ElementInterface;
 use Laminas\Form\Element\Collection as CollectionElement;
+use Laminas\Form\ElementInterface;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\LabelAwareInterface;
-use Laminas\Router\Http\Method;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\HelperInterface;
 use RuntimeException;
@@ -23,6 +22,7 @@ class FormGridCollection extends AbstractHelper
 {
     /**
      * Attributes valid for this tag (form)
+     *
      * @var array<TKEY, TVALUE>
      */
     protected $validTagAttributes = [];
@@ -117,7 +117,7 @@ class FormGridCollection extends AbstractHelper
         $templateMarkup = '';
         $elementHelper  = $this->getElementHelper();
         assert(is_callable($elementHelper));
-        $gridsetHelper     = $this->getGridsetHelper();
+        $gridsetHelper = $this->getGridsetHelper();
         assert(is_callable($gridsetHelper));
         $fieldsetHelper = $this->getFieldsetHelper();
         assert(is_callable($fieldsetHelper));
@@ -231,6 +231,7 @@ class FormGridCollection extends AbstractHelper
         if ($this->view !== null && method_exists($this->view, 'plugin')) {
             return $this->view->plugin('formGridCollection');
         }
+        return new $this();
     }
 
     /**
@@ -388,8 +389,6 @@ class FormGridCollection extends AbstractHelper
     public function setTemplateWrapper(string $templateWrapper)
     {
         $this->templateWrapper = $templateWrapper;
-
         return $this;
     }
 }
-
