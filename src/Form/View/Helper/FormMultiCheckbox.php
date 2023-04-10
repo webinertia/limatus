@@ -75,7 +75,7 @@ class FormMultiCheckbox extends FormInput
     /**
      * Invoke helper as functor
      */
-    public function __invoke(?ElementInterface $element = null, ?string $labelPosition = null)
+    public function __invoke(?ElementInterface $element = null, ?string $labelPosition = null): self|string
     {
         if (! $element) {
             return $this;
@@ -93,7 +93,7 @@ class FormMultiCheckbox extends FormInput
      *
      * @throws Exception\InvalidArgumentException
      */
-    public function render(ElementInterface $element): string
+    public function render(ElementInterface $element, ?string $mode = self::DEFAULT_MODE): string
     {
         if (! $element instanceof MultiCheckboxElement) {
             throw new Exception\InvalidArgumentException(sprintf(

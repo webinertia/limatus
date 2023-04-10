@@ -134,10 +134,10 @@ class Element extends BaseElement implements ElementInterface
             $this->setWrapper($value);
             return $this;
         }
-        if ($key === 'class' && $this->hasBootstrapAttribute('class')) {
-                $class = $this->getBootstrapAttribute($key);
-                $value = $class . ' ' . $value;
-        }
+        // if ($key === 'class' && $this->hasBootstrapAttribute('class')) {
+        //         $class = $this->getBootstrapAttribute($key);
+        //         $value = $class . ' ' . $value;
+        // }
         $this->bootstrapAttributes[$key] = $value;
         return $this;
     }

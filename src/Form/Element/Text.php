@@ -9,7 +9,7 @@ use Bootstrap\Form\Element;
 class Text extends Element
 {
     /** @inheritDoc */
-    protected $attributes                = [
+    protected $attributes = [
         'type' => 'text',
     ];
 }

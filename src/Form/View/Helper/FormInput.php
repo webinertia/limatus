@@ -5,20 +5,14 @@ declare(strict_types=1);
 namespace Bootstrap\Form\View\Helper;
 
 use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception;
 use Laminas\Form\View\Helper;
-
-use function method_exists;
-use function sprintf;
-use function strtolower;
 
 class FormInput extends AbstractHelper
 {
-    public function __construct(
-        protected Helper\FormInput $helper
-    ) {
-
+    public function __construct(protected Helper\FormInput $helper)
+    {
     }
+
     /**
      * Invoke helper as functor
      *
@@ -34,7 +28,6 @@ class FormInput extends AbstractHelper
         if (! $element) {
             return $this;
         }
-
         return $this->render($element, $mode);
     }
 

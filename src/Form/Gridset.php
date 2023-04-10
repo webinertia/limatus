@@ -8,5 +8,6 @@ use Laminas\Form\Fieldset;
 
 class Gridset extends Fieldset implements GridSetInterface
 {
+    /** @var array<TKEY, TVALUE> */
     protected $attributes = ['class' => 'form-row'];
 }

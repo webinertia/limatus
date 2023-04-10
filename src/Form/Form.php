@@ -7,6 +7,8 @@ namespace Bootstrap\Form;
 use Laminas\Form\Element\Submit;
 use Laminas\Form\Form as BaseForm;
 
+use function strtolower;
+
 class Form extends BaseForm
 {
     public function addSubmit(?int $priority = 1, ?string $showText = 'Save'): void

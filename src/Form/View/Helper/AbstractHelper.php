@@ -8,6 +8,11 @@ use Bootstrap\Form;
 use Laminas\Form\FormInterface;
 use Laminas\Form\View\Helper;
 
+use function array_key_exists;
+use function assert;
+use function str_contains;
+use function ucfirst;
+
 class AbstractHelper extends Helper\AbstractHelper
 {
     public const DEFAULT_MODE    = 'default';
@@ -20,7 +25,7 @@ class AbstractHelper extends Helper\AbstractHelper
     /**
      * inline form css classes
      */
-    protected string $inlineFormClass = 'inline-form';
+    protected string $inlineFormClass  = 'inline-form';
     protected string $inlineLabelClass = 'sr-only';
 
     /**
@@ -58,12 +63,6 @@ class AbstractHelper extends Helper\AbstractHelper
         'textarea'       => 'form-control',
     ];
 
-    /**
-     *
-     * @param FormInterface $form
-     * @param string $mode
-     * @return void
-     */
     public function bootstrapForm(FormInterface $form, string $mode): void
     {
         if (! $form->hasAttribute('id') && $form->hasAttribute('name')) {
@@ -72,13 +71,14 @@ class AbstractHelper extends Helper\AbstractHelper
 
         if ($this->mode === self::INLINE_MODE) {
             if ($form->hasAttribute('class')) {
-                $form->setAttribute('class', ($form->getAttribute('class') . ' ' . $this->inlineFormClass));
+                $form->setAttribute('class', $form->getAttribute('class') . ' ' . $this->inlineFormClass);
             } else {
                 $form->setAttribute('class', $this->inlineFormClass);
             }
         }
     }
 
+    /** @deprecated */
     public function bootstrapElement(Form\ElementInterface $element, string $mode): void
     {
         if (! $element->hasAttribute('id')) {
@@ -103,14 +103,15 @@ class AbstractHelper extends Helper\AbstractHelper
                 }
                 break;
             case $mode === self::HORIZONTAL_MODE:
-
+                break;
             default:
-                # code...
+                // code
                 break;
         }
         $this->bootstrapElementClassString($element);
     }
 
+    /** @deprecated */
     public function bootstrapInputAttributeString(Form\ElementInterface $element): void
     {
         $class = '';
