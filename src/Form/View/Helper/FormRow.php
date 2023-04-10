@@ -250,7 +250,7 @@ class FormRow extends AbstractHelper
                 return '';
             } elseif (self::GRID_MODE === $mode) {
                 $wrapper = $this->view->plugin('formBootstrapElement');
-                $markup  = $wrapper->render(element: $element, markup: $markup, errors: $elementErrors);
+                $markup  = $wrapper->render(element: $element, markup: $markup, errorString: $elementErrors);
             } elseif (self::INLINE_MODE === $mode) {
                 // do something else
                 return '';
