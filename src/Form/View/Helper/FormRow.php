@@ -75,19 +75,14 @@ class FormRow extends AbstractHelper
     /** @var null|string */
     protected $partial;
 
-    /**
-     * Invoke helper as functor
-     *
-     * Proxies to {@link render()}.
-     * @return string|FormRow
-     */
+    /** Invoke helper as functor */
     public function __invoke(
         ?Form\ElementInterface $element = null,
         ?string $labelPosition = null,
         ?bool $renderErrors = null,
         ?string $partial = null,
         ?string $mode = self::DEFAULT_MODE
-    ) {
+    ): self|string {
         if (! $element) {
             return $this;
         }

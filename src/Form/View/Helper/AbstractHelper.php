@@ -9,9 +9,7 @@ use Laminas\Form\FormInterface;
 use Laminas\Form\View\Helper;
 
 use function array_key_exists;
-use function assert;
 use function str_contains;
-use function ucfirst;
 
 class AbstractHelper extends Helper\AbstractHelper
 {
