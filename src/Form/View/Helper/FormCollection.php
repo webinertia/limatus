@@ -137,9 +137,7 @@ class FormCollection extends AbstractHelper
         }
 
         foreach ($element->getIterator() as $elementOrFieldset) {
-            if ($elementOrFieldset instanceof GridsetInterface) {
-                $markup .= $gridsetHelper($elementOrFieldset, $this->shouldWrap(), $mode);
-            } elseif ($elementOrFieldset instanceof FieldsetInterface) {
+            if ($elementOrFieldset instanceof FieldsetInterface) {
                 $markup .= $fieldsetHelper($elementOrFieldset, $this->shouldWrap(), $mode);
             } elseif ($elementOrFieldset instanceof ElementInterface) {
                 $markup .= $elementHelper(element: $elementOrFieldset, mode: $mode);

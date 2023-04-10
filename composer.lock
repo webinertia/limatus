@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c5a88ea74437a84dd887bad311f64781",
+    "content-hash": "2b6eb03613541b76492883765580a3fd",
     "packages": [
         {
             "name": "laminas/laminas-filter",
@@ -3539,6 +3539,50 @@
             "time": "2022-10-14T12:47:21+00:00"
         },
         {
+            "name": "phpstan/extension-installer",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/extension-installer.git",
+                "reference": "f06dbb052ddc394e7896fcd1cfcd533f9f6ace40"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/extension-installer/zipball/f06dbb052ddc394e7896fcd1cfcd533f9f6ace40",
+                "reference": "f06dbb052ddc394e7896fcd1cfcd533f9f6ace40",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^2.0",
+                "php": "^7.2 || ^8.0",
+                "phpstan/phpstan": "^1.8.0"
+            },
+            "require-dev": {
+                "composer/composer": "^2.0",
+                "php-parallel-lint/php-parallel-lint": "^1.2.0",
+                "phpstan/phpstan-strict-rules": "^0.11 || ^0.12 || ^1.0"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "PHPStan\\ExtensionInstaller\\Plugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "PHPStan\\ExtensionInstaller\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Composer plugin for automatic installation of PHPStan extensions",
+            "support": {
+                "issues": "https://github.com/phpstan/extension-installer/issues",
+                "source": "https://github.com/phpstan/extension-installer/tree/1.2.0"
+            },
+            "time": "2022-10-17T12:59:16+00:00"
+        },
+        {
             "name": "phpstan/phpdoc-parser",
             "version": "1.5.1",
             "source": {
@@ -3584,16 +3628,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.8.0",
+            "version": "1.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "b7648d4ee9321665acaf112e49da9fd93df8fbd5"
+                "reference": "d6fdf01c53978b6429f1393ba4afeca39cc68afa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/b7648d4ee9321665acaf112e49da9fd93df8fbd5",
-                "reference": "b7648d4ee9321665acaf112e49da9fd93df8fbd5",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/d6fdf01c53978b6429f1393ba4afeca39cc68afa",
+                "reference": "d6fdf01c53978b6429f1393ba4afeca39cc68afa",
                 "shasum": ""
             },
             "require": {
@@ -3617,9 +3661,13 @@
                 "MIT"
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
+            "keywords": [
+                "dev",
+                "static analysis"
+            ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.8.0"
+                "source": "https://github.com/phpstan/phpstan/tree/1.9.2"
             },
             "funding": [
                 {
@@ -3631,15 +3679,11 @@
                     "type": "github"
                 },
                 {
-                    "url": "https://www.patreon.com/phpstan",
-                    "type": "patreon"
-                },
-                {
                     "url": "https://tidelift.com/funding/github/packagist/phpstan/phpstan",
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-29T08:53:31+00:00"
+            "time": "2022-11-10T09:56:11+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -5128,6 +5172,104 @@
             "time": "2023-02-07T11:34:05+00:00"
         },
         {
+            "name": "slam/phpstan-laminas-framework",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Slamdunk/phpstan-laminas-framework.git",
+                "reference": "6616c1ba9414a59d731adf56e8c730f25966e3e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Slamdunk/phpstan-laminas-framework/zipball/6616c1ba9414a59d731adf56e8c730f25966e3e0",
+                "reference": "6616c1ba9414a59d731adf56e8c730f25966e3e0",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.1.0 || ~8.2.0",
+                "phpstan/phpstan": "^1.9.2"
+            },
+            "conflict": {
+                "laminas/laminas-cache": "<3.9",
+                "laminas/laminas-filter": "<2.29",
+                "laminas/laminas-form": "<3.8",
+                "laminas/laminas-hydrator": "<4.10",
+                "laminas/laminas-i18n": "<2.21",
+                "laminas/laminas-inputfilter": "<2.22",
+                "laminas/laminas-log": "<2.16",
+                "laminas/laminas-mail": "<2.21",
+                "laminas/laminas-mvc": "<3.6",
+                "laminas/laminas-paginator": "<2.17",
+                "laminas/laminas-validator": "<2.28"
+            },
+            "require-dev": {
+                "laminas/laminas-cache": "^3.9.0",
+                "laminas/laminas-cache-storage-adapter-memory": "^2.2.0",
+                "laminas/laminas-filter": "^2.29.0",
+                "laminas/laminas-form": "^3.8.0",
+                "laminas/laminas-hydrator": "^4.10.0",
+                "laminas/laminas-i18n": "^2.21.0",
+                "laminas/laminas-inputfilter": "^2.22.1",
+                "laminas/laminas-log": "^2.16.0",
+                "laminas/laminas-mail": "^2.21.0",
+                "laminas/laminas-mvc": "^3.6.0",
+                "laminas/laminas-paginator": "^2.17.0",
+                "laminas/laminas-validator": "^2.28.0",
+                "phpstan/phpstan-deprecation-rules": "^1.0.0",
+                "phpstan/phpstan-phpunit": "^1.3.0",
+                "phpunit/phpunit": "^9.5.27",
+                "slam/php-cs-fixer-extensions": "^v3.2.1",
+                "slam/php-debug-r": "^v1.7.0"
+            },
+            "type": "phpstan-extension",
+            "extra": {
+                "phpstan": {
+                    "includes": [
+                        "extension.neon"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LaminasPhpStan\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Greg Bell",
+                    "email": "greg@bitwombat.com.au"
+                },
+                {
+                    "name": "Michael Gooden",
+                    "email": "me@michaelgooden.net"
+                },
+                {
+                    "name": "Filippo Tessarotto",
+                    "email": "zoeslam@gmail.com"
+                }
+            ],
+            "description": "Laminas Framework 3 MVC controller plugin extension for PHPStan.",
+            "support": {
+                "issues": "https://github.com/Slamdunk/phpstan-laminas-framework/issues",
+                "source": "https://github.com/Slamdunk/phpstan-laminas-framework/tree/v1.4.0"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/filippotessarotto",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/Slamdunk",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-12-12T07:05:02+00:00"
+        },
+        {
             "name": "slevomat/coding-standard",
             "version": "7.2.1",
             "source": {
@@ -6445,7 +6587,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
+        "php": "~8.1.0 || ~8.2.0"
     },
     "platform-dev": {
         "ext-intl": "*"

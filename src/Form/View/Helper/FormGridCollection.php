@@ -231,6 +231,7 @@ class FormGridCollection extends AbstractHelper
         if ($this->view !== null && method_exists($this->view, 'plugin')) {
             return $this->view->plugin('formGridCollection');
         }
+        return new $this();
     }
 
     /**

@@ -79,39 +79,6 @@ class AbstractHelper extends Helper\AbstractHelper
     }
 
     /** @deprecated */
-    public function bootstrapElement(Form\ElementInterface $element, string $mode): void
-    {
-        if (! $element->hasAttribute('id')) {
-            $id = $this->getId($element);
-            if ($id !== null) {
-                $element->setAttribute('id', $id);
-            }
-        }
-        assert(isset($id));
-        //assert($element instanceof Form\Element);
-        switch (true) {
-            case $mode === self::INLINE_MODE:
-            case $mode === self::GRID_MODE:
-                $labelAttributes = $element->getLabelAttributes();
-                if (! array_key_exists('class', $labelAttributes)) {
-                    $element->setLabelAttributes(['class' => $this->inlineLabelClass]);
-                }
-                if ($element->getLabel() !== null) {
-                    $element->setAttribute('placeholder', $element->getLabel());
-                } elseif ($id !== null) {
-                    $element->setAttribute('placeholder', ucfirst($id));
-                }
-                break;
-            case $mode === self::HORIZONTAL_MODE:
-                break;
-            default:
-                // code
-                break;
-        }
-        $this->bootstrapElementClassString($element);
-    }
-
-    /** @deprecated */
     public function bootstrapInputAttributeString(Form\ElementInterface $element): void
     {
         $class = '';
@@ -132,11 +99,13 @@ class AbstractHelper extends Helper\AbstractHelper
         }
     }
 
-    protected function getTypeClass(string $key): string
+    protected function getTypeClass(string $key): string|null
     {
+        $type = null;
         if (array_key_exists($key, $this->typeToClassMap)) {
-            return $this->typeToClassMap[$key];
+            $type = $this->typeToClassMap[$key];
         }
+        return $type;
     }
 
     public function setMode(string $mode): self

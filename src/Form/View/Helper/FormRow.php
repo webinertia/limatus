@@ -79,10 +79,6 @@ class FormRow extends AbstractHelper
      * Invoke helper as functor
      *
      * Proxies to {@link render()}.
-     *
-     * @template T as null|ElementInterface
-     * @psalm-param T $element
-     * @psalm-return (T is null ? self : string)
      * @return string|FormRow
      */
     public function __invoke(

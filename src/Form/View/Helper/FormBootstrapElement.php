@@ -38,6 +38,8 @@ class FormBootstrapElement extends AbstractHelper
         } elseif ($element instanceof BaseElement) {
             return $markup;
         }
+        // we should never get here, stops phpstan from bitching
+        return '';
     }
 
     protected function getHelpTextHelper(): Helper\FormHelp

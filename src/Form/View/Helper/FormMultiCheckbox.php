@@ -8,6 +8,7 @@ use Bootstrap\Form\Element\MultiCheckbox as MultiCheckboxElement;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
 use Laminas\Form\LabelAwareInterface;
+use Laminas\Form\View\Helper\FormInput;
 
 use function array_key_exists;
 use function array_merge;
@@ -93,7 +94,7 @@ class FormMultiCheckbox extends FormInput
      *
      * @throws Exception\InvalidArgumentException
      */
-    public function render(ElementInterface $element, ?string $mode = self::DEFAULT_MODE): string
+    public function render(ElementInterface $element, ?string $mode = AbstractHelper::DEFAULT_MODE): string
     {
         if (! $element instanceof MultiCheckboxElement) {
             throw new Exception\InvalidArgumentException(sprintf(
@@ -398,7 +399,7 @@ class FormMultiCheckbox extends FormInput
         if (method_exists($this->view, 'plugin')) {
             $this->inputHelper = $this->view->plugin('form_input');
         }
-
+        // this will be using a Laminas FormInput
         if (! $this->inputHelper instanceof FormInput) {
             $this->inputHelper = new FormInput();
         }
