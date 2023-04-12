@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form;
 
-use Laminas\Form\ElementPrepareAwareInterface;
 use Laminas\Form\Element\Submit;
+use Laminas\Form\ElementPrepareAwareInterface;
 use Laminas\Form\Form as BaseForm;
 
 use function strtolower;
@@ -14,7 +14,7 @@ class Form extends BaseForm implements ModeAwareInterface
 {
     use ElementTrait;
 
-    public function __construct($name = null, $options = [])
+    public function __construct(?string $name = null, array $options = [])
     {
         parent::__construct($name, $options);
     }
@@ -34,7 +34,8 @@ class Form extends BaseForm implements ModeAwareInterface
             ['priority' => $priority],
         );
     }
-        /**
+
+    /**
      * Ensures state is ready for use
      *
      * Marshalls the input filter, to ensure validation error messages are

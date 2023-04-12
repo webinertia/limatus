@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
-use Bootstrap\Form;
 use Laminas\Form\ElementInterface;
-use Laminas\Form\FormInterface;
 use Laminas\Form\View\Helper;
 
 use function array_key_exists;
+use function strtolower;
 
 class AbstractHelper extends Helper\AbstractHelper
 {
+    /** @var array<TKEY, TVALUE> */
     protected $typeMap = [];
     /**
      * inline form css classes

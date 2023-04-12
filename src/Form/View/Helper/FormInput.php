@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Bootstrap\Form\View\Helper;
 
 use Bootstrap\Form;
-use Laminas\Form\Exception;
 use Laminas\Form\ElementInterface;
+use Laminas\Form\Exception;
 
 use function sprintf;
 

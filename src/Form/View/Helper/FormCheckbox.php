@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
-use Bootstrap\Form;
 use Bootstrap\Form\Element;
-use Bootstrap\Form\ModeAwareInterface;
 use Laminas\Form\Element\Checkbox;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
@@ -26,7 +24,7 @@ class FormCheckbox extends FormInput
         if (! $element instanceof Element\Checkbox && ! $element instanceof Checkbox) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'Requires $element to one of ' . Element\Checkbox::class . ' or ' . Checkbox::class . ' recieved: %s',
-                get_class($element)
+                $element::class
             ));
         }
 
@@ -72,16 +70,6 @@ class FormCheckbox extends FormInput
                 $closingBracket
             ) . $rendered;
         }
-
-        // if ($element instanceof ModeAwareInterface) {
-        //     if ($element->getMode() === ModeAwareInterface::HORIZONTAL_MODE) {
-        //         $rendered = sprintf(
-        //             self::$horizontalWrapper,
-        //             $this->createAttributesString($element->getHorizontalAttributes()),
-        //             $rendered
-        //         );
-        //     }
-        // }
 
         return $rendered;
     }

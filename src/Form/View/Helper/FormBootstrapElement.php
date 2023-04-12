@@ -12,7 +12,6 @@ use Laminas\Form\ElementInterface as BaseInterface;
 use Laminas\Form\Exception\InvalidElementException;
 
 use function class_implements;
-use function get_class;
 use function method_exists;
 use function sprintf;
 
@@ -47,7 +46,7 @@ class FormBootstrapElement extends AbstractHelper
                     if ($element->getMode() === ModeAwareInterface::HORIZONTAL_MODE) {
                         // todo throw an exception if this is not set, we gotta have it for horizontal checkboxes
                         $options = $element->getOption('horizontal_checkbox_heading');
-                        $markup = sprintf(
+                        $markup  = sprintf(
                             self::$horizontalCheckboxWrapper,
                             $options['class'],
                             $options['heading'],

@@ -9,7 +9,6 @@ use Laminas\Stdlib\ArrayUtils;
 use Traversable;
 
 use function array_key_exists;
-use function is_array;
 
 trait ElementTrait
 {

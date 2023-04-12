@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
-use Bootstrap\Form\GridsetInterface;
 use Bootstrap\Form\ModeAwareInterface;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\FormInterface;
@@ -72,24 +71,12 @@ class Form extends AbstractHelper
             if ($element instanceof ModeAwareInterface && $element instanceof FieldsetInterface) {
                 $mode = $element->getMode();
 
-                $formContent = match($mode) {
+                $formContent = match ($mode) {
                     ModeAwareInterface::GRID_MODE => $renderer->formGridCollection($element),
                     ModeAwareInterface::HORIZONTAL_MODE,
                     ModeAwareInterface::INLINE_MODE,
                     ModeAwareInterface::DEFAULT_MODE => $renderer->formCollection($element),
                 };
-
-                // if ($mode !== ModeAwareInterface::DEFAULT_MODE) {
-                //     if ($mode === ModeAwareInterface::GRID_MODE) {
-                //         $formContent .= $renderer->formGridCollection($element);
-                //     } elseif ($mode === ModeAwareInterface::HORIZONTAL_MODE) {
-
-                //     } elseif ($mode === ModeAwareInterface::INLINE_MODE) {
-
-                //     }
-                // } else {
-                //     $formContent .= $renderer->formCollection($element);
-                // }
             } elseif ($element instanceof FieldsetInterface) {
                 $formContent .= $renderer->formCollection($element);
             } else {

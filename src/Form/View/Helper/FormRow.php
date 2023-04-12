@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bootstrap\Form\View\Helper;
 
 use Bootstrap\Form\ElementInterface;
-use Bootstrap\Form\ModeAwareInterface;
 use Laminas\Form;
 use Laminas\Form\Element\Button;
 use Laminas\Form\Element\Captcha;
@@ -15,6 +14,7 @@ use Laminas\Form\LabelAwareInterface;
 use Laminas\Form\View\Helper\FormElementErrors;
 use Laminas\View\Renderer\PhpRenderer;
 
+use function assert;
 use function in_array;
 use function method_exists;
 use function sprintf;

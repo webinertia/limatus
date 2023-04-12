@@ -14,7 +14,7 @@ class Fieldset extends BaseFieldset implements
 {
     use ElementTrait;
 
-    public function __construct($name = null, $options = [])
+    public function __construct(?string $name = null, array $options = [])
     {
         parent::__construct($name, $options);
     }

@@ -6,11 +6,11 @@ namespace Bootstrap;
 
 use Bootstrap\Form\Element;
 use Bootstrap\Form\View;
-use Laminas\Form\ElementFactory;
 use Laminas\Form\Element\Checkbox;
+use Laminas\Form\ElementFactory;
 use Laminas\Form\View\Helper\Factory\FormElementErrorsFactory;
 use Laminas\Form\View\Helper\Form;
-use Laminas\Form\View\Helper\Checkbox as CheckboxHelper;
+use Laminas\Form\View\Helper\FormCheckbox as FormCheckboxHelper;
 use Laminas\Form\View\Helper\FormCollection;
 use Laminas\Form\View\Helper\FormElement;
 use Laminas\Form\View\Helper\FormElementErrors;
@@ -59,25 +59,25 @@ class ConfigProvider
                 View\Helper\FormHorizontalElement::class => Factory\InvokableFactory::class,
             ],
             'delegators' => [
-                Form::class           => [
+                Form::class               => [
                     View\Delegator\Factory\FormFactory::class,
                 ],
-                CheckboxHelper::class => [
+                FormCheckboxHelper::class => [
                     View\Delegator\Factory\FormCheckboxFactory::class,
                 ],
-                FormCollection::class => [
+                FormCollection::class     => [
                     View\Delegator\Factory\FormCollectionFactory::class,
                 ],
-                FormElement::class    => [
+                FormElement::class        => [
                     View\Delegator\Factory\FormElementFactory::class,
                 ],
-                FormInput::class      => [
+                FormInput::class          => [
                     View\Delegator\Factory\FormInputFactory::class,
                 ],
-                FormRow::class        => [
+                FormRow::class            => [
                     View\Delegator\Factory\FormRowFactory::class,
                 ],
-                FormText::class       => [
+                FormText::class           => [
                     View\Delegator\Factory\FormTextFactory::class,
                 ],
             ],
@@ -110,7 +110,7 @@ class ConfigProvider
             ],
             'delegators' => [
                 Checkbox::class => [
-                    Element\Delegator\Factory\CheckboxFactory::class
+                    Element\Delegator\Factory\CheckboxFactory::class,
                 ],
             ],
         ];
