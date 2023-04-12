@@ -12,7 +12,7 @@ use Laminas\Validator\ValidatorInterface;
 
 use function array_key_exists;
 
-class Checkbox extends Element implements InputProviderInterface, NestedElementInterface
+class Checkbox extends Element implements NestedElementInterface, InputProviderInterface
 {
     /**
      * Seed attributes

@@ -81,12 +81,12 @@ class FormElement extends AbstractHelper
      * @psalm-return (T is null ? self : string)
      * @return string|self
      */
-    public function __invoke(?ElementInterface $element = null, ?string $mode = self::DEFAULT_MODE)
+    public function __invoke(?ElementInterface $element = null)
     {
         if (! $element) {
             return $this;
         }
-        return $this->render($element, $mode);
+        return $this->render($element);
     }
 
     /**
@@ -95,7 +95,7 @@ class FormElement extends AbstractHelper
      * Introspects the element type and attributes to determine which
      * helper to utilize when rendering.
      */
-    public function render(ElementInterface $element, ?string $mode = self::DEFAULT_MODE): string
+    public function render(ElementInterface $element): string
     {
         $renderer = $this->getView();
         if ($renderer === null || ! method_exists($renderer, 'plugin')) {
@@ -103,19 +103,19 @@ class FormElement extends AbstractHelper
             return '';
         }
 
-        $renderedInstance = $this->renderInstance($element, $mode);
+        $renderedInstance = $this->renderInstance($element);
 
         if ($renderedInstance !== null) {
             return $renderedInstance;
         }
 
-        $renderedType = $this->renderType($element, $mode);
+        $renderedType = $this->renderType($element);
 
         if ($renderedType !== null) {
             return $renderedType;
         }
 
-        return $this->renderHelper($this->defaultHelper, $element, $mode);
+        return $this->renderHelper($this->defaultHelper, $element);
     }
 
     /**
@@ -157,23 +157,23 @@ class FormElement extends AbstractHelper
     /**
      * Render element by helper name
      */
-    protected function renderHelper(string $name, ElementInterface $element, ?string $mode = self::DEFAULT_MODE): string
+    protected function renderHelper(string $name, ElementInterface $element): string
     {
         $renderer = $this->getView();
         assert($renderer instanceof PhpRenderer);
         $helper = $renderer->plugin($name);
         assert(is_callable($helper));
-        return $helper($element, $mode);
+        return $helper($element);
     }
 
     /**
      * Render element by instance map
      */
-    protected function renderInstance(ElementInterface $element, ?string $mode = self::DEFAULT_MODE): ?string
+    protected function renderInstance(ElementInterface $element): ?string
     {
         foreach ($this->classMap as $class => $pluginName) {
             if ($element instanceof $class) {
-                return $this->renderHelper($pluginName, $element, $mode);
+                return $this->renderHelper($pluginName, $element);
             }
         }
 
@@ -183,12 +183,12 @@ class FormElement extends AbstractHelper
     /**
      * Render element by type map
      */
-    protected function renderType(ElementInterface $element, ?string $mode = self::DEFAULT_MODE): ?string
+    protected function renderType(ElementInterface $element): ?string
     {
         $type = $element->getAttribute('type');
 
         if (isset($this->typeMap[$type])) {
-            return $this->renderHelper($this->typeMap[$type], $element, $mode);
+            return $this->renderHelper($this->typeMap[$type], $element);
         }
 
         return null;

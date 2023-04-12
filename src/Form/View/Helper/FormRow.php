@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bootstrap\Form\View\Helper;
 
 use Bootstrap\Form\ElementInterface;
+use Bootstrap\Form\ModeAwareInterface;
 use Laminas\Form;
 use Laminas\Form\Element\Button;
 use Laminas\Form\Element\Captcha;
@@ -12,6 +13,7 @@ use Laminas\Form\Element\MonthSelect;
 use Laminas\Form\Exception;
 use Laminas\Form\LabelAwareInterface;
 use Laminas\Form\View\Helper\FormElementErrors;
+use Laminas\View\Renderer\PhpRenderer;
 
 use function in_array;
 use function method_exists;
@@ -80,8 +82,7 @@ class FormRow extends AbstractHelper
         ?Form\ElementInterface $element = null,
         ?string $labelPosition = null,
         ?bool $renderErrors = null,
-        ?string $partial = null,
-        ?string $mode = self::DEFAULT_MODE
+        ?string $partial = null
     ): self|string {
         if (! $element) {
             return $this;
@@ -99,13 +100,12 @@ class FormRow extends AbstractHelper
             $this->setPartial($partial);
         }
 
-        return $this->render($element, $labelPosition, $mode);
+        return $this->render($element, $labelPosition);
     }
 
     public function render(
         Form\ElementInterface $element,
-        ?string $labelPosition = null,
-        ?string $mode = self::DEFAULT_MODE
+        ?string $labelPosition = null
     ): string {
         $escapeHtmlHelper    = $this->getEscapeHtmlHelper();
         $labelHelper         = $this->getLabelHelper();
@@ -151,8 +151,12 @@ class FormRow extends AbstractHelper
             $elementErrors = $elementErrorsHelper->render($element);
         }
 
-        // bootstrap, $elementString holds the return of FormInput rendering
-        $elementString = $elementHelper->render($element, $mode);
+        /**
+         * bootstrap, $elementString holds the return of FormInput rendering
+         * If the element needs after the label is rendered, ie the
+         * element and label need inserted into a div it must happen below
+         */
+        $elementString = $elementHelper->render($element);
 
         // hidden elements do not need a <label> -https://github.com/zendframework/zf2/issues/5607
         $type = $element->getAttribute('type');
@@ -236,19 +240,15 @@ class FormRow extends AbstractHelper
 
         // Handle the bootstrap
         if ($element instanceof ElementInterface) {
-            if (self::DEFAULT_MODE === $mode) {
-                // do something
-                return '';
-            } elseif (self::GRID_MODE === $mode) {
-                $wrapper = $this->view->plugin('formBootstrapElement');
-                $markup  = $wrapper->render(element: $element, markup: $markup, errorString: $elementErrors);
-            } elseif (self::INLINE_MODE === $mode) {
-                // do something else
-                return '';
-            } elseif (self::HORIZONTAL_MODE === $mode) {
-                // do something else else
-                return '';
-            }
+            $mode = $element->getMode();
+
+            assert($this->view instanceof PhpRenderer);
+            // If the element and label both need to be wrapped, this is the place
+            $markup = $this->view->formBootstrapElement()->render(
+                element: $element,
+                markup: $markup,
+                errorString: $elementErrors
+            );
         }
         return $markup;
     }

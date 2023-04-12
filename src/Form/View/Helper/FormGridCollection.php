@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
+use Bootstrap\Form\Fieldset;
 use Bootstrap\Form\GridsetInterface;
 use Laminas\Form\Element\Collection as CollectionElement;
 use Laminas\Form\ElementInterface;
@@ -92,20 +93,20 @@ class FormGridCollection extends AbstractHelper
      * @psalm-return (T is null ? self : string)
      * @return string|FormCollection
      */
-    public function __invoke(?ElementInterface $element = null, bool $wrap = true, ?string $mode = null)
+    public function __invoke(?ElementInterface $element = null, bool $wrap = true)
     {
         if (! $element) {
             return $this;
         }
         $this->setShouldWrap($wrap);
 
-        return $this->render($element, $mode);
+        return $this->render($element);
     }
 
     /**
      * Render a collection by iterating through all fieldsets and elements
      */
-    public function render(ElementInterface $element, ?string $mode = self::DEFAULT_MODE): string
+    public function render(ElementInterface $element): string
     {
         $renderer = $this->getView();
         if ($renderer !== null && ! method_exists($renderer, 'plugin')) {
@@ -128,11 +129,11 @@ class FormGridCollection extends AbstractHelper
 
         foreach ($element->getIterator() as $elementOrFieldset) {
             if ($elementOrFieldset instanceof GridsetInterface) {
-                $markup .= $gridsetHelper(element: $elementOrFieldset, wrap: $this->shouldWrap(), mode: $mode);
+                $markup .= $gridsetHelper(element: $elementOrFieldset, wrap: $this->shouldWrap());
             } elseif ($elementOrFieldset instanceof FieldsetInterface) {
-                $markup .= $fieldsetHelper(element: $elementOrFieldset, wrap: $this->shouldWrap(), mode: $mode);
+                $markup .= $fieldsetHelper(element: $elementOrFieldset, wrap: $this->shouldWrap());
             } elseif ($elementOrFieldset instanceof ElementInterface) {
-                $markup .= $elementHelper(element: $elementOrFieldset, mode: $mode);
+                $markup .= $elementHelper(element: $elementOrFieldset);
             }
         }
 

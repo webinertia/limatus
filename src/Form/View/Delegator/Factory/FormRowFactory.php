@@ -8,7 +8,7 @@ use Bootstrap\Form\View\Helper\FormRow;
 use Laminas\ServiceManager\Factory\DelegatorFactoryInterface;
 use Psr\Container\ContainerInterface;
 
-class FormRowDelegatorFactory implements DelegatorFactoryInterface
+class FormRowFactory implements DelegatorFactoryInterface
 {
     /** @inheritDoc */
     public function __invoke(
