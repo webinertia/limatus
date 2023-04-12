@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace BootstrapTest\Form\View\Helper;
 
+use Bootstrap\Form\Element\Text;
 use Bootstrap\Form\View\Helper;
 use BootstrapTest\Form\View\Helper\AbstractCommonTestCase;
-use Laminas\Form\Element\Text;
 
 final class FormRowTest extends AbstractCommonTestCase
 {
@@ -25,7 +25,7 @@ final class FormRowTest extends AbstractCommonTestCase
         );
     }
 
-    public function testFormRowCanRenderLaminasElement(): void
+    public function testFormRowCanRender(): void
     {
         $element = new Text('someText', []);
         $markup  = $this->helper->render($element);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form;
 
+use Bootstrap\Form\ModeAwareInterface;
 use Laminas\Stdlib\ArrayUtils;
 use Traversable;
 
@@ -11,12 +12,29 @@ use function array_key_exists;
 
 trait ElementTrait
 {
-    protected array $bootstrapAttributes = [];
-    protected array $bootstrapOptions    = [];
-    protected array $helpAttributes      = [];
-    protected string $plaintextClass     = 'form-control-plaintext';
-    protected ?string $wrapper;
-    protected ?string $help;
+    protected array $bootstrapAttributes  = [];
+    protected array $horizontalAttributes = [];
+    protected array $helpAttributes       = [];
+    protected string $help                = '';
+    protected string $mode                = ModeAwareInterface::DEFAULT_MODE;
+    protected string $plaintextClass      = 'form-control-plaintext';
+    protected string $wrapper             = '';
+
+    public function getMode(): string
+    {
+        return $this->mode;
+    }
+
+    public function hasMode(): bool
+    {
+        return isset($this->mode);
+    }
+
+    public function setMode(string $mode): ModeAwareInterface
+    {
+        $this->mode = $mode;
+        return $this;
+    }
 
     public function setWrapper(string $wrapper): void
     {
@@ -30,9 +48,11 @@ trait ElementTrait
 
     /**
      * Set options for an element. Accepted options are:
-     * - label: label to associate with the element
-     * - label_attributes: attributes to use when the label is rendered
-     * - label_options: label specific options
+     * All of the Laminas defaults plus
+     * - mode Determines which rendering mode the helper will use to build markup
+     * - bootstrap_attributes attributes for the div wrapper for the element
+     * - help The help text message string used for the element
+     * - help_attributes Attributes for the help element markup
      *
      * @return $this
      * @throws Exception\InvalidArgumentException
@@ -43,14 +63,19 @@ trait ElementTrait
             $options = ArrayUtils::iteratorToArray($options);
         }
 
+        if (isset($options['mode'])) {
+            $this->setMode($options['mode']);
+            unset($options['mode']);
+        }
+
         if (isset($options['bootstrap_attributes'])) {
             $this->setBootstrapAttributes($options['bootstrap_attributes']);
             unset($options['bootstrap_attributes']);
         }
 
-        if (isset($options['bootstrap_options'])) {
-            $this->setBootstrapOptions($options['bootstrap_options']);
-            unset($options['bootstrap_options']);
+        if (isset($options['horizontal_attributes'])) {
+            $this->setHorizontalAttributes($options['horizontal_attributes']);
+            unset($options['horizontal_attributes']);
         }
 
         if (isset($options['help'])) {
@@ -63,44 +88,24 @@ trait ElementTrait
             unset($options['help_attributes']);
         }
 
-        if (isset($options['label'])) {
-            $this->setLabel($options['label']);
-        }
-
-        if (isset($options['label_attributes'])) {
-            $this->setLabelAttributes($options['label_attributes']);
-        }
-
-        if (isset($options['label_options'])) {
-            $this->setLabelOptions($options['label_options']);
-        }
-
-        $this->options = $options;
+        parent::setOptions($options);
 
         return $this;
     }
 
     /**
-     * Set a single element bootstrap attribute
+     * Set a single element attribute
      *
      * @param  mixed  $value
      * @return $this
      */
     public function setBootstrapAttribute(string $key, $value): self
     {
-        // Do not include the value in the list of attributes
-        if ($key === 'value') {
-            $this->setValue($value);
-            return $this;
-        }
         if ($key === 'wrapper') {
             $this->setWrapper($value);
             return $this;
         }
-        if ($key === 'class' && $this->hasBootstrapAttribute('class')) {
-                $class = $this->getBootstrapAttribute($key);
-                $value = $class . ' ' . $value;
-        }
+
         $this->bootstrapAttributes[$key] = $value;
         return $this;
     }
@@ -170,44 +175,13 @@ trait ElementTrait
         return $this;
     }
 
-    /**
-     * supported key|values
-     * display_as_plaintext|bool
-     */
-    public function setBootstrapOption(string $key, string $value): self
-    {
-        $this->bootstrapOptions[$key] = $value;
-        return $this;
-    }
-
-    public function getBootstrapOption(string $key): string|bool|null
-    {
-        if (array_key_exists($key, $this->bootstrapOptions)) {
-            return $this->bootstrapOptions[$key];
-        }
-        return null;
-    }
-
-    public function setBootstrapOptions(array $options): self
-    {
-        foreach ($options as $key => $value) {
-            $this->bootstrapOptions[$key] = $value;
-        }
-        return $this;
-    }
-
-    public function getBootstrapOptions(): array
-    {
-        return $this->bootstrapOptions;
-    }
-
     public function setHelp(string $help): self
     {
         $this->help = $help;
         return $this;
     }
 
-    public function getHelp(): ?string
+    public function getHelp(): string
     {
         return $this->help;
     }
@@ -258,9 +232,27 @@ trait ElementTrait
         return $this;
     }
 
-    /** Notify caller if this is a bootstrap capable element */
-    public function bootstrapEnabled(): bool
+    public function setHorizontalAttributes(array $horizontalAttributes): self
     {
-        return true;
+        foreach ($horizontalAttributes as $key => $value) {
+            if ($key === 'class') {
+                $this->setHorizontalAttribute($key, $value);
+            }
+        }
+        return $this;
+    }
+
+    public function getHorizontalAttributes(): array
+    {
+        return $this->horizontalAttributes;
+    }
+
+    public function setHorizontalAttribute(string $key, string $value): self
+    {
+        // silenty skip everything except the class attribute
+        if ($key === 'class') {
+            $this->horizontalAttributes[$key] = $value;
+        }
+        return $this;
     }
 }

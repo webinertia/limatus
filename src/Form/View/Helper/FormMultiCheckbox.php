@@ -94,7 +94,7 @@ class FormMultiCheckbox extends FormInput
      *
      * @throws Exception\InvalidArgumentException
      */
-    public function render(ElementInterface $element, ?string $mode = AbstractHelper::DEFAULT_MODE): string
+    public function render(ElementInterface $element): string
     {
         if (! $element instanceof MultiCheckboxElement) {
             throw new Exception\InvalidArgumentException(sprintf(
@@ -174,20 +174,25 @@ class FormMultiCheckbox extends FormInput
             if (isset($optionSpec['value'])) {
                 $value = $optionSpec['value'];
             }
+
             if (isset($optionSpec['label'])) {
                 $label = $optionSpec['label'];
             }
+
             if (isset($optionSpec['selected'])) {
                 $selected = $optionSpec['selected'];
             }
+
             if (isset($optionSpec['disabled'])) {
                 $disabled = $optionSpec['disabled'];
             }
+
             if (isset($optionSpec['label_attributes'])) {
                 $labelAttributes = isset($labelAttributes)
                     ? array_merge($labelAttributes, $optionSpec['label_attributes'])
                     : $optionSpec['label_attributes'];
             }
+
             if (isset($optionSpec['attributes'])) {
                 $inputAttributes = array_merge($inputAttributes, $optionSpec['attributes']);
             }

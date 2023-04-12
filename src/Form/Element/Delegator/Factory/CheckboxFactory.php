@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Bootstrap\Form\View\Delegator\Factory;
+namespace Bootstrap\Form\Element\Delegator\Factory;
 
-use Bootstrap\Form\View\Helper\FormCollection;
+use Bootstrap\Form\Element;
 use Laminas\ServiceManager\Factory\DelegatorFactoryInterface;
 use Psr\Container\ContainerInterface;
 
-class FormCollectionDelegatorFactory implements DelegatorFactoryInterface
+class CheckboxFactory implements DelegatorFactoryInterface
 {
     /** @inheritDoc */
     public function __invoke(
@@ -16,7 +16,10 @@ class FormCollectionDelegatorFactory implements DelegatorFactoryInterface
         $name,
         callable $callback,
         ?array $options = null
-    ): FormCollection {
-        return new FormCollection();
+    ): Element\Checkbox {
+        if ($options !== null) {
+            return new Element\Checkbox(options: $options);
+        }
+        return new Element\Checkbox();
     }
 }

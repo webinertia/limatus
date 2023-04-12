@@ -103,20 +103,20 @@ class FormCollection extends AbstractHelper
      * @psalm-return (T is null ? self : string)
      * @return string|FormCollection
      */
-    public function __invoke(?ElementInterface $element = null, bool $wrap = true, ?string $mode = null)
+    public function __invoke(?ElementInterface $element = null, bool $wrap = true)
     {
         if (! $element) {
             return $this;
         }
         $this->setShouldWrap($wrap);
 
-        return $this->render($element, $mode);
+        return $this->render($element);
     }
 
     /**
      * Render a collection by iterating through all fieldsets and elements
      */
-    public function render(ElementInterface $element, ?string $mode = self::DEFAULT_MODE): string
+    public function render(ElementInterface $element): string
     {
         $renderer = $this->getView();
         if ($renderer !== null && ! method_exists($renderer, 'plugin')) {
@@ -134,12 +134,12 @@ class FormCollection extends AbstractHelper
         if ($element instanceof CollectionElement && $element->shouldCreateTemplate()) {
             $templateMarkup = $this->renderTemplate($element);
         }
-
+        // bootstrap, may be to get into this workflow for nested fieldsets
         foreach ($element->getIterator() as $elementOrFieldset) {
             if ($elementOrFieldset instanceof FieldsetInterface) {
-                $markup .= $fieldsetHelper($elementOrFieldset, $this->shouldWrap(), $mode);
+                $markup .= $fieldsetHelper(element: $elementOrFieldset, wrap: $this->shouldWrap());
             } elseif ($elementOrFieldset instanceof ElementInterface) {
-                $markup .= $elementHelper(element: $elementOrFieldset, mode: $mode);
+                $markup .= $elementHelper(element: $elementOrFieldset);
             }
         }
 

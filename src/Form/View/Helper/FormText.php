@@ -32,8 +32,8 @@ final class FormText extends FormInput
         'type'         => true,
         'value'        => true,
     ];
-    public function __invoke(?ElementInterface $element = null, ?string $mode = self::DEFAULT_MODE): string
+    public function __invoke(?ElementInterface $element = null): string
     {
-        return $this->render($element, $mode);
+        return $this->render($element);
     }
 }

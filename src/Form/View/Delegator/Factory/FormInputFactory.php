@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Delegator\Factory;
 
-use Bootstrap\Form\View\Helper\Form;
+use Bootstrap\Form\View\Helper;
 use Laminas\ServiceManager\Factory\DelegatorFactoryInterface;
 use Psr\Container\ContainerInterface;
 
-class FormDelegatorFactory implements DelegatorFactoryInterface
+class FormInputFactory implements DelegatorFactoryInterface
 {
     /** @inheritDoc */
     public function __invoke(
@@ -16,7 +16,7 @@ class FormDelegatorFactory implements DelegatorFactoryInterface
         $name,
         callable $callback,
         ?array $options = null
-    ): Form {
-        return new Form();
+    ): Helper\FormInput {
+        return new Helper\FormInput();
     }
 }

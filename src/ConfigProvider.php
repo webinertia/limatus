@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Bootstrap;
 
 use Bootstrap\Form\Element;
-use Bootstrap\Form\Gridset;
 use Bootstrap\Form\View;
+use Laminas\Form\Element\Checkbox;
+use Laminas\Form\Element\Text;
 use Laminas\Form\ElementFactory;
 use Laminas\Form\View\Helper\Factory\FormElementErrorsFactory;
 use Laminas\Form\View\Helper\Form;
+use Laminas\Form\View\Helper\FormCheckbox as FormCheckboxHelper;
 use Laminas\Form\View\Helper\FormCollection;
 use Laminas\Form\View\Helper\FormElement;
 use Laminas\Form\View\Helper\FormElementErrors;
@@ -40,10 +42,13 @@ class ConfigProvider
                 'formGridCollection'    => View\Helper\FormGridCollection::class,
                 'formHelp'              => View\Helper\FormHelp::class,
                 'formHorizontalElement' => View\Helper\FormHorizontalElement::class,
+                'formcheckbox'          => View\Helper\FormCheckbox::class,
+                'formCheckbox'          => View\Helper\FormCheckbox::class,
             ],
             'factories'  => [
                 FormElementErrors::class                 => FormElementErrorsFactory::class,
                 View\Helper\Form::class                  => Factory\InvokableFactory::class,
+                View\Helper\FormCheckbox::class          => Factory\InvokableFactory::class,
                 View\Helper\FormCollection::class        => Factory\InvokableFactory::class,
                 View\Helper\FormElement::class           => Factory\InvokableFactory::class,
                 View\Helper\FormInput::class             => Factory\InvokableFactory::class,
@@ -55,23 +60,26 @@ class ConfigProvider
                 View\Helper\FormHorizontalElement::class => Factory\InvokableFactory::class,
             ],
             'delegators' => [
-                Form::class           => [
-                    View\Delegator\Factory\FormDelegatorFactory::class,
+                Form::class               => [
+                    View\Delegator\Factory\FormFactory::class,
                 ],
-                FormCollection::class => [
-                    View\Delegator\Factory\FormCollectionDelegatorFactory::class,
+                FormCheckboxHelper::class => [
+                    View\Delegator\Factory\FormCheckboxFactory::class,
                 ],
-                FormElement::class    => [
-                    View\Delegator\Factory\FormElementDelegatorFactory::class,
+                FormCollection::class     => [
+                    View\Delegator\Factory\FormCollectionFactory::class,
                 ],
-                FormInput::class      => [
-                    View\Delegator\Factory\FormInputDelegatorFactory::class,
+                FormElement::class        => [
+                    View\Delegator\Factory\FormElementFactory::class,
                 ],
-                FormRow::class        => [
-                    View\Delegator\Factory\FormRowDelegatorFactory::class,
+                FormInput::class          => [
+                    View\Delegator\Factory\FormInputFactory::class,
                 ],
-                FormText::class       => [
-                    View\Delegator\Factory\FormTextDelegatorFactory::class,
+                FormRow::class            => [
+                    View\Delegator\Factory\FormRowFactory::class,
+                ],
+                FormText::class           => [
+                    View\Delegator\Factory\FormTextFactory::class,
                 ],
             ],
         ];
@@ -94,18 +102,23 @@ class ConfigProvider
     public function getFormElementConfig(): array
     {
         return [
-            'aliases'   => [
-                'gridset' => Gridset::class,
-                'Gridset' => Gridset::class,
-                'element' => Element::class,
-                'Element' => Element::class,
-                'text'    => Element\Text::class,
-                'Text'    => Element\Text::class,
+            'aliases'    => [
+                'checkbox' => Element\Checkbox::class,
+                'Checkbox' => Element\Checkbox::class,
+                'text'     => Element\Text::class,
+                'Text'     => Element\Text::class,
             ],
-            'factories' => [
-                Element::class      => ElementFactory::class,
-                Element\Text::class => ElementFactory::class,
-                Gridset::class      => ElementFactory::class,
+            'factories'  => [
+                Element\Checkbox::class => ElementFactory::class,
+                Element\Text::class     => ElementFactory::class,
+            ],
+            'delegators' => [
+                Checkbox::class => [
+                    Element\Delegator\Factory\CheckboxFactory::class,
+                ],
+                Text::class     => [
+                    Element\Delegator\Factory\TextFactory::class,
+                ],
             ],
         ];
     }

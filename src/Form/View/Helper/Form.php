@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
-use Bootstrap\Form\GridsetInterface as FormGridsetInterface;
+use Bootstrap\Form\ModeAwareInterface;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\FormInterface;
 use Laminas\View\Helper\Doctype;
@@ -45,20 +45,21 @@ class Form extends AbstractHelper
      * @psalm-return (T is null ? self : string)
      * @return Form|string
      */
-    public function __invoke(?FormInterface $form = null, ?string $mode = self::DEFAULT_MODE)
+    public function __invoke(?FormInterface $form = null)
     {
         if (! $form) {
             return $this;
         }
-        return $this->render($form, $mode);
+        return $this->render($form);
     }
 
     /**
      * Render a form from the provided $form,
      */
-    public function render(FormInterface $form, ?string $mode = self::DEFAULT_MODE): string
+    public function render(FormInterface $form): string
     {
         if (method_exists($form, 'prepare')) {
+            // should also set the mode for fieldsets and elements to the forms mode
             $form->prepare();
         }
 
@@ -67,12 +68,19 @@ class Form extends AbstractHelper
         $renderer = $this->getView();
         assert($renderer instanceof PhpRenderer);
         foreach ($form as $element) {
-            if ($element instanceof FormGridsetInterface) {
-                $formContent .= $renderer->formGridCollection(element: $element, mode: $mode);
+            if ($element instanceof ModeAwareInterface && $element instanceof FieldsetInterface) {
+                $mode = $element->getMode();
+
+                $formContent = match ($mode) {
+                    ModeAwareInterface::GRID_MODE => $renderer->formGridCollection($element),
+                    ModeAwareInterface::HORIZONTAL_MODE,
+                    ModeAwareInterface::INLINE_MODE,
+                    ModeAwareInterface::DEFAULT_MODE => $renderer->formCollection($element),
+                };
             } elseif ($element instanceof FieldsetInterface) {
-                $formContent .= $renderer->formCollection(element: $element, mode: $mode);
+                $formContent .= $renderer->formCollection($element);
             } else {
-                $formContent .= $renderer->formRow(element:$element, mode: $mode);
+                $formContent .= $renderer->formRow($element);
             }
         }
 

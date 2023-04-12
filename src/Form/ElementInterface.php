@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form;
 
-interface ElementInterface
+use Laminas\Form\ElementInterface as BaseInterface;
+
+interface ElementInterface extends BaseInterface
 {
     public function setBootstrapAttribute(string $key, string|bool $value): self;
 
@@ -19,30 +21,4 @@ interface ElementInterface
     public function removeBootstrapAttributes(array $keys): self;
 
     public function hasBootstrapAttribute(string $key): bool;
-
-    public function setBootstrapOption(string $key, string $value): self;
-
-    public function getBootstrapOption(string $key): string|bool|null;
-
-    public function setBootstrapOptions(array $options): self;
-
-    public function getBootstrapOptions(): array;
-
-    public function setHelp(string $help): self;
-
-    public function getHelp(): ?string;
-
-    public function setHelpAttribute(string $key, string $value): self;
-
-    public function getHelpAttribute(string $key): string|null;
-
-    public function setHelpAttributes(iterable $arrayOrTraversable): self;
-
-    public function getHelpAttributes(): array;
-
-    public function hasHelpAttribute(string $key): bool;
-
-    public function removeHelpAttributes(array $keys): self;
-
-    public function clearHelpAttributes(): self;
 }

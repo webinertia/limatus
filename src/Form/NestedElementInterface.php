@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form;
 
-interface NestedElementInterface
+interface NestedElementInterface extends ElementInterface
 {
     public function setNestedElementAttribute(string $key, string|array $value): self;
 

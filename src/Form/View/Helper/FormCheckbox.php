@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
-use Bootstrap\Form\Element\Checkbox as CheckboxElement;
+use Bootstrap\Form\Element;
+use Laminas\Form\Element\Checkbox;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
 
@@ -18,12 +19,12 @@ class FormCheckbox extends FormInput
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
      */
-    public function render(ElementInterface $element, ?string $mode = self::DEFAULT_MODE): string
+    public function render(ElementInterface $element): string
     {
-        if (! $element instanceof CheckboxElement) {
+        if (! $element instanceof Element\Checkbox && ! $element instanceof Checkbox) {
             throw new Exception\InvalidArgumentException(sprintf(
-                '%s requires that the element is of type Laminas\Form\Element\Checkbox',
-                __METHOD__
+                'Requires $element to one of ' . Element\Checkbox::class . ' or ' . Checkbox::class . ' recieved: %s',
+                $element::class
             ));
         }
 
@@ -33,6 +34,11 @@ class FormCheckbox extends FormInput
                 '%s requires that the element has an assigned name; none discovered',
                 __METHOD__
             ));
+        }
+
+        // force an id so the label will not wrap
+        if (! $element->hasAttribute('id')) {
+            $element->setAttribute('id', $name);
         }
 
         $attributes          = $element->getAttributes();

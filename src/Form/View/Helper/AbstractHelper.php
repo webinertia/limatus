@@ -4,22 +4,16 @@ declare(strict_types=1);
 
 namespace Bootstrap\Form\View\Helper;
 
-use Bootstrap\Form;
-use Laminas\Form\FormInterface;
+use Laminas\Form\ElementInterface;
 use Laminas\Form\View\Helper;
 
 use function array_key_exists;
-use function str_contains;
+use function strtolower;
 
 class AbstractHelper extends Helper\AbstractHelper
 {
-    public const DEFAULT_MODE    = 'default';
-    public const INLINE_MODE     = 'inline';
-    public const GRID_MODE       = 'grid';
-    public const HORIZONTAL_MODE = 'horizontal';
-
-    protected ?string $mode = 'default';
-
+    /** @var array<TKEY, TVALUE> */
+    protected $typeMap = [];
     /**
      * inline form css classes
      */
@@ -30,7 +24,7 @@ class AbstractHelper extends Helper\AbstractHelper
      * horizontal mode element wrapper
      * wrapper for all input markup when in horizontal mode
      */
-    protected string $horizontalElementWrapper = '<div class="form-group row">%s</div>';
+    protected static string $horizontalElementWrapper = '<div %s>%s</div>';
 
     /**
      * Base bootstrap input element styles
@@ -61,42 +55,6 @@ class AbstractHelper extends Helper\AbstractHelper
         'textarea'       => 'form-control',
     ];
 
-    public function bootstrapForm(FormInterface $form, string $mode): void
-    {
-        if (! $form->hasAttribute('id') && $form->hasAttribute('name')) {
-            $form->setAttribute('id', $this->getId($form));
-        }
-
-        if ($this->mode === self::INLINE_MODE) {
-            if ($form->hasAttribute('class')) {
-                $form->setAttribute('class', $form->getAttribute('class') . ' ' . $this->inlineFormClass);
-            } else {
-                $form->setAttribute('class', $this->inlineFormClass);
-            }
-        }
-    }
-
-    /** @deprecated */
-    public function bootstrapInputAttributeString(Form\ElementInterface $element): void
-    {
-        $class = '';
-        if ($element->hasAttribute('type')) {
-            $class = $this->getTypeClass($element->getAttribute('type'));
-        }
-        if (! $element->hasAttribute('class')) {
-            // Note: we do not have to worry with the form-check-inline style classes here, they are set on the div
-            $element->setAttribute('class', $class);
-            return;
-        }
-        if ($element->hasAttribute('class')) {
-            $classString = $element->getAttribute('class');
-            if ($class !== '' && ! str_contains($classString, $class)) {
-                $classString = $class . ' ' . $classString;
-                $element->setAttribute('class', $classString);
-            }
-        }
-    }
-
     protected function getTypeClass(string $key): string|null
     {
         $type = null;
@@ -106,9 +64,21 @@ class AbstractHelper extends Helper\AbstractHelper
         return $type;
     }
 
-    public function setMode(string $mode): self
+    /**
+     * Determine input type to use
+     */
+    protected function getType(ElementInterface $element): string
     {
-        $this->mode = $mode;
-        return $this;
+        $type = $element->getAttribute('type');
+        if (empty($type)) {
+            return 'text';
+        }
+
+        $type = strtolower($type);
+        if (! isset($this->validTypes[$type])) {
+            return 'text';
+        }
+
+        return $type;
     }
 }

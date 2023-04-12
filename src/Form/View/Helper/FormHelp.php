@@ -21,7 +21,7 @@ class FormHelp extends AbstractHelper
     public function render(?ElementInterface $element): string
     {
         $markup = '';
-        if ($element->getHelp() !== null) {
+        if ($element->getHelp() !== '') {
             if ($element->hasAttribute('aria-describedby')) {
                 $element->setHelpAttribute('id', $element->getAttribute('aria-describedby'));
             } elseif ($element->hasAttribute('id')) {
