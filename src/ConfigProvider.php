@@ -7,6 +7,7 @@ namespace Bootstrap;
 use Bootstrap\Form\Element;
 use Bootstrap\Form\View;
 use Laminas\Form\Element\Checkbox;
+use Laminas\Form\Element\Text;
 use Laminas\Form\ElementFactory;
 use Laminas\Form\View\Helper\Factory\FormElementErrorsFactory;
 use Laminas\Form\View\Helper\Form;
@@ -104,13 +105,19 @@ class ConfigProvider
             'aliases'    => [
                 'checkbox' => Element\Checkbox::class,
                 'Checkbox' => Element\Checkbox::class,
+                'text'     => Element\Text::class,
+                'Text'     => Element\Text::class,
             ],
             'factories'  => [
                 Element\Checkbox::class => ElementFactory::class,
+                Element\Text::class     => ElementFactory::class,
             ],
             'delegators' => [
                 Checkbox::class => [
                     Element\Delegator\Factory\CheckboxFactory::class,
+                ],
+                Text::class     => [
+                    Element\Delegator\Factory\TextFactory::class,
                 ],
             ],
         ];
