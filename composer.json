@@ -2,7 +2,7 @@
     "name": "webinertia/limatus",
     "description": "Provides Bootstrap loading, form elements and view helpers for laminas view and form",
     "type": "library",
-    "license": "BSD-3",
+    "license": "BSD-3-Clause",
     "keywords": [
         "laminas",
         "bootstrap 5.3",
