@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Bootstrap\Form\Element;
+namespace Limatus\Form\Element;
 
-use Bootstrap\Form\Element;
-use Bootstrap\Form\NestedElementInterface;
+use Limatus\Form\Element;
+use Limatus\Form\NestedElementInterface;
 use Laminas\InputFilter\InputProviderInterface;
 use Laminas\Validator\InArray as InArrayValidator;
 use Laminas\Validator\ValidatorInterface;

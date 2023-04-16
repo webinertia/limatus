@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Bootstrap\Form\Element;
+namespace Limatus\Form\Element;
 
-use Bootstrap\Form\Element;
+use Limatus\Form\Element;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\InputFilter\InputProviderInterface;
 use Laminas\Validator\Explode as ExplodeValidator;

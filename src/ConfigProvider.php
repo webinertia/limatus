@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Bootstrap;
+namespace Limatus;
 
-use Bootstrap\Form\Element;
-use Bootstrap\Form\View;
-use Bootstrap\View\Helper;
+use Limatus\Form\Element;
+use Limatus\Form\View;
+use Limatus\View\Helper;
 use Laminas\Form\Element\Checkbox;
 use Laminas\Form\Element\Text;
 use Laminas\Form\ElementFactory;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bootstrap\View;
+namespace Limatus\View;
 
 interface HelperInterface
 {

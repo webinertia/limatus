@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Bootstrap\Form\View\Helper;
+namespace Limatus\Form\View\Helper;
 
-use Bootstrap\Form\Element\MultiCheckbox as MultiCheckboxElement;
+use Limatus\Form\Element\MultiCheckbox as MultiCheckboxElement;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
 use Laminas\Form\LabelAwareInterface;

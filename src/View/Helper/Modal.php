@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Bootstrap\View\Helper;
+namespace Limatus\View\Helper;
 
-use Bootstrap\View\HelperInterface;
+use Limatus\View\HelperInterface;
 use Laminas\View\Helper;
 
 class Modal extends Helper\AbstractHelper implements HelperInterface

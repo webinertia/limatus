@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Bootstrap\Form;
+namespace Limatus\Form;
 
-use Bootstrap\Form\ModeAwareInterface;
+use Limatus\Form\ModeAwareInterface;
 use Laminas\Stdlib\ArrayUtils;
 use Traversable;
 

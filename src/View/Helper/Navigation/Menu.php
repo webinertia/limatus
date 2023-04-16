@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bootstrap\View\Helper\Navigation;
+namespace Limatus\View\Helper\Navigation;
 
 use Laminas\Navigation\Page\AbstractPage;
 use Laminas\View\Helper\EscapeHtml;

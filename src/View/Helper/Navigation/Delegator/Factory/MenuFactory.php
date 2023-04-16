@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Bootstrap\View\Helper\Navigation\Delegator\Factory;
+namespace Limatus\View\Helper\Navigation\Delegator\Factory;
 
-use Bootstrap\View\Helper\Navigation\Menu;
+use Limatus\View\Helper\Navigation\Menu;
 use Laminas\ServiceManager\Factory\DelegatorFactoryInterface;
 use Psr\Container\ContainerInterface;
 

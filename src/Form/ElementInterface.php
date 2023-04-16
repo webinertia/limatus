@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bootstrap\Form;
+namespace Limatus\Form;
 
 use Laminas\Form\ElementInterface as BaseInterface;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bootstrap\Form\View\Helper;
+namespace Limatus\Form\View\Helper;
 
 use Laminas\Form\Element\Collection as CollectionElement;
 use Laminas\Form\ElementInterface;
@@ -134,7 +134,7 @@ class FormCollection extends AbstractHelper
         if ($element instanceof CollectionElement && $element->shouldCreateTemplate()) {
             $templateMarkup = $this->renderTemplate($element);
         }
-        // bootstrap, may be to get into this workflow for nested fieldsets
+        // Limatus, may be to get into this workflow for nested fieldsets
         foreach ($element->getIterator() as $elementOrFieldset) {
             if ($elementOrFieldset instanceof FieldsetInterface) {
                 $markup .= $fieldsetHelper(element: $elementOrFieldset, wrap: $this->shouldWrap());

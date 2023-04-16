@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Bootstrap\Form\View\Delegator\Factory;
+namespace Limatus\Form\View\Delegator\Factory;
 
-use Bootstrap\Form\View\Helper\FormElement;
+use Limatus\Form\View\Helper\FormElement;
 use Laminas\ServiceManager\Factory\DelegatorFactoryInterface;
 use Psr\Container\ContainerInterface;
 
