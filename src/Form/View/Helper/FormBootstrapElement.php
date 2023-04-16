@@ -21,9 +21,10 @@ class FormBootstrapElement extends AbstractHelper
     protected static string $checkboxWrapper = '<div class="form-check">%s</div>';
     /** wrapper for horizontal elements that have to be wrapped AGAIN and uses the
      * horizontal_attributes class */
-    protected static string $horizontalCheckboxWrapper = '<div class="%s">%s</div><div %s>%s</div>';
+    protected static string $horizontalCheckboxWrapper = '<div %s>%s</div>';
     protected static string $wrapper                   = '<div %s>%s%s%s</div>';
     protected Helper\FormHelp $helpText;
+
     public function __invoke(): self
     {
         return $this;
@@ -36,7 +37,7 @@ class FormBootstrapElement extends AbstractHelper
             if ($errorString !== '') {
                 $element->setAttribute('class', 'is-invalid');
             }
-            // ok lets sort out what mode where in and handle the long list of conditional wrapping
+            // ok lets sort out what mode were in
             if ($element instanceof ModeAwareInterface) {
                 if ($element instanceof Element\Checkbox) {
                     $markup = sprintf(
@@ -45,21 +46,15 @@ class FormBootstrapElement extends AbstractHelper
                     );
                     if ($element->getMode() === ModeAwareInterface::HORIZONTAL_MODE) {
                         // todo throw an exception if this is not set, we gotta have it for horizontal checkboxes
-                        $options = $element->getOption('horizontal_checkbox_heading');
                         $markup  = sprintf(
                             self::$horizontalCheckboxWrapper,
-                            $options['class'],
-                            $options['heading'],
                             $this->createAttributesString($element->getHorizontalAttributes()),
                             $markup
                         );
                     }
                 }
             }
-            /**
-             * this wraps the final div where bootstrap attibutes are used
-             * we must be ready for the final replacement by this point
-             */
+            // todo: #5 validation messages are not showing for mode: horizontal
             $markup = sprintf(
                 self::$wrapper,
                 $this->createAttributesString($element->getBootstrapAttributes()),
@@ -72,7 +67,7 @@ class FormBootstrapElement extends AbstractHelper
         } elseif ($element instanceof BaseInterface) {
             return $markup;
         }
-        // we should never get here, stops phpstan from bitching
+        // we should never get here, stops phpstan from complaining
         throw new InvalidElementException(
             sprintf(
                 'Expected Element implementing one of
