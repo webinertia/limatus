@@ -51,7 +51,7 @@
     },
     "extra": {
         "laminas": {
-            "module": "",
+            "module": "Limatus",
             "config-provider": "Limatus\\ConfigProvider"
         }
     },
