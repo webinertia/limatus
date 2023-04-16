@@ -14,6 +14,7 @@ class Module
             'view_helpers'       => $provider->getViewHelperConfig(),
             'view_helper_config' => $provider->getHelperConfig(),
             'form_elements'      => $provider->getFormElementConfig(),
+            'navigation_helpers' => $provider->getNavigationHelperConfig(),
         ];
     }
 }

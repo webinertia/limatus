@@ -6,6 +6,7 @@ namespace Bootstrap;
 
 use Bootstrap\Form\Element;
 use Bootstrap\Form\View;
+use Bootstrap\View\Helper;
 use Laminas\Form\Element\Checkbox;
 use Laminas\Form\Element\Text;
 use Laminas\Form\ElementFactory;
@@ -19,6 +20,8 @@ use Laminas\Form\View\Helper\FormInput;
 use Laminas\Form\View\Helper\FormRow;
 use Laminas\Form\View\Helper\FormText;
 use Laminas\ServiceManager\Factory;
+use Laminas\ServiceManager\Factory\InvokableFactory;
+use Laminas\View\Helper\Navigation\Menu;
 
 class ConfigProvider
 {
@@ -34,6 +37,7 @@ class ConfigProvider
         return [];
     }
 
+    // Only new components need aliases
     public function getViewHelperConfig(): array
     {
         return [
@@ -42,8 +46,7 @@ class ConfigProvider
                 'formGridCollection'    => View\Helper\FormGridCollection::class,
                 'formHelp'              => View\Helper\FormHelp::class,
                 'formHorizontalElement' => View\Helper\FormHorizontalElement::class,
-                'formcheckbox'          => View\Helper\FormCheckbox::class,
-                'formCheckbox'          => View\Helper\FormCheckbox::class,
+                'modal'                 => Helper\Modal::class,
             ],
             'factories'  => [
                 FormElementErrors::class                 => FormElementErrorsFactory::class,
@@ -58,6 +61,7 @@ class ConfigProvider
                 View\Helper\FormGridCollection::class    => Factory\InvokableFactory::class,
                 View\Helper\FormHelp::class              => Factory\InvokableFactory::class,
                 View\Helper\FormHorizontalElement::class => Factory\InvokableFactory::class,
+                Helper\Modal::class                      => Factory\InvokableFactory::class,
             ],
             'delegators' => [
                 Form::class               => [
@@ -102,12 +106,7 @@ class ConfigProvider
     public function getFormElementConfig(): array
     {
         return [
-            'aliases'    => [
-                'checkbox' => Element\Checkbox::class,
-                'Checkbox' => Element\Checkbox::class,
-                'text'     => Element\Text::class,
-                'Text'     => Element\Text::class,
-            ],
+            'aliases'    => [],
             'factories'  => [
                 Element\Checkbox::class => ElementFactory::class,
                 Element\Text::class     => ElementFactory::class,
@@ -118,6 +117,21 @@ class ConfigProvider
                 ],
                 Text::class     => [
                     Element\Delegator\Factory\TextFactory::class,
+                ],
+            ],
+        ];
+    }
+
+    public function getNavigationHelperConfig(): array
+    {
+        return [
+            'aliases'    => [],
+            'factories'  => [
+                Helper\Navigation\Menu::class => InvokableFactory::class,
+            ],
+            'delegators' => [
+                Menu::class => [
+                    Helper\Navigation\Delegator\Factory\MenuFactory::class,
                 ],
             ],
         ];

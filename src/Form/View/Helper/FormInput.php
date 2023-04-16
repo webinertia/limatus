@@ -105,7 +105,7 @@ class FormInput extends AbstractHelper
     /**
      * Force an id, if possible and use the original service to do its work
      */
-    public function render(Form\ElementInterface $element): string
+    public function render(ElementInterface $element): string
     {
         // force an id to prevent the input from being wrapped inside the label, we never want that
         if ($element->getName() && ! $element->hasAttribute('id')) {
@@ -133,7 +133,7 @@ class FormInput extends AbstractHelper
      *
      * @throws Exception\DomainException
      */
-    public function defaultRender(Form\ElementInterface $element): string
+    public function defaultRender(ElementInterface $element): string
     {
         $name = $element->getName();
         if ($name === null || $name === '') {
