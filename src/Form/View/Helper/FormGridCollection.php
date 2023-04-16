@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Bootstrap\Form\View\Helper;
+namespace Limatus\Form\View\Helper;
 
-use Bootstrap\Form\GridsetInterface;
+use Limatus\Form\GridsetInterface;
 use Laminas\Form\Element\Collection as CollectionElement;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\FieldsetInterface;

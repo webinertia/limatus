@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Bootstrap\Form\View\Helper;
+namespace Limatus\Form\View\Helper;
 
-use Bootstrap\Form\Element;
-use Bootstrap\Form\ElementInterface;
-use Bootstrap\Form\ModeAwareInterface;
-use Bootstrap\Form\View\Helper;
+use Limatus\Form\Element;
+use Limatus\Form\ElementInterface;
+use Limatus\Form\ModeAwareInterface;
+use Limatus\Form\View\Helper;
 use Laminas\Form\ElementInterface as BaseInterface;
 use Laminas\Form\Exception\InvalidElementException;
 
@@ -71,8 +71,8 @@ class FormBootstrapElement extends AbstractHelper
         throw new InvalidElementException(
             sprintf(
                 'Expected Element implementing one of
-                Bootstrap\\Form\\ElementInterface,
-                Bootstrap\\Form\\NestedElementInterface,
+                Limatus\\Form\\ElementInterface,
+                Limatus\\Form\\NestedElementInterface,
                 Laminas\\Form\\ElementInterface received %s',
                 class_implements($element)
             )

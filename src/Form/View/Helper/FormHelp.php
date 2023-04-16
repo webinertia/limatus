@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Bootstrap\Form\View\Helper;
+namespace Limatus\Form\View\Helper;
 
-use Bootstrap\Form\ElementInterface;
+use Limatus\Form\ElementInterface;
 
 use function sprintf;
 

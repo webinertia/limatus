@@ -1,11 +1,11 @@
 {
-    "name": "webinertia/bootstrap",
+    "name": "webinertia/limatus",
     "description": "Provides Bootstrap loading, form elements and view helpers for laminas view and form",
     "type": "library",
     "license": "BSD-3",
     "keywords": [
         "laminas",
-        "bootstrap",
+        "bootstrap 5.3",
         "javascript",
         "laminas form",
         "laminas view"
@@ -23,9 +23,7 @@
     },
     "require": {
         "php": "~8.1.0 || ~8.2.0",
-        "laminas/laminas-hydrator": "^4.3.1",
-        "laminas/laminas-inputfilter": "^2.19.1",
-        "laminas/laminas-stdlib": "^3.7.1"
+        "laminas/laminas-form": "^3.10.1"
     },
     "require-dev": {
         "ext-intl": "*",
@@ -44,7 +42,6 @@
         "laminas/laminas-text": "^2.9.0",
         "laminas/laminas-validator": "^2.28",
         "laminas/laminas-view": "^2.25",
-        "laminas/laminas-form": "^3.9.0",
         "phpunit/phpunit": "10.0.0",
         "psalm/plugin-phpunit": "^0.18.4",
         "phpstan/phpstan": "1.9.2",
@@ -54,18 +51,18 @@
     },
     "extra": {
         "laminas": {
-            "module": "Bootstrap",
-            "config-provider": "Bootstrap\\ConfigProvider"
+            "module": "",
+            "config-provider": "Limatus\\ConfigProvider"
         }
     },
     "autoload": {
         "psr-4": {
-            "Bootstrap\\": "src/"
+            "Limatus\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "BootstrapTest\\Form\\": "test/"
+            "LimatusTest\\Form\\": "test/"
         }
     },
     "scripts": {

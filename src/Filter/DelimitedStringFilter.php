@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bootstrap\Filter;
+namespace Limatus\Filter;
 
 use Laminas\Filter\AbstractFilter;
 use Laminas\Filter\Exception;

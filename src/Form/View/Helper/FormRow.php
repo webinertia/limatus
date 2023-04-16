@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Bootstrap\Form\View\Helper;
+namespace Limatus\Form\View\Helper;
 
-use Bootstrap\Form\ElementInterface;
+use Limatus\Form\ElementInterface;
 use Laminas\Form;
 use Laminas\Form\Element\Button;
 use Laminas\Form\Element\Captcha;
@@ -152,7 +152,7 @@ class FormRow extends AbstractHelper
         }
 
         /**
-         * bootstrap, $elementString holds the return of FormInput rendering
+         * Limatus, $elementString holds the return of FormInput rendering
          * If the element needs after the label is rendered, ie the
          * element and label need inserted into a div it must happen below
          */
@@ -225,12 +225,12 @@ class FormRow extends AbstractHelper
                     default => $labelOpen . $elementString . $label . $labelClose,
                 };
             }
-            // bootstrap change && ! instanceof ElementInterface, all default error rendering
+            // Limatus change && ! instanceof ElementInterface, all default error rendering
             if ($this->renderErrors && ! $element instanceof ElementInterface) {
                 $markup .= $elementErrors;
             }
         } else {
-            // bootstrap change && ! instanceof ElementInterface, all default error rendering
+            // Limatus change && ! instanceof ElementInterface, all default error rendering
             if ($this->renderErrors && ! $element instanceof ElementInterface) {
                 $markup = $elementString . $elementErrors;
             } else {
@@ -238,7 +238,7 @@ class FormRow extends AbstractHelper
             }
         }
 
-        // Handle the bootstrap
+        // Handle the Limatus
         if ($element instanceof ElementInterface) {
             $mode = $element->getMode();
 

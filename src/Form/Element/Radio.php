@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bootstrap\Form\Element;
+namespace Limatus\Form\Element;
 
 use Laminas\Validator\InArray as InArrayValidator;
 use Laminas\Validator\ValidatorInterface;

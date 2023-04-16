@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bootstrap\Form\View\Helper;
+namespace Limatus\Form\View\Helper;
 
 use Laminas\Form\ElementInterface;
 use Laminas\Form\View\Helper;
@@ -27,7 +27,7 @@ class AbstractHelper extends Helper\AbstractHelper
     protected static string $horizontalElementWrapper = '<div %s>%s</div>';
 
     /**
-     * Base bootstrap input element styles
+     * Base Limatus input element styles
      */
     protected array $typeToClassMap = [
         'select'         => 'form-control',
