@@ -9,6 +9,7 @@ use function sprintf;
 class FormHorizontalElement extends AbstractHelper
 {
     protected static string $rowWrapper = '<div class="form-group row">%s</div>';
+
     public function __invoke(?string $markup = null): string|self
     {
         $this->setView($this->view);
