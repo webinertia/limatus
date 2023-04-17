@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Limatus\Form\View\Helper;
 
-use Laminas\Filter\Word\SeparatorToSeparator;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
 use Limatus\Form;
@@ -135,7 +134,7 @@ class FormInput extends AbstractHelper
                         self::$inputGroupTextWrapper,
                         $options['input_group_text'],
                     );
-                    $markup = sprintf(
+                    $markup    = sprintf(
                         self::$inputGroupWrapper,
                         $inputText,
                         $markup
