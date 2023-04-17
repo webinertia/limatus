@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Limatus\Form\View\Helper;
 
-use Limatus\Form\GridsetInterface;
 use Laminas\Form\Element\Collection as CollectionElement;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\LabelAwareInterface;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\HelperInterface;
+use Limatus\Form\GridsetInterface;
 use RuntimeException;
 
 use function assert;

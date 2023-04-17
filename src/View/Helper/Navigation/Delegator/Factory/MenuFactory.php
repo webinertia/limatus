@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Limatus\View\Helper\Navigation\Delegator\Factory;
 
-use Limatus\View\Helper\Navigation\Menu;
 use Laminas\ServiceManager\Factory\DelegatorFactoryInterface;
+use Limatus\View\Helper\Navigation\Menu;
 use Psr\Container\ContainerInterface;
 
 class MenuFactory implements DelegatorFactoryInterface

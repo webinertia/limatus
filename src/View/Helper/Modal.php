@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Limatus\View\Helper;
 
-use Limatus\View\HelperInterface;
 use Laminas\View\Helper;
+use Limatus\View\HelperInterface;
 
 class Modal extends Helper\AbstractHelper implements HelperInterface
 {
@@ -19,17 +19,15 @@ class Modal extends Helper\AbstractHelper implements HelperInterface
         return $this;
     }
 
-    public function systemMessage(
-        string $message,
-        ?string $id = null,
-        ?string $title = null,
-        ?string $fx = null
-    ): string {
-        $id     = $id ?? self::SYSTEM_MESSAGE_ID;
-        $title  = $title ?? self::SYSTEM_MESSAGE_LABEL;
-        $fx     = $fx === null ? 'modal' : 'modal ' . $fx;
-        $markup = '
-            <div class="modal" id="system-message-modal" tabindex="-1" aria-labelledby="system-message-title" aria-hidden="true">
+    public function systemMessage(): string
+    {
+        return '
+            <div
+            class="modal"
+            id="system-message-modal"
+            tabindex="-1"
+            aria-labelledby="system-message-title"
+            aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -40,6 +38,5 @@ class Modal extends Helper\AbstractHelper implements HelperInterface
                     </div>
                 </div>
             </div>';
-        return $markup;
     }
 }

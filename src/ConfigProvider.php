@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Limatus;
 
-use Limatus\Form\Element;
-use Limatus\Form\View;
-use Limatus\View\Helper;
 use Laminas\Form\Element\Checkbox;
 use Laminas\Form\Element\Text;
 use Laminas\Form\ElementFactory;
@@ -22,6 +19,9 @@ use Laminas\Form\View\Helper\FormText;
 use Laminas\ServiceManager\Factory;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\View\Helper\Navigation\Menu;
+use Limatus\Form\Element;
+use Limatus\Form\View;
+use Limatus\View\Helper;
 
 class ConfigProvider
 {
@@ -37,7 +37,7 @@ class ConfigProvider
         return [];
     }
 
-    // Only new components need aliases
+    /** only new components get aliases */
     public function getViewHelperConfig(): array
     {
         return [

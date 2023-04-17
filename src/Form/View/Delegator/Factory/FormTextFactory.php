@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Limatus\Form\View\Delegator\Factory;
 
-use Limatus\Form\View\Helper\FormText;
 use Laminas\ServiceManager\Factory\DelegatorFactoryInterface;
+use Limatus\Form\View\Helper\FormText;
 use Psr\Container\ContainerInterface;
 
 class FormTextFactory implements DelegatorFactoryInterface

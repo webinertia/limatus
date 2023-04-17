@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Limatus\Form\Element\Delegator\Factory;
 
-use Limatus\Form\Element;
 use Laminas\ServiceManager\Factory\DelegatorFactoryInterface;
+use Limatus\Form\Element;
 use Psr\Container\ContainerInterface;
 
 class CheckboxFactory implements DelegatorFactoryInterface

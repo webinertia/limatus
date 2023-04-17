@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Limatus\Form\View\Helper;
 
+use Laminas\Form\ElementInterface as BaseInterface;
+use Laminas\Form\Exception\InvalidElementException;
 use Limatus\Form\Element;
 use Limatus\Form\ElementInterface;
 use Limatus\Form\ModeAwareInterface;
 use Limatus\Form\View\Helper;
-use Laminas\Form\ElementInterface as BaseInterface;
-use Laminas\Form\Exception\InvalidElementException;
 
 use function class_implements;
 use function method_exists;
@@ -46,7 +46,7 @@ class FormBootstrapElement extends AbstractHelper
                     );
                     if ($element->getMode() === ModeAwareInterface::HORIZONTAL_MODE) {
                         // todo throw an exception if this is not set, we gotta have it for horizontal checkboxes
-                        $markup  = sprintf(
+                        $markup = sprintf(
                             self::$horizontalCheckboxWrapper,
                             $this->createAttributesString($element->getHorizontalAttributes()),
                             $markup

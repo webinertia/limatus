@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Limatus\Form;
 
-use Limatus\Form\ModeAwareInterface;
 use Laminas\Stdlib\ArrayUtils;
+use Limatus\Form\ModeAwareInterface;
 use Traversable;
 
 use function array_key_exists;

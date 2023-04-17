@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Limatus\Form\View\Helper;
 
-use Limatus\Form\ElementInterface;
 use Laminas\Form;
 use Laminas\Form\Element\Button;
 use Laminas\Form\Element\Captcha;
@@ -13,6 +12,7 @@ use Laminas\Form\Exception;
 use Laminas\Form\LabelAwareInterface;
 use Laminas\Form\View\Helper\FormElementErrors;
 use Laminas\View\Renderer\PhpRenderer;
+use Limatus\Form\ElementInterface;
 
 use function assert;
 use function in_array;

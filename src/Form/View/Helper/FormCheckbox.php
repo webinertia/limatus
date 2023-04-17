@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Limatus\Form\View\Helper;
 
-use Limatus\Form\Element;
 use Laminas\Form\Element\Checkbox;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
+use Limatus\Form\Element;
 
 use function sprintf;
 

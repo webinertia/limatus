@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Limatus\Form\View\Delegator\Factory;
 
-use Limatus\Form\View\Helper\FormRow;
 use Laminas\ServiceManager\Factory\DelegatorFactoryInterface;
+use Limatus\Form\View\Helper\FormRow;
 use Psr\Container\ContainerInterface;
 
 class FormRowFactory implements DelegatorFactoryInterface

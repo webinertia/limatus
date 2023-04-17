@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Limatus\Form\View\Helper;
 
-use Limatus\Form;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
+use Limatus\Form;
 
 use function sprintf;
 
