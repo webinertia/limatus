@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Limatus\Form\View\Helper\Factory;
 
-use Limatus\Form\View\Helper;
 use Laminas\Form\View\Helper\FormInput;
 use Laminas\ServiceManager\Factory\FactoryInterface;
+use Limatus\Form\View\Helper;
 use Psr\Container\ContainerInterface;
 
 class FormInputFactory implements FactoryInterface

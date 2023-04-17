@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Limatus\Form\View\Helper;
 
-use Limatus\Form\Element\MultiCheckbox as MultiCheckboxElement;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
 use Laminas\Form\LabelAwareInterface;
 use Laminas\Form\View\Helper\FormInput;
+use Limatus\Form\Element\MultiCheckbox as MultiCheckboxElement;
 
 use function array_key_exists;
 use function array_merge;

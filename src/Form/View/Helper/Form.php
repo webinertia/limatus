@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Limatus\Form\View\Helper;
 
-use Limatus\Form\ModeAwareInterface;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\FormInterface;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Renderer\PhpRenderer;
+use Limatus\Form\ModeAwareInterface;
 
 use function array_key_exists;
 use function array_merge;

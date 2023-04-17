@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace BootstrapTest\Form\View\Helper;
+namespace LimatusTest\Form\View\Helper;
 
-use Bootstrap\Form\Element\Text;
-use Bootstrap\Form\View\Helper;
-use BootstrapTest\Form\View\Helper\AbstractCommonTestCase;
+use Limatus\Form\Element\Text;
+use Limatus\Form\View\Helper;
+use LimatusTest\Form\View\Helper\AbstractCommonTestCase;
 
 final class FormRowTest extends AbstractCommonTestCase
 {

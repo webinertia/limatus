@@ -19,8 +19,11 @@ class Form extends BaseForm implements ModeAwareInterface
         parent::__construct($name, $options);
     }
 
-    public function addSubmit(?int $priority = 1, ?string $showText = 'Save', ?string $class = 'btn btn-sm btn-secondary'): void
-    {
+    public function addSubmit(
+        ?int $priority = 1,
+        ?string $showText = 'Save',
+        ?string $class = 'btn btn-sm btn-secondary'
+    ): void {
         $this->add(
             [
                 'name'       => 'submit',

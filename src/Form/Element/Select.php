@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Limatus\Form\Element;
 
-use Limatus\Form\Element;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\InputFilter\InputProviderInterface;
 use Laminas\Validator\Explode as ExplodeValidator;
 use Laminas\Validator\InArray as InArrayValidator;
 use Laminas\Validator\ValidatorInterface;
+use Limatus\Form\Element;
 
 use function array_key_exists;
 use function is_array;

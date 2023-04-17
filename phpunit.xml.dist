@@ -6,7 +6,7 @@
     </include>
   </coverage>
   <testsuites>
-    <testsuite name="laminas-form Test Suite">
+    <testsuite name="Limatus Test Suite">
       <directory>./test/</directory>
     </testsuite>
   </testsuites>

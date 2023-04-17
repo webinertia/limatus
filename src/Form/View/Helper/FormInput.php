@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Limatus\Form\View\Helper;
 
-use Limatus\Form;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
+use Limatus\Form;
 
 use function sprintf;
 
@@ -84,6 +84,10 @@ class FormInput extends AbstractHelper
 
     protected static string $horizontalWrapper = '<div %s>%s</div>';
 
+    protected static string $inputGroupWrapper = '<div class="input-group">%s%s</div>';
+
+    protected static string $inputGroupTextWrapper = '<div class="input-group-text">%s</div>';
+
     /**
      * Invoke helper as functor
      *
@@ -122,6 +126,20 @@ class FormInput extends AbstractHelper
                     $this->createAttributesString($element->getHorizontalAttributes()),
                     $markup
                 );
+            }
+            if (Form\ModeAwareInterface::INLINE_MODE === $mode) {
+                $options = $element->getOptions();
+                if (isset($options['input_group']) && isset($options['input_group_text'])) {
+                    $inputText = sprintf(
+                        self::$inputGroupTextWrapper,
+                        $options['input_group_text'],
+                    );
+                    $markup    = sprintf(
+                        self::$inputGroupWrapper,
+                        $inputText,
+                        $markup
+                    );
+                }
             }
         }
 

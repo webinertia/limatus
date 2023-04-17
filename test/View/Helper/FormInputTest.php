@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace BootstrapTest\Form\View\Helper;
+namespace LimatusTest\Form\View\Helper;
 
-use Bootstrap\Form\View\Helper;
-use BootstrapTest\Form\View\Helper\AbstractCommonTestCase;
 use Laminas\Form\View\Helper\FormInput;
+use Limatus\Form\View\Helper;
+use LimatusTest\Form\View\Helper\AbstractCommonTestCase;
 
 class FormInputTest extends AbstractCommonTestCase
 {

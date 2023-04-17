@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Limatus\Form\Element;
 
-use Limatus\Form\Element;
-use Limatus\Form\NestedElementInterface;
 use Laminas\InputFilter\InputProviderInterface;
 use Laminas\Validator\InArray as InArrayValidator;
 use Laminas\Validator\ValidatorInterface;
+use Limatus\Form\Element;
+use Limatus\Form\NestedElementInterface;
 
 use function array_key_exists;
 

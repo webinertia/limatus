@@ -19,7 +19,7 @@ class Menu extends BaseMenu
      */
     protected $liActiveClass = 'active';
 
-    protected $aActiveClass = 'active';
+    protected string $aActiveClass = 'active';
 
     /**
      * Returns an HTML string containing an 'a' element for the given page if
@@ -59,7 +59,7 @@ class Menu extends BaseMenu
             // bootstrap
             if (isset($attribs['class']) && is_string($attribs['class'])) {
                 // class was passed from config
-                $attribs['class'] = $attribs['class'] . ' ' . $this->aActiveClass;
+                $attribs['class'] .= ' ' . $this->aActiveClass;
             } else {
                 $attribs['class'] = $this->aActiveClass;
             }
