@@ -141,6 +141,13 @@ class FormInput extends AbstractHelper
                     );
                 }
             }
+            // This should be last, "normally" we have fewer of these than other elements
+            // if (
+            //     $element instanceof Form\Element\Submit
+            //     || $element instanceof Form\Element\Button
+            // ) {
+
+            // }
         }
 
         return $markup;
