@@ -10,6 +10,7 @@ use Limatus\Form\Element;
 
 final class Password extends Element implements ElementPrepareAwareInterface
 {
+    /** @inheritDoc */
     protected $attributes = [
         'type' => 'password',
     ];
