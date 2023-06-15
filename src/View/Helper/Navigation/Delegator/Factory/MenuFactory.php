@@ -19,7 +19,7 @@ class MenuFactory implements DelegatorFactoryInterface
         callable $callback,
         ?array $options = null
     ): Menu {
-        // prevent the insanity that is the default implementation in AbstractHelper::accept()
-        return (new Menu())->setUseAcl(($container->has(AclInterface::class) || $container->has(Acl::class)));
+        /** @phpstan-ignore-next-line */
+        return (new Menu())->setUseAcl($container->has(AclInterface::class) || $container->has(Acl::class));
     }
 }
