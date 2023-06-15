@@ -6,7 +6,6 @@
     "keywords": [
         "laminas",
         "bootstrap 5.3",
-        "javascript",
         "laminas form",
         "laminas view"
     ],
@@ -19,13 +18,16 @@
         }
     ],
     "suggest": {
-        "laminas/laminas-component-installer" : "^3.0, required for configuration injection"
+        "laminas/laminas-component-installer" : "^3.0, required for configuration injection",
+        "webinertia/webinertia-uploader": "^0.0.1, Provides event driven file uploads for Laminas MVC apps and Webinertia CMS"
     },
     "require": {
         "php": "~8.1.0 || ~8.2.0",
-        "laminas/laminas-form": "^3.10.1",
+        "laminas/laminas-mvc-form": "^2.1.1",
         "laminas/laminas-navigation": "^2.18",
-        "laminas/laminas-view": "^2.27"
+        "laminas/laminas-view": "^2.27",
+        "webinertia/webinertia-filter": "^0.0.3",
+        "webinertia/webinertia-validator": "^0.0.3"
     },
     "require-dev": {
         "ext-intl": "*",
