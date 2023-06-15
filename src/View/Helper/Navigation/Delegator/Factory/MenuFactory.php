@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Limatus\View\Helper\Navigation\Delegator\Factory;
 
+use Laminas\Permissions\Acl\Acl;
+use Laminas\Permissions\Acl\AclInterface;
 use Laminas\ServiceManager\Factory\DelegatorFactoryInterface;
 use Limatus\View\Helper\Navigation\Menu;
 use Psr\Container\ContainerInterface;
@@ -17,6 +19,7 @@ class MenuFactory implements DelegatorFactoryInterface
         callable $callback,
         ?array $options = null
     ): Menu {
-        return new Menu();
+        // prevent the insanity that is the default implementation in AbstractHelper::accept()
+        return (new Menu())->setUseAcl(($container->has(AclInterface::class) || $container->has(Acl::class)));
     }
 }
