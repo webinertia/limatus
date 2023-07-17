@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "226c76b7db6f7af9d7b49208080d7b31",
+    "content-hash": "b267af46acde885073f5a960c3d76eb2",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1374,16 +1374,16 @@
         },
         {
             "name": "webinertia/webinertia-filter",
-            "version": "0.0.3",
+            "version": "0.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webinertia/webinertia-filter.git",
-                "reference": "07f8730d072c503d6f029f82551d362641cb8d20"
+                "reference": "85802af1f86762c44d2d73b90eed5abf78792fe7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webinertia/webinertia-filter/zipball/07f8730d072c503d6f029f82551d362641cb8d20",
-                "reference": "07f8730d072c503d6f029f82551d362641cb8d20",
+                "url": "https://api.github.com/repos/webinertia/webinertia-filter/zipball/85802af1f86762c44d2d73b90eed5abf78792fe7",
+                "reference": "85802af1f86762c44d2d73b90eed5abf78792fe7",
                 "shasum": ""
             },
             "require": {
@@ -1397,8 +1397,8 @@
                 "laminas/laminas-coding-standard": "^2.4.0",
                 "laminas/laminas-test": "^4.8",
                 "phpstan/extension-installer": "^1.2",
-                "phpstan/phpstan": "1.10.19",
-                "phpunit/phpunit": "10.2.2",
+                "phpstan/phpstan": "1.10.25",
+                "phpunit/phpunit": "10.2.4",
                 "psalm/plugin-phpunit": "^0.18.4",
                 "slam/phpstan-laminas-framework": "^1.4"
             },
@@ -1437,9 +1437,9 @@
             ],
             "support": {
                 "issues": "https://github.com/webinertia/webinertia-filter/issues",
-                "source": "https://github.com/webinertia/webinertia-filter/tree/0.0.3"
+                "source": "https://github.com/webinertia/webinertia-filter/tree/0.0.4"
             },
-            "time": "2023-06-15T00:44:21+00:00"
+            "time": "2023-07-17T04:39:43+00:00"
         },
         {
             "name": "webinertia/webinertia-validator",
