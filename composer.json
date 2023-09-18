@@ -26,8 +26,8 @@
         "laminas/laminas-mvc-form": "^2.1.1",
         "laminas/laminas-navigation": "^2.18",
         "laminas/laminas-view": "^2.27",
-        "webinertia/webinertia-filter": "^0.0.3 || ^0.0.4",
-        "webinertia/webinertia-validator": "^0.0.3"
+        "webinertia/webinertia-filter": "^0.0.3 || ^0.0.4 || ^0.0.5",
+        "webinertia/webinertia-validator": "^0.0.3 || ^0.0.4"
     },
     "require-dev": {
         "ext-intl": "*",
