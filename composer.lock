@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b267af46acde885073f5a960c3d76eb2",
+    "content-hash": "ee3b9fbc7658d117634744a9ebe1bc12",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1374,16 +1374,16 @@
         },
         {
             "name": "webinertia/webinertia-filter",
-            "version": "0.0.4",
+            "version": "0.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webinertia/webinertia-filter.git",
-                "reference": "85802af1f86762c44d2d73b90eed5abf78792fe7"
+                "reference": "bb4419cb133dcafd4812cbd6e631f28517fb73ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webinertia/webinertia-filter/zipball/85802af1f86762c44d2d73b90eed5abf78792fe7",
-                "reference": "85802af1f86762c44d2d73b90eed5abf78792fe7",
+                "url": "https://api.github.com/repos/webinertia/webinertia-filter/zipball/bb4419cb133dcafd4812cbd6e631f28517fb73ce",
+                "reference": "bb4419cb133dcafd4812cbd6e631f28517fb73ce",
                 "shasum": ""
             },
             "require": {
@@ -1394,11 +1394,11 @@
                 "laminas/laminas-validator": "<2.10.1"
             },
             "require-dev": {
-                "laminas/laminas-coding-standard": "^2.4.0",
+                "laminas/laminas-coding-standard": "^2.5",
                 "laminas/laminas-test": "^4.8",
                 "phpstan/extension-installer": "^1.2",
-                "phpstan/phpstan": "1.10.25",
-                "phpunit/phpunit": "10.2.4",
+                "phpstan/phpstan": "^1.10",
+                "phpunit/phpunit": "^10.2",
                 "psalm/plugin-phpunit": "^0.18.4",
                 "slam/phpstan-laminas-framework": "^1.4"
             },
@@ -1433,26 +1433,27 @@
             "keywords": [
                 "filter",
                 "laminas",
+                "mezzio",
                 "webinertia"
             ],
             "support": {
                 "issues": "https://github.com/webinertia/webinertia-filter/issues",
-                "source": "https://github.com/webinertia/webinertia-filter/tree/0.0.4"
+                "source": "https://github.com/webinertia/webinertia-filter/tree/0.0.5"
             },
-            "time": "2023-07-17T04:39:43+00:00"
+            "time": "2023-09-18T05:00:21+00:00"
         },
         {
             "name": "webinertia/webinertia-validator",
-            "version": "0.0.3",
+            "version": "0.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webinertia/webinertia-validator.git",
-                "reference": "92cf2f6f1e4077c9163ba04fc518b0a4f5a86b6b"
+                "reference": "fe870c33d1fbad5fc2cc62f0fceaf16f52cd8491"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webinertia/webinertia-validator/zipball/92cf2f6f1e4077c9163ba04fc518b0a4f5a86b6b",
-                "reference": "92cf2f6f1e4077c9163ba04fc518b0a4f5a86b6b",
+                "url": "https://api.github.com/repos/webinertia/webinertia-validator/zipball/fe870c33d1fbad5fc2cc62f0fceaf16f52cd8491",
+                "reference": "fe870c33d1fbad5fc2cc62f0fceaf16f52cd8491",
                 "shasum": ""
             },
             "require": {
@@ -1460,11 +1461,11 @@
                 "php": "~8.1.0 || ~8.2.0"
             },
             "require-dev": {
-                "laminas/laminas-coding-standard": "^2.5.0",
+                "laminas/laminas-coding-standard": "^2.5",
                 "laminas/laminas-test": "^4.8",
                 "phpstan/extension-installer": "^1.2",
-                "phpstan/phpstan": "1.9.2",
-                "phpunit/phpunit": "10.1.3",
+                "phpstan/phpstan": "^1.10",
+                "phpunit/phpunit": "^10.2",
                 "psalm/plugin-phpunit": "^0.18.4",
                 "slam/phpstan-laminas-framework": "^1.4"
             },
@@ -1503,9 +1504,9 @@
             ],
             "support": {
                 "issues": "https://github.com/webinertia/webinertia-validator/issues",
-                "source": "https://github.com/webinertia/webinertia-validator/tree/0.0.3"
+                "source": "https://github.com/webinertia/webinertia-validator/tree/0.0.4"
             },
-            "time": "2023-06-15T16:06:31+00:00"
+            "time": "2023-09-18T05:27:25+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -6805,5 +6806,5 @@
     "platform-dev": {
         "ext-intl": "*"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
