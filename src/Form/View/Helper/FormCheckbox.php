@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Limatus\Form\View\Helper;
 
-use Laminas\Form\Element\Checkbox;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
 use Limatus\Form\Element;
@@ -21,9 +20,9 @@ class FormCheckbox extends FormInput
      */
     public function render(ElementInterface $element): string
     {
-        if (! $element instanceof Element\Checkbox && ! $element instanceof Checkbox) {
+        if (! $element instanceof Element\Checkbox) {
             throw new Exception\InvalidArgumentException(sprintf(
-                'Requires $element to one of ' . Element\Checkbox::class . ' or ' . Checkbox::class . ' recieved: %s',
+                'Requires $element to one of ' . Element\Checkbox::class . ' or ' . Element\Checkbox::class . ' recieved: %s',
                 $element::class
             ));
         }
