@@ -29,6 +29,9 @@ class ConfigProvider
     {
         return [
             'dependencies' => $this->getDependencyConfig(),
+            'form_elements' => $this->getFormElementConfig(),
+            'view_helpers'  => $this->getViewHelperConfig(),
+            'view_helper_config' => $this->getHelperConfig(),
         ];
     }
 
@@ -46,6 +49,7 @@ class ConfigProvider
                 'formGridCollection'    => View\Helper\FormGridCollection::class,
                 'formHelp'              => View\Helper\FormHelp::class,
                 'formHorizontalElement' => View\Helper\FormHorizontalElement::class,
+                'formCheckBox'          => View\Helper\FormCheckbox::class,
                 'modal'                 => Helper\Modal::class,
             ],
             'factories'  => [
