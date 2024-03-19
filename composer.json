@@ -22,7 +22,7 @@
         "webinertia/webinertia-uploader": "^0.0.1, Provides event driven file uploads for Laminas MVC apps and Webinertia CMS"
     },
     "require": {
-        "php": "~8.1.0 || ~8.2.0",
+        "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
         "laminas/laminas-form": "^3.19.2",
         "laminas/laminas-navigation": "^2.18",
         "laminas/laminas-view": "^2.27",
