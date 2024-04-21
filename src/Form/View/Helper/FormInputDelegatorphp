@@ -1,0 +1,72 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Limatus\Form\View\Helper;
+
+use Laminas\EventManager\EventManagerAwareInterface;
+use Laminas\EventManager\EventManagerAwareTrait;
+use Laminas\Form\ElementInterface;
+use Laminas\Form\Exception;
+use Laminas\Form\View\Helper\FormInput;
+use Limatus\Form;
+
+use function sprintf;
+
+class FormInputDelegator extends FormInput implements EventManagerAwareInterface
+{
+    use EventManagerAwareTrait;
+
+    protected static string $horizontalWrapper = '<div %s>%s</div>';
+
+    protected static string $inputGroupWrapper = '<div class="input-group">%s%s</div>';
+
+    protected static string $inputGroupTextWrapper = '<div class="input-group-text">%s</div>';
+
+    /**
+     * Force an id, if possible and use the original service to do its work
+     */
+    public function render(ElementInterface $element): string
+    {
+        // force an id to prevent the input from being wrapped inside the label, we never want that
+        if ($element->getName() && ! $element->hasAttribute('id')) {
+            $element->setAttribute('id', $element->getName());
+        }
+        // default rendering handles the input attributes
+        $markup = parent::render($element);
+        if ($element instanceof Form\ModeAwareInterface) {
+            // $mode = $element->getMode();
+            // if (Form\ModeAwareInterface::HORIZONTAL_MODE === $mode) {
+            //     // if this is horizontal mode we need to wrap this and use the correct attribs
+            //     $markup = sprintf(
+            //         self::$horizontalWrapper,
+            //         $this->createAttributesString($element->getHorizontalAttributes()),
+            //         $markup
+            //     );
+            // }
+            // if (Form\ModeAwareInterface::INLINE_MODE === $mode) {
+            //     $options = $element->getOptions();
+            //     if (isset($options['input_group']) && isset($options['input_group_text'])) {
+            //         $inputText = sprintf(
+            //             self::$inputGroupTextWrapper,
+            //             $options['input_group_text'],
+            //         );
+            //         $markup    = sprintf(
+            //             self::$inputGroupWrapper,
+            //             $inputText,
+            //             $markup
+            //         );
+            //     }
+            // }
+            // This should be last, "normally" we have fewer of these than other elements
+            // if (
+            //     $element instanceof Form\Element\Submit
+            //     || $element instanceof Form\Element\Button
+            // ) {
+
+            // }
+        }
+
+        return $markup;
+    }
+}
