@@ -79,18 +79,7 @@ class FormRowDelegator extends FormRow implements EventManagerAwareInterface
             $elementErrors = $elementErrorsHelper->render($element);
         }
 
-        // todo: remove this call and pass $element->getOptions() to custom event so as to maintain access to the custom options
-        //$this->getEventManager()->trigger(Events::SetOptions->value, $element); this can be removed
-        // inject HtmlAttributesSet into RenderListener to handle attribute merging and wrap element?
-        // add form-control class since it was lost since we are not triggering in the FormSelectDelegator any longer
-        // $renderEvent = new RenderEvent(Events::RenderElement->value, $this);
-        // $renderEvent->setOptions($element->getOptions())->setAttributes($element->getAttributes());
-
         $elementString = $elementHelper->render($element);
-
-        // $renderEvent->setMarkup($elementString);
-
-        // $this->getEventManager()->triggerEvent($renderEvent, $this, ['element' => $element]);
 
         // hidden elements do not need a <label> -https://github.com/zendframework/zf2/issues/5607
         $type = $element->getAttribute('type');

@@ -39,31 +39,5 @@ final class FormElementDelegator extends FormElement implements EventManagerAwar
         $result = $this->getEventManager()->triggerEvent($event);
         return $result->last();
 
-        // $renderedInstance = $this->renderInstance($element);
-
-        // if ($renderedInstance !== null) {
-        //     $event->setClassString(get_class($element));
-        //     $event->setMarkup($renderedInstance);
-        //     $result = $this->getEventManager()->triggerEvent($event);
-        //     if ($result->stopped()) {
-        //         return $result->last();
-        //     }
-        // }
-
-        // $renderedType = $this->renderType($element);
-
-        // if ($renderedType !== null) {
-        //     $event->setMarkup($renderedType);
-        //     $result = $this->getEventManager()->triggerEvent($event);
-        //     if ($result->stopped()) {
-        //         return $result->last();
-        //     }
-        // }
-
-        // $event->setMarkup($this->renderHelper($this->defaultHelper, $element));
-        // $result = $this->getEventManager()->triggerEvent($event);
-        // if ($result->stopped()) {
-        //     return $result->last();
-        // }
     }
 }
