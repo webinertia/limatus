@@ -17,7 +17,8 @@ use Limatus\Form\RenderListenerInterface;
 use Limatus\Form\Element;
 use Limatus\Form\View;
 use Limatus\Form\View\Helper;
-use Limatus\Provider\Bootstrap\LayoutMode;
+use Limatus\Vendor\Bootstrap\LayoutMode;
+use Limatus\View\Helper\HtmlTag;
 
 class ConfigProvider
 {
@@ -35,14 +36,16 @@ class ConfigProvider
     {
         return [
             'aliases'   => [
+                Vendor\VendorInterface::class => Vendor\Bootstrap\Bootstrap::class,
                 RenderListenerInterface::class
-                    => Provider\Bootstrap\Listener\RenderListener::class,
+                    => Vendor\Bootstrap\Listener\RenderListener::class,
             ],
             'factories' => [
                 Element\Listener\ElementListener::class
                     => Element\Listener\ElementListenerFactory::class,
-                Provider\Bootstrap\Listener\RenderListener::class
-                    => Provider\Bootstrap\Listener\RenderListenerFactory::class,
+                Vendor\Bootstrap\Bootstrap::class => Vendor\Bootstrap\BootstrapFactory::class,
+                Vendor\Bootstrap\Listener\RenderListener::class
+                    => Vendor\Bootstrap\Listener\RenderListenerFactory::class,
             ],
         ];
     }
@@ -51,6 +54,9 @@ class ConfigProvider
     public function getViewHelperConfig(): array
     {
         return [
+            'invokables'  => [
+                HtmlTag::class => HtmlTag::class,
+            ],
             'delegators' => [
                 Form::class               => [
                     Helper\FormDelegatorFactory::class,
@@ -58,6 +64,9 @@ class ConfigProvider
                 // FormCollection::class     => [
                 //     View\Delegator\Factory\FormCollectionFactory::class,
                 // ],
+                FormInput::class          => [
+                    Helper\FormInputDelegatorFactory::class,
+                ],
                 FormElement::class        => [
                     Helper\FormElementDelegatorFactory::class,
                 ],

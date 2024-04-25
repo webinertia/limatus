@@ -14,7 +14,6 @@ use Limatus\Form\View\Helper\Event\RenderEvent;
 final class FormElementDelegator extends FormElement implements EventManagerAwareInterface
 {
     use EventManagerAwareTrait;
-    use HelperDelegatorTrait;
 
     /**
      * Render an element
@@ -29,6 +28,11 @@ final class FormElementDelegator extends FormElement implements EventManagerAwar
             // Bail early if renderer is not pluggable
             return '';
         }
+
+        $preRenderEvent = new RenderEvent(Events::PreRenderElement->value, $this);
+        $preRenderEvent->setAttributes($element->getAttributes());
+        $preRenderEvent->setElement($element);
+        $result = $this->getEventManager()->triggerEvent($preRenderEvent);
 
         $event = new RenderEvent(Events::RenderElement->value, $this);
         $event->setAttributes($element->getAttributes())

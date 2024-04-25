@@ -6,99 +6,103 @@ namespace Limatus\Form\View\Helper\Event;
 
 use Laminas\EventManager\Event;
 use Laminas\Form\ElementInterface;
-use Limatus\Provider\Bootstrap\LayoutMode;
-use Limatus\Provider\Bootstrap\ElementClass;
+use Limatus\Vendor\Bootstrap\LayoutMode;
+use Limatus\Vendor\Bootstrap\InputType;
+use Limatus\Vendor\VendorInterface;
 
 final class RenderEvent extends Event
 {
-    private ?iterable $options;
-    private ?iterable $attribs;
-    private string    $markup;
-    private ?string   $type;
-    private ?string   $classString;
-    private ?LayoutMode $layoutMode;
-    private ?ElementInterface $element;
+    /** @var ?iterable $options */
+    /** @var ?iterable $attribs */
+    /** @var string    $markup */
+    /** @var ?string   $type */
+    /** @var ?string   $classString */
+    /** @var ?LayoutMode $layoutMode */
+    /** @var ?ElementInterface $element */
 
     public function setAttributes(iterable $attribs): self
     {
-        $this->attribs = $attribs;
-        if (isset($attribs['type']) && (ElementClass::tryFrom($attribs['type']) instanceof ElementClass)) {
+        if (isset($attribs['type']) && InputType::tryFrom($attribs['type']) instanceof InputType) {
             $this->setType($attribs['type']);
         }
+        $this->setParam('attribs', $attribs);
         return $this;
     }
 
     public function getAttributes(): iterable
     {
-        return $this->attribs;
+        return $this->getParam('attribs', []);
     }
 
     public function setElement(?ElementInterface $element): self
     {
-        $this->element = $element;
+        $this->setParam('element', $element);
         return $this;
     }
 
     public function getElement(): ?ElementInterface
     {
-        return $this->element;
+        return $this->getParam('element');
     }
 
     public function setMarkup(string $markup): self
     {
-        $this->markup = $markup;
+        $this->setParam('markup', $markup);
         return $this;
     }
 
     public function getMarkup(): string
     {
-        return $this->markup;
+        return $this->getParam('markup');
     }
 
     public function setOptions(iterable $options): self
     {
-        $this->options = $options;
-        if (isset($options['layout_mode']) && $options['layout_mode'] instanceof LayoutMode) {
-            $this->setLayoutMode($options['layout_mode']);
+        if (
+            isset($options[VendorInterface::class]['layout_mode'])
+            && $options[VendorInterface::class]['layout_mode'] instanceof LayoutMode
+        ) {
+            $this->setLayoutMode($options[VendorInterface::class]['layout_mode']);
         }
+        $this->setParam('options', $options);
         return $this;
     }
 
-    public function getOptions(): iterable
+    public function getOptions(): ?iterable
     {
-        return $this->options;
+        return $this->getParam('options');
     }
 
     public function setType(?string $type): self
     {
-        $this->type = $type;
+        $this->setParam('type', $type);
         return $this;
     }
 
     public function getType(): ?string
     {
-        return $this->type;
+        return $this->getParam('type');
     }
 
     public function setClassString(?string $classString): self
     {
-        $this->classString = $classString;
+        $this->setParam('classString', $classString);
         return $this;
     }
 
     public function getClassString(): ?string
     {
-        return $this->classString;
+        return $this->getParam('classString');
     }
 
     public function setLayoutMode(?LayoutMode $layoutMode): self
     {
-        $this->layoutMode = $layoutMode;
+        $this->setParam('layoutMode', $layoutMode);
         return $this;
     }
 
     public function getLayoutMode(): ?LayoutMode
     {
-        return $this->layoutMode;
+        return $this->getParam('layoutMode');
     }
 }

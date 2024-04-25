@@ -11,11 +11,12 @@ use Laminas\Form\FieldsetInterface;
 use Laminas\Form\FormInterface;
 use Laminas\View\Renderer\PhpRenderer;
 use Laminas\Form\View\Helper\Form as FormHelper;
+use Limatus\Events;
+use Limatus\Form\View\Helper\Event\RenderEvent;
 
 final class FormDelegator extends FormHelper implements EventManagerAwareInterface
 {
     use EventManagerAwareTrait;
-    use HelperDelegatorTrait;
 
     /**
      * Render a form from the provided $form,
@@ -32,8 +33,12 @@ final class FormDelegator extends FormHelper implements EventManagerAwareInterfa
         $renderer = $this->getView();
         assert($renderer instanceof PhpRenderer);
         // what LayoutMode should this helper use?,
-        $layoutModeOption = $form->getOption('layout_mode');
-        $this->setLayoutMode($layoutModeOption);
+        $event = new RenderEvent(Events::PreRenderForm->value, $this);
+        $event->setAttributes($form->getAttributes())
+                ->setOptions($form->getOptions())
+                ->setElement($form);
+
+        $this->getEventManager()->triggerEvent($event);
 
         foreach ($form as $element) {
             if ($element instanceof FieldsetInterface) {

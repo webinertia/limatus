@@ -6,6 +6,10 @@ namespace Limatus;
 
 enum Events: string
 {
+    // FormDelegator events
+    case PreRenderForm     = 'pre.render.form';
+    case RenderForm        = 'render.form';
+    case PostRenderForm    = 'post.render.form';
     // FormInputDelegator events
     case PreRenderInput    = 'pre.render.input';
     case RenderInput       = 'render.input';
@@ -18,6 +22,9 @@ enum Events: string
     case PreRenderRow      = 'pre.render.row';
     case RenderRow         = 'render.row';
     case PostRenderRow     = 'post.render.row';
+    // Label Events
+    case PreRenderLabel    = 'pre.render.label';
+    case PostRenderLabel   = 'post.render.label';
     // trigger by ElementDelegator::setOptions
     case SetOptions = 'setOptions';
 }

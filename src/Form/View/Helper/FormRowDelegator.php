@@ -24,7 +24,6 @@ use function strtolower;
 class FormRowDelegator extends FormRow implements EventManagerAwareInterface
 {
     use EventManagerAwareTrait;
-    use HelperDelegatorTrait;
 
     public function __construct(
         private FormRow $formRow
@@ -38,6 +37,7 @@ class FormRowDelegator extends FormRow implements EventManagerAwareInterface
      */
     public function render(ElementInterface $element, ?string $labelPosition = null): string
     {
+        // label is not being handled correctly, its nested. Unwrap it.
         $labelHelper         = $this->getLabelHelper();
         $elementHelper       = $this->getElementHelper();
         $elementErrorsHelper = $this->getElementErrorsHelper();
