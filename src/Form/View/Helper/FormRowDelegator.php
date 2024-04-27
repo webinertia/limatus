@@ -37,6 +37,7 @@ class FormRowDelegator extends FormRow implements EventManagerAwareInterface
      */
     public function render(ElementInterface $element, ?string $labelPosition = null): string
     {
+        $manager = $this->getEventManager();
         // label is not being handled correctly, its nested. Unwrap it.
         $labelHelper         = $this->getLabelHelper();
         $elementHelper       = $this->getElementHelper();
@@ -78,8 +79,25 @@ class FormRowDelegator extends FormRow implements EventManagerAwareInterface
         if ($this->renderErrors) {
             $elementErrors = $elementErrorsHelper->render($element);
         }
-
+        // trigger PreRenderElement to set id
+        $event = new RenderEvent(Events::PreRenderElement->value, $this);
+        $event->setElement($element);
+        $result = $manager->triggerEvent($event);
+        if ($result->last()) {
+            // should be true
+        }
         $elementString = $elementHelper->render($element);
+
+        // trigger post render input,
+        $event = new RenderEvent(Events::PostRenderInput->value, $this);
+        $event->setElement($element);
+        $event->setMarkup($elementString);
+        $result = $manager->triggerEvent($event);
+        $result = $result->last();
+        // should only be true if layoutMode is not default or grid
+        if (is_string($result)) {
+            $elementString = $result;
+        }
 
         // hidden elements do not need a <label> -https://github.com/zendframework/zf2/issues/5607
         $type = $element->getAttribute('type');
@@ -108,6 +126,7 @@ class FormRowDelegator extends FormRow implements EventManagerAwareInterface
             || $element instanceof MonthSelect
             || $element instanceof Captcha
         ) {
+            // todo: trigger event to build correct markup for this
             $markup = sprintf(
                 '<fieldset><legend>%s</legend>%s</fieldset>',
                 $label,
@@ -130,7 +149,7 @@ class FormRowDelegator extends FormRow implements EventManagerAwareInterface
             $labelOpen  = $labelHelper->openTag($labelAttributes);
             $labelClose = $labelHelper->closeTag();
         }
-
+        // label is empty string and has no id OR has always_wrap option
         if (
             $label !== '' && (! $element->hasAttribute('id'))
             || ($element instanceof LabelAwareInterface && $element->getLabelOption('always_wrap'))
@@ -151,7 +170,11 @@ class FormRowDelegator extends FormRow implements EventManagerAwareInterface
             self::LABEL_PREPEND => $labelOpen . $label . $elementString . $labelClose,
             default => $labelOpen . $elementString . $label . $labelClose,
         };
-
-        return $markup . $elementErrors;
+        // trigger the post render element event to wrap the element in the div
+        $event = new RenderEvent(Events::PostRenderElement->value, $this);
+        $event->setElement($element);
+        $event->setMarkup($markup . $elementErrors);
+        $result = $manager->triggerEvent($event);
+        return $result->last();
     }
 }

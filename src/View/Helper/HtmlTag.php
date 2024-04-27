@@ -4,14 +4,30 @@ declare(strict_types=1);
 
 namespace Limatus\View\Helper;
 
-use Laminas\View\Helper\HtmlAttributes;
-use Laminas\View\Helper\HtmlTag as BaseTag;
+use Laminas\Form\View\Helper\AbstractHelper;
+use Laminas\View\HtmlAttributesSet;
 
+use function method_exists;
 use function sprintf;
 
-final class HtmlTag extends BaseTag
+/**
+ * @package Limatus\View\Helper
+ *
+ * Proxy method calls to HtmlAttributesSet (@see __call):
+ *
+ * @method \Laminas\View\HtmlAttributesSet set(iterable $attributes)
+ * @method \Laminas\View\HtmlAttributesSet add(string $name, $value)
+ * @method \Laminas\View\HtmlAttributesSet merge(iterable $attributes)
+ * @method \Laminas\View\HtmlAttributesSet hasValue(string $name, $value)
+ */
+class HtmlTag extends AbstractHelper
 {
     private ?string $tag = 'div';
+
+    public function __construct(
+        private HtmlAttributesSet $helper
+    ) {
+    }
 
     public function setTag(string $tag): self
     {
@@ -19,7 +35,7 @@ final class HtmlTag extends BaseTag
         return $this;
     }
 
-    public function openTag(string $tag = null)
+    public function openTag(string $tag = null): string
     {
         if (null !== $tag) {
             $this->tag = $tag;
@@ -27,18 +43,20 @@ final class HtmlTag extends BaseTag
         return sprintf(
             '<%s%s>',
             $this->tag,
-            $this->htmlAttribs($this->attributes)
+            (string) $this->helper
         );
     }
 
-    public function hasAttributeValue(string $name, $value): bool
-    {
-        $helper = $this->view->plugin(HtmlAttributes::class);
-        $helper = $helper($this->attributes);
-    }
-
-    public function closeTag()
+    public function closeTag(): string
     {
         return sprintf('</%s>', $this->tag);
+    }
+
+    public function __call($name, $arguments)
+    {
+        // only make this call if the method exist
+        if (method_exists($this->helper, $name)) {
+            return $this->helper->$name(...$arguments);
+        }
     }
 }

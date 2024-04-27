@@ -7,7 +7,7 @@ namespace Limatus\Form\View\Helper\Event;
 use Laminas\EventManager\Event;
 use Laminas\Form\ElementInterface;
 use Limatus\Vendor\Bootstrap\LayoutMode;
-use Limatus\Vendor\Bootstrap\InputType;
+use Limatus\Vendor\InputType;
 use Limatus\Vendor\VendorInterface;
 
 final class RenderEvent extends Event
@@ -36,6 +36,8 @@ final class RenderEvent extends Event
 
     public function setElement(?ElementInterface $element): self
     {
+        $this->setOptions($element->getOptions());
+        $this->setAttributes($element->getAttributes());
         $this->setParam('element', $element);
         return $this;
     }

@@ -17,8 +17,10 @@ use Limatus\Form\RenderListenerInterface;
 use Limatus\Form\Element;
 use Limatus\Form\View;
 use Limatus\Form\View\Helper;
+use Limatus\Form\View\Helper\FormCollectionDelegator;
 use Limatus\Vendor\Bootstrap\LayoutMode;
 use Limatus\View\Helper\HtmlTag;
+use Limatus\View\Helper\Service\HtmlTagFactory;
 
 class ConfigProvider
 {
@@ -54,22 +56,22 @@ class ConfigProvider
     public function getViewHelperConfig(): array
     {
         return [
-            'invokables'  => [
-                HtmlTag::class => HtmlTag::class,
+            'factories'  => [
+                HtmlTag::class => HtmlTagFactory::class,
             ],
             'delegators' => [
                 Form::class               => [
                     Helper\FormDelegatorFactory::class,
                 ],
                 // FormCollection::class     => [
-                //     View\Delegator\Factory\FormCollectionFactory::class,
+                //     Helper\FormCollectionDelegatorFactory::class,
                 // ],
-                FormInput::class          => [
-                    Helper\FormInputDelegatorFactory::class,
-                ],
-                FormElement::class        => [
-                    Helper\FormElementDelegatorFactory::class,
-                ],
+                // FormInput::class          => [
+                //     Helper\FormInputDelegatorFactory::class,
+                // ],
+                // FormElement::class        => [
+                //     Helper\FormElementDelegatorFactory::class,
+                // ],
                 FormRow::class            => [
                     Helper\FormRowDelegatorFactory::class,
                 ],

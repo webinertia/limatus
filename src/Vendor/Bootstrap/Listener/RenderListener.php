@@ -8,6 +8,7 @@ use Laminas\EventManager\AbstractListenerAggregate;
 use Laminas\EventManager\EventInterface;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\EventManager\ListenerAggregateTrait;
+use Laminas\Filter\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\FormLabel;
 use Limatus\Events;
 use Limatus\Form\RenderListenerInterface;
@@ -15,6 +16,9 @@ use Limatus\Form\View\Helper\Event\RenderEvent;
 use Limatus\Vendor\Bootstrap\Bootstrap;
 use Limatus\Vendor\Bootstrap\LayoutMode;
 use Limatus\Vendor\VendorInterface;
+use Webinertia\Filter\DelimitedString;
+
+use function is_string;
 
 final class RenderListener extends AbstractListenerAggregate implements RenderListenerInterface
 {
@@ -24,6 +28,7 @@ final class RenderListener extends AbstractListenerAggregate implements RenderLi
 
     public function __construct(
         private VendorInterface&Bootstrap $bs,
+        private DelimitedString $stringFilter,
         private array $config
     ) {
     }
@@ -32,12 +37,15 @@ final class RenderListener extends AbstractListenerAggregate implements RenderLi
     {
         $this->listeners[] = $events->attach(Events::PreRenderForm->value, [$this, 'onPreRenderForm'], $priority);
 
+        $this->listeners[] = $events->attach(Events::PreRenderRow->value, [$this, 'onPreRenderRow'], $priority);
+        $this->listeners[] = $events->attach(Events::PostRenderRow->value, [$this, 'onPostRenderRow'], $priority);
+
         $this->listeners[] = $events->attach(Events::PreRenderElement->value, [$this, 'onPreRenderElement'], $priority);
         $this->listeners[] = $events->attach(Events::RenderElement->value, [$this, 'onRenderElement'], $priority);
         $this->listeners[] = $events->attach(Events::PostRenderElement->value, [$this, 'onPostRenderElement'], $priority);
 
-        $this->listeners[] = $events->attach(Events::PreRenderRow->value, [$this, 'onPreRenderRow'], $priority);
-        $this->listeners[] = $events->attach(Events::PostRenderRow->value, [$this, 'onPostRenderRow'], $priority);
+        $this->listeners[] = $events->attach(Events::PostRenderInput->value, [$this, 'onPostRenderInput'], $priority);
+
         // label listeners
         $this->listeners[] = $events->attach(Events::PreRenderLabel->value, [$this, 'onPreRenderLabel'],  $priority);
     }
@@ -62,25 +70,57 @@ final class RenderListener extends AbstractListenerAggregate implements RenderLi
         $markup  = $event->getMarkup();
     }
 
-    public function onPreRenderElement(RenderEvent $event)
+    /**
+     * Triggered from FormRowDelegator
+     *
+     * This listener does the following
+     * If the element does not have an id attribute then it sets the attribute to the name to prevent
+     * laminas form from wrapping the label since all Bootstrap components use non wrapped labels
+     * @param RenderEvent $event
+     * @return void
+     * @throws InvalidArgumentException
+     */
+    public function onPreRenderElement(RenderEvent $event): void
     {
         $element = $event->getElement();
-        if ($element->getAttribute('id') === null) {
-            $target = $event->getTarget();
-            // This call fails because of undefined method that should be available :(
-            //$name = $target->getId();
-            //$element->setAttribute('id', $element->getAttribute('name'));
+        if (! $element->hasAttribute('id')) {
+            /**
+             * todo: test this on nested fieldsets that are more than a single fieldset deep, ie fieldset in a fieldset
+             * possible solution is to have the filter return all matches
+             */
+            $id = $this->stringFilter->filter($element->getName());
+            if (is_string($id) && $id !== '') {
+                $element->setAttribute('id', $id);
+            }
         }
+
+        // handle attribute merging and option handling
     }
 
     public function onRenderElement(RenderEvent $event)
     {
+        //return $this->bs->render($event);
+    }
+
+    public function onPostRenderElement(RenderEvent $event)
+    {
         return $this->bs->render($event);
     }
 
-    public function onPostRenderElement(EventInterface $event)
+    /**
+     * Triggered from FormRowDelegator
+     *
+     * @param RenderEvent $event
+     * @return null|string|false
+     */
+    public function onPostRenderInput(RenderEvent $event)
     {
-
+        $layoutMode = $event->getLayoutMode();
+        if ($layoutMode === LayoutMode::Horizontal || $layoutMode === LayoutMode::Inline) {
+            // should introspect and act on layoutMode and render a input supporting horizontal or inline modes
+            return $this->bs->renderInput($event);
+        }
+        return false;
     }
 
     public function onPreRenderLabel(RenderEvent $event)

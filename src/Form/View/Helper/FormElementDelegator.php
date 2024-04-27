@@ -28,20 +28,7 @@ final class FormElementDelegator extends FormElement implements EventManagerAwar
             // Bail early if renderer is not pluggable
             return '';
         }
-
-        $preRenderEvent = new RenderEvent(Events::PreRenderElement->value, $this);
-        $preRenderEvent->setAttributes($element->getAttributes());
-        $preRenderEvent->setElement($element);
-        $result = $this->getEventManager()->triggerEvent($preRenderEvent);
-
-        $event = new RenderEvent(Events::RenderElement->value, $this);
-        $event->setAttributes($element->getAttributes())
-                ->setOptions($element->getOptions());
-
-        $event->setMarkup(parent::render($element));
-
-        $result = $this->getEventManager()->triggerEvent($event);
-        return $result->last();
-
+        // return the standard laminas-form rendering
+        return parent::render($element);
     }
 }

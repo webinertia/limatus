@@ -9,6 +9,7 @@ use Laminas\View\HelperPluginManager;
 use Limatus\ConfigProvider;
 use Limatus\Vendor\VendorInterface;
 use Psr\Container\ContainerInterface;
+use Webinertia\Filter\DelimitedString;
 
 final class RenderListenerFactory
 {
@@ -17,6 +18,7 @@ final class RenderListenerFactory
         $attribHelper = ($container->get(HelperPluginManager::class))->get(HtmlAttributes::class);
         return new RenderListener(
             $container->get(VendorInterface::class),
+            new DelimitedString(['start' => '\[', 'end' => '\]']),
             $container->get('config')['view_helper_config'][ConfigProvider::class]
         );
     }

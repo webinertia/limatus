@@ -8,6 +8,7 @@ enum Label: string
 {
     case FormLabel      = 'form-label';
     case FormCheck      = 'form-check-label';
+    // todo check this usage
     case FieldsetLegend = 'col-form-label';
     case Hidden         = 'visually-hidden';
 }

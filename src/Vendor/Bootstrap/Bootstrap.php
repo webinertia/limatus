@@ -11,7 +11,7 @@ use Limatus\Vendor\VendorInterface;
 
 final class Bootstrap implements VendorInterface
 {
-    private ?string $markup;
+    private ?string $markup = null;
     private string $optionKey = VendorInterface::class;
 
     public function __construct(
@@ -23,37 +23,47 @@ final class Bootstrap implements VendorInterface
     {
         return match($event->getLayoutMode()) {
             LayoutMode::Default,
-            LayoutMode::Grid => $this->bootstrap($event->getAttributes(), $event->getOptions(), $event->getMarkup()),
-            LayoutMode::Horizontal => $this->bootstrapHorizontal($event->getAttributes(), $event->getOptions(), $event->getMarkup()),
-            LayoutMode::Inline => $this->bootstrapInline($event->getAttributes(), $event->getOptions(), $event->getMarkup()),
+            LayoutMode::Grid => $this->grid($event->getAttributes(), $event->getOptions(), $event->getMarkup()),
+            LayoutMode::Horizontal => $this->horizontal($event->getAttributes(), $event->getOptions(), $event->getMarkup()),
+            LayoutMode::Inline => $this->inline($event->getAttributes(), $event->getOptions(), $event->getMarkup()),
             default => $event->getMarkup(),
         };
     }
 
-    protected function bootstrap(iterable $attribs, iterable $options, string $elementString): string
+    public function renderInput(RenderEvent $event): ?string
+    {
+        return $this->grid(
+            $event->getAttributes(),
+            $event->getOptions(),
+            $event->getMarkup()
+        );
+    }
+
+    protected function grid(iterable $attribs, iterable $options, string $elementString): ?string
     {
         //$this->tagHelper->setAttributes($attribs);
         if (isset($options[$this->optionKey]['column'])) {
             if ($options[$this->optionKey]['column'] === 'col') {
-                $this->tagHelper->setAttribute('class', 'col-auto');
+                $this->tagHelper->add('class', 'col-auto');
             } else {
-                $this->tagHelper->setAttribute('class', $options[$this->optionKey]['column']);
+                $this->tagHelper->add('class', $options[$this->optionKey]['column']);
             }
         }
-        // call one, wrap it in the column
+        // wrap it in the column
         $this->markup = $this->tagHelper->openTag() . $elementString . $this->tagHelper->closeTag();
+
+        return $this->markup;
+    }
+
+    protected function horizontal(iterable $attribs, iterable $options, string $elementString): ?string
+    {
         if (isset($options[$this->optionKey]['row'])) {
-            $this->tagHelper->setAttribute('class', $options[$this->optionKey]['row']);
+
         }
         return $this->markup;
     }
 
-    protected function bootstrapHorizontal(iterable $attribs, iterable $options, string $elementString): string
-    {
-        return $this->markup;
-    }
-
-    protected function bootstrapInline(iterable $attribs, iterable $options, string $elementString): string
+    protected function inline(iterable $attribs, iterable $options, string $elementString): ?string
     {
         return $this->markup;
     }

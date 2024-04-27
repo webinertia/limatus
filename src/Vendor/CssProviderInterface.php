@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Limatus\Vendor;
 
-interface CssClassVendorInterface
+interface CssProviderInterface
 {
     public function getClass(): string;
 }
