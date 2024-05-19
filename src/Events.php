@@ -10,6 +10,8 @@ enum Events: string
     case PreRenderForm     = 'pre.render.form';
     case RenderForm        = 'render.form';
     case PostRenderForm    = 'post.render.form';
+    // Fieldset/Collection events
+    case RenderCollection  = 'render.collection';
     // FormInputDelegator events
     case PreRenderInput    = 'pre.render.input';
     case RenderInput       = 'render.input';

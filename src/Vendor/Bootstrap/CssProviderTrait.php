@@ -34,13 +34,14 @@ trait CssProviderTrait
             InputType::Textarea => Style\Base::FormControl->value,
             InputType::Button,
             InputType::Reset,
-            InputType::Submit   => Style\Base::Btn->value,
+            InputType::Submit   => Style\Base::Button->value,
             InputType::Checkbox,
             InputType::Radio    => Style\Base::FormCheckInput->value,
             InputType::File     => Style\Base::FormFile->value,
             InputType::DateTimeLocalSelect,
             InputType::MonthSelect,
             InputType::Select   => Style\Base::FormSelect->value,
+            default => throw new \Exception('Unknown InputType')
         };
     }
 }

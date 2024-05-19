@@ -8,9 +8,11 @@ use Laminas\EventManager\Event;
 use Laminas\Form\ElementInterface;
 use Limatus\Vendor\Bootstrap\LayoutMode;
 use Limatus\Vendor\InputType;
-use Limatus\Vendor\VendorInterface;
+use Limatus\VendorInterface;
 
-final class RenderEvent extends Event
+use function explode;
+
+class RenderEvent extends Event
 {
     /** @var ?iterable $options */
     /** @var ?iterable $attribs */
@@ -24,6 +26,12 @@ final class RenderEvent extends Event
     {
         if (isset($attribs['type']) && InputType::tryFrom($attribs['type']) instanceof InputType) {
             $this->setType($attribs['type']);
+        }
+        /**
+         * convert strings into arrays so that the HtmlTag helper can search them
+         */
+        if (! empty($attribs['class']) && is_string($attribs['class'])) {
+            $attribs['class'] = explode(' ', $attribs['class']);
         }
         $this->setParam('attribs', $attribs);
         return $this;

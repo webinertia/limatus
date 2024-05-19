@@ -52,6 +52,11 @@ class HtmlTag extends AbstractHelper
         return sprintf('</%s>', $this->tag);
     }
 
+    public function getAttribString(): string
+    {
+        return (string) $this->helper;
+    }
+
     public function __call($name, $arguments)
     {
         // only make this call if the method exist

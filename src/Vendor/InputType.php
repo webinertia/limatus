@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Limatus\Vendor;
 
 use Laminas\Form\Element;
+use Laminas\Form\Fieldset;
 
 enum InputType: string
 {
@@ -12,11 +13,13 @@ enum InputType: string
 
     case Button              = Element\Button::class;
     case Checkbox            = Element\Checkbox::class;
+    case Collection          = Element\Collection::class;
     case Date                = Element\Date::class;
     case DateTime            = Element\DateTime::class;
     case DateTimeLocal       = Element\DateTimeLocal::class;
     case DateTimeLocalSelect = Element\DateTimeSelect::class; // maps to select
     case Email               = Element\Email::class;
+    case Fieldset            = Fieldset::class;
     case File                = Element\File::class;
     case Image               = Element\Image::class;
     case Hidden              = Element\Hidden::class;

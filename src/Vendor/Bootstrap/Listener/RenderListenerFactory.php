@@ -7,7 +7,7 @@ namespace Limatus\Vendor\Bootstrap\Listener;
 use Laminas\View\Helper\HtmlAttributes;
 use Laminas\View\HelperPluginManager;
 use Limatus\ConfigProvider;
-use Limatus\Vendor\VendorInterface;
+use Limatus\VendorInterface;
 use Psr\Container\ContainerInterface;
 use Webinertia\Filter\DelimitedString;
 

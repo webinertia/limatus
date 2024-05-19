@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Limatus\Vendor;
+namespace Limatus;
 
 interface VendorInterface
 {

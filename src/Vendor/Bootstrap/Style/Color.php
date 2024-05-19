@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace Limatus\Vendor\Bootstrap\Style;
 
+use function is_string;
+
 enum Color: string
 {
+    use SeparaterTrait;
+
     case Primary   = 'primary';
     case Secondary = 'secondary';
     case Success   = 'success';
@@ -15,18 +19,12 @@ enum Color: string
     case Light     = 'light';
     case Dark      = 'dark';
 
-    public function btnColor(Base $btn)
+    public function color(ColorType|string $type)
     {
-        return match($this) {
-            self::Primary,
-            self::Secondary,
-            self::Success,
-            self::Danger,
-            self::Warning,
-            self::Info,
-            self::Light,
-            self::Dark => $btn->value . '-' . $this->value,
-            default    => $btn->value . '-' . $this->value,
-        };
+        if (is_string($type)) {
+            $type = ColorType::tryFrom($type);
+        }
+
+        return $type->value . (string) $this;
     }
 }

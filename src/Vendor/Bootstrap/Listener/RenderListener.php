@@ -15,7 +15,8 @@ use Limatus\Form\RenderListenerInterface;
 use Limatus\Form\View\Helper\Event\RenderEvent;
 use Limatus\Vendor\Bootstrap\Bootstrap;
 use Limatus\Vendor\Bootstrap\LayoutMode;
-use Limatus\Vendor\VendorInterface;
+use Limatus\Vendor\InputType;
+use Limatus\VendorInterface;
 use Webinertia\Filter\DelimitedString;
 
 use function is_string;
@@ -46,8 +47,10 @@ final class RenderListener extends AbstractListenerAggregate implements RenderLi
 
         $this->listeners[] = $events->attach(Events::PostRenderInput->value, [$this, 'onPostRenderInput'], $priority);
 
+        $this->listeners[] = $events->attach(Events::RenderCollection->value, [$this, 'onRenderCollection'], $priority);
+
         // label listeners
-        $this->listeners[] = $events->attach(Events::PreRenderLabel->value, [$this, 'onPreRenderLabel'],  $priority);
+        //$this->listeners[] = $events->attach(Events::PreRenderLabel->value, [$this, 'onPreRenderLabel'],  $priority);
     }
 
     public function onPreRenderForm(RenderEvent $event)
@@ -56,6 +59,17 @@ final class RenderListener extends AbstractListenerAggregate implements RenderLi
         $options = $event->getOptions();
         $this->layoutMode = $event->getLayoutMode();
 
+    }
+
+    /**
+     * Triggerd from FormCollectionDelegator
+     *
+     * @param RenderEvent $event
+     * @return string
+     */
+    public function onRenderCollection(RenderEvent $event)
+    {
+        return $this->bs->renderCollection($event);
     }
 
     public function onPreRenderRow(RenderEvent $event)
@@ -93,8 +107,6 @@ final class RenderListener extends AbstractListenerAggregate implements RenderLi
                 $element->setAttribute('id', $id);
             }
         }
-
-        // handle attribute merging and option handling
     }
 
     public function onRenderElement(RenderEvent $event)
@@ -116,11 +128,15 @@ final class RenderListener extends AbstractListenerAggregate implements RenderLi
     public function onPostRenderInput(RenderEvent $event)
     {
         $layoutMode = $event->getLayoutMode();
+        $element    = $event->getElement();
+        $inputType  = InputType::tryFrom($element::class);
+        if ($inputType === InputType::Hidden) {
+            return false;
+        }
         if ($layoutMode === LayoutMode::Horizontal || $layoutMode === LayoutMode::Inline) {
-            // should introspect and act on layoutMode and render a input supporting horizontal or inline modes
             return $this->bs->renderInput($event);
         }
-        return false;
+        return true;
     }
 
     public function onPreRenderLabel(RenderEvent $event)

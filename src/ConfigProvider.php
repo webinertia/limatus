@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Limatus;
 
-use Laminas\Form\View\Helper\Factory\FormElementErrorsFactory;
 use Laminas\Form\View\Helper\Form;
 use Laminas\Form\View\Helper\FormCollection;
 use Laminas\Form\View\Helper\FormElement;
 use Laminas\Form\View\Helper\FormElementErrors;
 use Laminas\Form\View\Helper\FormInput;
-use Laminas\Form\View\Helper\FormPassword;
 use Laminas\Form\View\Helper\FormRow;
 use Laminas\View\Helper\Navigation\Menu;
 use Limatus\Form\RenderListenerInterface;
@@ -38,7 +36,7 @@ class ConfigProvider
     {
         return [
             'aliases'   => [
-                Vendor\VendorInterface::class => Vendor\Bootstrap\Bootstrap::class,
+                VendorInterface::class => Vendor\Bootstrap\Bootstrap::class,
                 RenderListenerInterface::class
                     => Vendor\Bootstrap\Listener\RenderListener::class,
             ],
@@ -63,9 +61,9 @@ class ConfigProvider
                 Form::class               => [
                     Helper\FormDelegatorFactory::class,
                 ],
-                // FormCollection::class     => [
-                //     Helper\FormCollectionDelegatorFactory::class,
-                // ],
+                FormCollection::class     => [
+                    Helper\FormCollectionDelegatorFactory::class,
+                ],
                 // FormInput::class          => [
                 //     Helper\FormInputDelegatorFactory::class,
                 // ],

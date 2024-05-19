@@ -7,4 +7,5 @@ namespace Limatus\Vendor;
 interface CssProviderInterface
 {
     public function getClass(): string;
+    public function getStyle(): string;
 }

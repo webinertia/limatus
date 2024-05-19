@@ -18,6 +18,27 @@ final class FormCollectionDelegator extends FormCollection implements EventManag
     use EventManagerAwareTrait;
 
     /**
+     * This is the default wrapper that the collection is wrapped into
+     *
+     * @var string
+     */
+    protected $wrapper = '<fieldset%4$s>%2$s%1$s%3$s</fieldset>';
+
+    /**
+     * This is the default label-wrapper
+     *
+     * @var string
+     */
+    protected $labelWrapper = 'legend';
+
+    /**
+     * Where shall the template-data be inserted into
+     *
+     * @var string
+     */
+    protected $templateWrapper = '<span data-template="%s"></span>';
+
+    /**
      * Render a collection by iterating through all fieldsets and elements
      */
     public function render(ElementInterface $element): string
@@ -63,27 +84,26 @@ final class FormCollectionDelegator extends FormCollection implements EventManag
                 $attributes['form']
             );
         }
-        $attributesString = $attributes !== [] ? ' ' . $this->createAttributesString($attributes) : '';
 
         $label  = $element->getLabel();
         $legend = '';
+
+        $event = new RenderEvent(Events::RenderCollection->value, $this);
+        $event->setMarkup($markup);
 
         if (! empty($label)) {
             $label = $this->translateLabel($label);
             $label = $this->escapeLabel($element, $label);
 
-            $legend = sprintf(
-                $this->labelWrapper,
-                $label
-            );
+            $event->setParam('label', $label);
         }
 
-        return sprintf(
-            $this->wrapper,
-            $markup,
-            $legend,
-            $templateMarkup,
-            $attributesString
-        );
+        $event->setElement($element);
+
+        $result = $this->getEventManager()->triggerEvent($event);
+        if (! empty($result->last())) {
+            // return the modified markup
+            return $result->last();
+        }
     }
 }
