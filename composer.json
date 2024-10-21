@@ -44,7 +44,7 @@
         "laminas/laminas-servicemanager": "^3.20",
         "laminas/laminas-session": "^2.16",
         "laminas/laminas-text": "^2.9.0",
-        "laminas/laminas-validator": "^2.28",
+        "laminas/laminas-validator": "^3.0",
         "laminas/laminas-view": "^2.25",
         "phpunit/phpunit": "10.4.2",
         "psalm/plugin-phpunit": "^0.18.4",
